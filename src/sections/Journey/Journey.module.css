@@ -1,0 +1,197 @@
+.journey {
+    padding: 80px 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* --- LUZ DE FONDO PARA EL RECORRIDO --- */
+.journeyBlob {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background-color: var(--main-color, #00aaff);
+    filter: blur(150px);
+    opacity: var(--blob-opacity); 
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    pointer-events: none; 
+    z-index: 0;
+}
+
+/* --- NUEVOS ESTILOS DEL TÍTULO --- */
+.titleContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 4rem;
+    padding: 12px 35px;
+    background: linear-gradient(90deg, rgba(0, 170, 255, 0.02) 0%, rgba(0, 170, 255, 0.1) 50%, rgba(0, 170, 255, 0.02) 100%);
+    border-top: 1px solid rgba(0, 170, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.05);
+    position: relative;
+    z-index: 2; /* Sobre la luz */
+}
+
+.titleIcon {
+    width: 35px;
+    height: 35px;
+    color: #00aaff;
+    filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.5));
+}
+
+.title {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.title span {
+    color: #00aaff;
+    text-shadow: 0 0 15px rgba(0, 170, 255, 0.6);
+}
+/* --------------------------------- */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    align-items: stretch; 
+    position: relative;
+    z-index: 2; /* Sobre la luz */
+}
+
+.column {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    border-left: 4px solid #00aaff;
+    padding-left: 15px;
+}
+
+.box {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    position: relative;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 170, 255, 0.3); /* Un poco más suave */
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    margin-left: 2rem;
+    background: rgba(0, 170, 255, 0.03); /* Más transparente para que pase la luz de fondo */
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+    z-index: 1;
+}
+
+.content:last-child {
+    margin-bottom: 0;
+}
+
+.content:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 1.2rem;
+    left: -2rem;
+    width: 2px;
+    height: calc(100% + 2.5rem); 
+    background: #00aaff;
+    z-index: -1;
+}
+
+.content:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 170, 255, 0.1);
+    border-color: #00aaff;
+}
+
+.iconWrapper {
+    position: absolute;
+    top: 1.2rem;
+    left: calc(-2rem - 20px + 1px);
+    width: 40px;
+    height: 40px;
+    background: var(--bg-color); /* Esto corta la línea perfectamente */
+    border: 2px solid #00aaff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00aaff;
+    transition: 0.3s;
+}
+
+.content:hover .iconWrapper {
+    background: #00aaff;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+}
+
+.iconWrapper svg {
+    width: 20px;
+    height: 20px;
+}
+
+.year {
+    font-size: 0.9rem;
+    color: #00aaff;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.content h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.content p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badges span {
+    background: rgba(0, 170, 255, 0.1);
+    color: #00aaff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid rgba(0, 170, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}

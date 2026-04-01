@@ -1,0 +1,214 @@
+.contact {
+    padding: 80px 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* --- LUZ DE FONDO --- */
+.contactBlob {
+    position: absolute;
+    width: 800px;
+    height: 400px;
+    border-radius: 50%;
+    background-color: var(--main-color, #00aaff);
+    filter: blur(150px);
+    opacity: var(--blob-opacity); 
+    bottom: -150px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    pointer-events: none; 
+    z-index: 0;
+}
+
+/* --- ESTILOS DEL TÍTULO UNIFICADO --- */
+.titleContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 4rem;
+    padding: 12px 35px;
+    background: linear-gradient(90deg, rgba(0, 170, 255, 0.02) 0%, rgba(0, 170, 255, 0.1) 50%, rgba(0, 170, 255, 0.02) 100%);
+    border-top: 1px solid rgba(0, 170, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.05);
+    position: relative;
+    z-index: 2;
+}
+
+.titleIcon {
+    width: 35px;
+    height: 35px;
+    color: #00aaff;
+    filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.5));
+}
+
+.title {
+    font-size: 2.5rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.title span {
+    color: #00aaff;
+    text-shadow: 0 0 15px rgba(0, 170, 255, 0.6);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1000px;
+    width: 100%;
+    position: relative;
+    z-index: 2; 
+}
+
+.infoColumn {
+    flex: 1;
+    min-width: 300px;
+}
+
+.infoColumn h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.infoColumn p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.socialLinks {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.socialBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid #00aaff;
+    border-radius: 8px;
+    color: var(--text-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.socialBtn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.socialBtn:hover {
+    background: #00aaff;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+}
+
+.formColumn {
+    flex: 1.5;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.inputGroup input {
+    flex: 1;
+}
+
+/* Base común */
+.input, .textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(150, 150, 150, 0.05);
+    border: 2px solid rgba(150, 150, 150, 0.2);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input::placeholder, .textarea::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.input:focus, .textarea:focus {
+    border-color: #00aaff;
+    background: rgba(0, 170, 255, 0.05);
+}
+
+/* --- BLOQUEO TOTAL DEL TEXTAREA --- */
+.textarea {
+    resize: none !important; 
+    height: 150px !important; /* Altura firme y más baja */
+    min-height: 150px !important; 
+    max-height: 150px !important; 
+    overflow-y: auto; 
+}
+
+/* Estilos de la barra de scroll */
+.textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.textarea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+    background: rgba(0, 170, 255, 0.3);
+    border-radius: 10px;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 170, 255, 0.6);
+}
+
+.submitBtn {
+    padding: 1rem 2rem;
+    background: #00aaff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+}
+
+.submitBtn:hover {
+    background: #0088cc;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 170, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .inputGroup {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
