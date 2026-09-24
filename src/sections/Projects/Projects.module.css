@@ -7,7 +7,7 @@
     background: var(--bg-color);
 }
 
-/* --- ESTILOS DEL TÍTULO UNIFICADO --- */
+/* --- TÍTULO --- */
 .titleContainer {
     display: inline-flex;
     align-items: center;
@@ -15,18 +15,18 @@
     gap: 15px;
     margin-bottom: 4rem;
     padding: 12px 35px;
-    background: linear-gradient(90deg, rgba(0, 170, 255, 0.02) 0%, rgba(0, 170, 255, 0.1) 50%, rgba(0, 170, 255, 0.02) 100%);
-    border-top: 1px solid rgba(0, 170, 255, 0.3);
-    border-bottom: 1px solid rgba(0, 170, 255, 0.3);
+    background: linear-gradient(90deg, rgba(var(--main-color-rgb), 0.02) 0%, rgba(var(--main-color-rgb), 0.1) 50%, rgba(var(--main-color-rgb), 0.02) 100%);
+    border-top: 1px solid rgba(var(--main-color-rgb), 0.3);
+    border-bottom: 1px solid rgba(var(--main-color-rgb), 0.3);
     border-radius: 50px;
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.05);
+    box-shadow: 0 0 20px rgba(var(--main-color-rgb), 0.05);
 }
 
 .titleIcon {
     width: 35px;
     height: 35px;
-    color: #00aaff;
-    filter: drop-shadow(0 0 8px rgba(0, 170, 255, 0.5));
+    color: var(--main-color);
+    filter: drop-shadow(0 0 8px rgba(var(--main-color-rgb), 0.5));
 }
 
 .title {
@@ -36,10 +36,9 @@
 }
 
 .title span {
-    color: #00aaff;
-    text-shadow: 0 0 15px rgba(0, 170, 255, 0.6);
+    color: var(--main-color);
+    text-shadow: 0 0 15px rgba(var(--main-color-rgb), 0.6);
 }
-/* ------------------------------------ */
 
 .grid {
     display: grid;
@@ -50,8 +49,8 @@
 }
 
 .card {
-    background: rgba(0, 170, 255, 0.02);
-    border: 1px solid rgba(0, 170, 255, 0.2);
+    background: rgba(var(--main-color-rgb), 0.02);
+    border: 1px solid rgba(var(--main-color-rgb), 0.2);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -61,8 +60,8 @@
 
 .card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 170, 255, 0.15);
-    border-color: #00aaff;
+    box-shadow: 0 10px 30px rgba(var(--main-color-rgb), 0.15);
+    border-color: var(--main-color);
 }
 
 .imageContainer {
@@ -83,7 +82,6 @@
     transform: scale(1.1);
 }
 
-/* Capa oscura que aparece al pasar el mouse */
 .overlay {
     position: absolute;
     top: 0;
@@ -105,17 +103,17 @@
 
 .linkBtn {
     padding: 8px 20px;
-    background: #00aaff;
+    background: var(--main-color);
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
     font-size: 0.9rem;
-    transition: background 0.3s;
+    transition: filter 0.3s;
 }
 
 .linkBtn:hover {
-    background: #0088cc;
+    filter: brightness(0.85);
 }
 
 .content {
@@ -146,10 +144,26 @@
 }
 
 .badges span {
-    background: rgba(0, 170, 255, 0.1);
-    color: #00aaff;
+    background: rgba(var(--main-color-rgb), 0.1);
+    color: var(--main-color);
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: bold;
+}
+
+
+.imageMissing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(var(--main-color-rgb), 0.08), rgba(var(--main-color-rgb), 0.02));
+}
+
+.imageMissing::after {
+    content: "Imagen próximamente";
+    font-size: 0.9rem;
+    color: var(--main-color);
+    opacity: 0.6;
+    font-weight: 600;
 }

@@ -6,14 +6,13 @@
     position: relative;
 }
 
-/* ===== GRADIENTES DE FONDO (AURORA UI) Unificados en celeste ===== */
+/* Gradientes de fondo (efecto aurora) */
 .blob {
     position: absolute;
     width: 600px;
     height: 600px;
     border-radius: 50%;
     filter: blur(120px);
-    /* Usamos la variable dinámica acá */
     opacity: var(--blob-opacity); 
     pointer-events: none;
     z-index: 1;
@@ -42,7 +41,7 @@
     z-index: 2;
 }
 
-/* === TEXTO === */
+/* Columna de texto */
 .content {
     flex: 1.2;
 }
@@ -84,7 +83,7 @@
     font-weight: 600;
 }
 
-/* === BOTONES === */
+/* Botones */
 .ctaContainer {
     display: flex;
     gap: 1.5rem;
@@ -118,7 +117,7 @@
     border-color: var(--main-color);
 }
 
-/* === DERECHA: TARJETA 3D INTEGRADA === */
+/* Columna derecha: tarjeta 3D con parallax */
 .imageWrapper {
     flex: 0.8;
     display: flex;
@@ -165,7 +164,7 @@
     transform: rotate(-45deg);
 }
 
-/* TARJETA PRINCIPAL CON LA PROFUNDIDAD ARREGLADA */
+/* Tarjeta principal: fondo transparente, la profundidad 3D vive en ::before */
 .tiltCard {
     width: 380px;
     height: 500px;
@@ -173,10 +172,10 @@
     transform-style: preserve-3d;
     z-index: 3;
     position: relative;
-    background: transparent; /* Aseguramos que no haya fondo blanco acá */
+    background: transparent;
 }
 
-/* Esta es la sombra/profundidad 3D redondeada (reemplaza al cuadro blanco feo) */
+/* Capa de sombra/profundidad, separada de la imagen para el efecto 3D */
 .tiltCard::before {
     content: '';
     position: absolute;
@@ -195,10 +194,9 @@
     overflow: hidden;
     position: relative;
     border: 1px solid rgba(150, 150, 150, 0.2);
-    /* Le sacamos el box-shadow de acá porque se lo pasamos al ::before de arriba para la profundidad 3D */
 }
 
-/* ANIMACIÓN DE BRILLO SUTIL (Glint) */
+/* Brillo diagonal que cruza la tarjeta al hacer hover */
 .cardInner::after {
     content: '';
     position: absolute;
@@ -235,7 +233,7 @@
     z-index: 1;
 }
 
-/* === RESPONSIVE === */
+/* Responsive */
 @media (max-width: 1024px) {
     .hero {
         padding: 120px 5% 50px 5%;

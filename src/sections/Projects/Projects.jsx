@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Projects.module.css';
 
 const Projects = () => {
-    // Array con tus 3 proyectos principales
     const projectsData = [
         {
             id: 1,
@@ -33,9 +32,13 @@ const Projects = () => {
         }
     ];
 
+    const handleImageError = (e) => {
+        e.target.style.display = 'none';
+        e.target.parentElement.classList.add(styles.imageMissing);
+    };
+
     return (
         <section className={styles.projects} id="projects">
-            {/* TÍTULO UNIFICADO CON EL SISTEMA DE DISEÑO */}
             <div className={styles.titleContainer} data-aos="fade-down">
                 <svg className={styles.titleIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="16 18 22 12 16 6"></polyline>
@@ -48,19 +51,13 @@ const Projects = () => {
                 {projectsData.map((project, index) => (
                     <div className={styles.card} key={project.id} data-aos="fade-up" data-aos-delay={index * 100}>
                         <div className={styles.imageContainer}>
-                            {/* Fondo oscuro acorde a tu paleta si la imagen no carga */}
                             <img 
                                 src={project.image} 
                                 alt={project.title} 
-                                onError={(e) => { 
-                                    e.target.onerror = null; 
-                                    e.target.src = "https://via.placeholder.com/600x400/050d18/00aaff?text=Proyecto+Camilo" 
-                                }} 
+                                onError={handleImageError}
                             />
                             <div className={styles.overlay}>
                                 <a href={project.github} target="_blank" rel="noreferrer" className={styles.linkBtn}>GitHub</a>
-                                
-                                {/* CONDICIONAL: El botón de Demo solo se renderiza si el link no es "#" */}
                                 {project.demo !== "#" && (
                                     <a href={project.demo} target="_blank" rel="noreferrer" className={styles.linkBtn}>Live Demo</a>
                                 )}

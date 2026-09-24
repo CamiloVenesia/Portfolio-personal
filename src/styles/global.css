@@ -6,6 +6,7 @@
   --second-bg-color: #112e42;
   --text-color: #ededed;
   --main-color: #00abf0;
+  --main-color-rgb: 0, 171, 240; /* Mismo celeste que --main-color, en formato R,G,B para usar en rgba() */
   --blob-opacity: 0.22; 
 }
 

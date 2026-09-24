@@ -5,8 +5,8 @@
     left: 2rem;
     width: 50px;
     height: 50px;
-    background-color: var(--second-bg-color, #1a1a2e);
-    border: 1px solid rgba(0, 170, 255, 0.2);
+    background-color: var(--second-bg-color);
+    border: 1px solid rgba(var(--main-color-rgb), 0.2);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
@@ -21,15 +21,15 @@
 
 .topLeftToggle:hover {
     transform: scale(1.1);
-    border-color: #00aaff;
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.2);
+    border-color: var(--main-color);
+    box-shadow: 0 0 20px rgba(var(--main-color-rgb), 0.2);
 }
 
 .topLeftToggle span {
     display: block;
     width: 22px;
     height: 2px;
-    background-color: var(--text-color, #fff);
+    background-color: var(--text-color);
     transition: all 0.3s ease;
     border-radius: 2px;
 }
@@ -37,27 +37,25 @@
 /* Transformación a "X" */
 .topLeftToggle.active span:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
-    background-color: #00aaff;
+    background-color: var(--main-color);
 }
 .topLeftToggle.active span:nth-child(2) {
     opacity: 0;
 }
 .topLeftToggle.active span:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
-    background-color: #00aaff;
+    background-color: var(--main-color);
 }
 
 /* ===== DOCK FLOTANTE (ABAJO) ===== */
 .floatingDock {
     position: fixed;
-    bottom: 2.5rem; /* Separación del piso */
+    bottom: 2.5rem;
     left: 50%;
-    /* Empieza invisible y bien abajo */
     transform: translateX(-50%) translateY(150px);
     opacity: 0;
     visibility: hidden;
     z-index: 999;
-    /* Transición elástica nivel Pro */
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -72,7 +70,7 @@
     align-items: center;
     gap: 0.8rem;
     padding: 0.7rem 1.2rem;
-    background-color: rgba(15, 23, 42, 0.8); /* Fondo oscuro profundo */
+    background-color: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -84,7 +82,7 @@
 .iconBtn {
     background: transparent;
     border: none;
-    color: #94a3b8; /* Gris azulado suave */
+    color: #94a3b8;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,9 +100,9 @@
 }
 
 .iconBtn:hover {
-    background-color: rgba(0, 170, 255, 0.15);
-    color: #00aaff;
-    transform: translateY(-8px); /* Salto al pasar el mouse */
+    background-color: rgba(var(--main-color-rgb), 0.15);
+    color: var(--main-color);
+    transform: translateY(-8px);
 }
 
 /* Separador sutil */
@@ -115,7 +113,7 @@
     margin: 0 0.4rem;
 }
 
-/* Soporte para modo claro (opcional si usas variables) */
+/* Soporte para modo claro */
 :global(body.light) .dockContainer {
     background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.05);
@@ -125,7 +123,6 @@
     color: #475569;
 }
 
-/* Color del divisor para el modo claro */
 :global(body.light) .divider {
-    background-color: rgba(0, 0, 0, 0.15); /* Un gris sutil para que resalte en el blanco */
+    background-color: rgba(0, 0, 0, 0.15);
 }

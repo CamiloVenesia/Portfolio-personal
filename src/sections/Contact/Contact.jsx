@@ -17,14 +17,12 @@ const Contact = () => {
             form.current, 
             import.meta.env.VITE_EMAILJS_PUBLIC_KEY
         )
-        .then((result) => {
-            console.log(result.text);
+        .then(() => {
             toast.success('¡Mensaje enviado con éxito! Te responderé pronto.', {
                 id: toastId, 
             });
             e.target.reset(); 
-        }, (error) => {
-            console.log(error.text);
+        }, () => {
             toast.error('Hubo un error al enviar el mensaje. Por favor, intentá de nuevo.', {
                 id: toastId,
             });
@@ -54,15 +52,13 @@ const Contact = () => {
                     </p>
                     
                     <div className={styles.socialLinks}>
-                        {/* BOTÓN LINKEDIN */}
-                        <a href="https://www.linkedin.com/in/camilovenesia" target="_blank" rel="noreferrer" className={styles.socialBtn}>
+                        <a href="https://www.linkedin.com/in/camilovenesia/" target="_blank" rel="noreferrer" className={styles.socialBtn}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                             </svg>
                             LinkedIn
                         </a>
                         
-                        {/* BOTÓN GMAIL WEB (Actualizado) */}
                         <a 
                             href="https://mail.google.com/mail/?view=cm&fs=1&to=camilovenesia.dev@gmail.com" 
                             target="_blank" 
@@ -80,11 +76,25 @@ const Contact = () => {
 
                 <form ref={form} onSubmit={sendEmail} className={styles.formColumn} data-aos="fade-left">
                     <div className={styles.inputGroup}>
-                        <input type="text" name="user_name" placeholder="Tu Nombre" required className={styles.input} />
-                        <input type="email" name="user_email" placeholder="Tu Email" required className={styles.input} />
+                        <div className={styles.fieldWrapper}>
+                            <label htmlFor="user_name" className={styles.srOnly}>Tu nombre</label>
+                            <input id="user_name" type="text" name="user_name" placeholder="Tu Nombre" required className={styles.input} />
+                        </div>
+                        <div className={styles.fieldWrapper}>
+                            <label htmlFor="user_email" className={styles.srOnly}>Tu email</label>
+                            <input id="user_email" type="email" name="user_email" placeholder="Tu Email" required className={styles.input} />
+                        </div>
                     </div>
-                    <input type="text" name="subject" placeholder="Asunto" required className={styles.input} />
-                    <textarea name="message" placeholder="Tu Mensaje..." required className={styles.textarea}></textarea>
+
+                    <div className={styles.fieldWrapper}>
+                        <label htmlFor="subject" className={styles.srOnly}>Asunto</label>
+                        <input id="subject" type="text" name="subject" placeholder="Asunto" required className={styles.input} />
+                    </div>
+
+                    <div className={styles.fieldWrapper}>
+                        <label htmlFor="message" className={styles.srOnly}>Tu mensaje</label>
+                        <textarea id="message" name="message" placeholder="Tu Mensaje..." required className={styles.textarea}></textarea>
+                    </div>
                     
                     <button type="submit" className={styles.submitBtn}>
                         Enviar Mensaje

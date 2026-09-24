@@ -1,31 +1,9 @@
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import styles from './Hero.module.css';
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const Hero = () => {
-    // 🔥 EL MISMO MOTOR ACÁ 🔥
-    const scrollToSection = (e, targetId) => {
-        e.preventDefault();
-        const target = document.getElementById(targetId);
-        if (!target) return;
-
-        const targetPosition = target.getBoundingClientRect().top + window.scrollY;
-        const startPosition = window.scrollY;
-        const distance = targetPosition - startPosition;
-        const duration = 800; 
-        let start = null;
-
-        const animation = (currentTime) => {
-            if (start === null) start = currentTime;
-            const timeElapsed = currentTime - start;
-            const progress = Math.min(timeElapsed / duration, 1);
-            const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-            window.scrollTo(0, startPosition + distance * ease);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        };
-        requestAnimationFrame(animation);
-    };
-
     return (
         <section className={styles.hero} id="home">
             <div className={`${styles.blob} ${styles.blob__1}`}></div>

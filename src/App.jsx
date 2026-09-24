@@ -6,7 +6,9 @@ import Header from "./components/Header";
 import Hero from "./sections/Hero/Hero";
 import About from "./sections/About/About";
 import Journey from "./sections/Journey/Journey";
+import Skills from "./sections/Skills/Skills";
 import Projects from "./sections/Projects/Projects";
+import Certifications from "./sections/Certifications/Certifications";
 import Contact from "./sections/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 
@@ -16,13 +18,14 @@ function App() {
   }, []);
 
   return (
-    /* ¡Fuera el div restrictivo! Volvemos a los fragmentos de React puros */
     <>
       <Header />
       <Hero />
       <About />
       <Journey />
+      <Skills />
       <Projects />
+      <Certifications />
       <Contact />
       <Footer />
     </>
