@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Journey.module.css';
 
+
 const Journey = () => {
+
     const [filter, setFilter] = useState('all');
+
 
     const EducationIcon = () => (
         <svg
@@ -14,6 +17,7 @@ const Journey = () => {
         </svg>
     );
 
+
     const ExperienceIcon = () => (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +28,27 @@ const Journey = () => {
         </svg>
     );
 
+
     const timelineData = [
+
+        {
+            id: 11,
+            type: 'edu',
+            year: "Ingreso 2027",
+            current: false,
+            title: "Tecnicatura Universitaria en Desarrollo Web",
+            org: "Facultad de Ciencias de la Administración — UNER",
+            description:
+                "Tecnicatura universitaria a distancia de 2 años y medio, orientada a la planificación, diseño, desarrollo e implementación de aplicaciones y servicios web. La formación integra bases teóricas y prácticas en programación, ingeniería de software, redes y tecnologías aplicadas al desarrollo web. Preinscripción realizada en octubre de 2026.",
+            tech: [
+                "Programación",
+                "Ingeniería de Software",
+                "Redes",
+                "Aplicaciones Web",
+                "Servicios Web"
+            ]
+        },
+
         {
             id: 1,
             type: 'exp',
@@ -34,8 +58,13 @@ const Journey = () => {
             org: "LaMatera",
             description:
                 "Desarrollo de un e-commerce de mates, termos y accesorios con React y Firebase. Incluye catálogo con búsqueda y filtros, carrito persistente y checkout conectado a Firestore con control de stock mediante transacciones.",
-            tech: ["React", "Firebase", "Firestore"]
+            tech: [
+                "React",
+                "Firebase",
+                "Firestore"
+            ]
         },
+
         {
             id: 2,
             type: 'exp',
@@ -45,8 +74,13 @@ const Journey = () => {
             org: "Kinetic Gym",
             description:
                 "Desarrollo y despliegue de un sistema full-stack de gestión para gimnasios. Incluye administración de socios, membresías y pagos, dashboard con estadísticas, control de roles, exportación a CSV, autenticación JWT y modo kiosco de autogestión.",
-            tech: ["Node.js", "Express", "MongoDB"]
+            tech: [
+                "Node.js",
+                "Express",
+                "MongoDB"
+            ]
         },
+
         {
             id: 3,
             type: 'exp',
@@ -56,8 +90,13 @@ const Journey = () => {
             org: "Proyecto final, curso Back-End III (Coderhouse)",
             description:
                 "API REST construida con Node.js, Express y MongoDB para gestión de usuarios, pedidos y entregas. Desarrollada de forma incremental a lo largo de 8 pre-entregas hasta la entrega final.",
-            tech: ["Node.js", "Express", "MongoDB"]
+            tech: [
+                "Node.js",
+                "Express",
+                "MongoDB"
+            ]
         },
+
         {
             id: 4,
             type: 'edu',
@@ -67,8 +106,13 @@ const Journey = () => {
             org: "Coderhouse",
             description:
                 "Etapa final de la especialización en Back-End, enfocada en testing, optimización, arquitectura y escalabilidad de aplicaciones.",
-            tech: ["Testing", "Escalabilidad", "MongoDB"]
+            tech: [
+                "Testing",
+                "Escalabilidad",
+                "MongoDB"
+            ]
         },
+
         {
             id: 5,
             type: 'edu',
@@ -78,8 +122,13 @@ const Journey = () => {
             org: "Coderhouse",
             description:
                 "Segunda etapa de la especialización en Back-End, enfocada en diseño y arquitectura de aplicaciones escalables.",
-            tech: ["Arquitectura", "Node.js", "MongoDB"]
+            tech: [
+                "Arquitectura",
+                "Node.js",
+                "MongoDB"
+            ]
         },
+
         {
             id: 6,
             type: 'edu',
@@ -89,8 +138,13 @@ const Journey = () => {
             org: "Coderhouse",
             description:
                 "Primera etapa de la especialización en Back-End, enfocada en desarrollo de APIs, lógica de servidor y aplicaciones con Node.js y Express.",
-            tech: ["Node.js", "Express", "APIs"]
+            tech: [
+                "Node.js",
+                "Express",
+                "APIs"
+            ]
         },
+
         {
             id: 7,
             type: 'exp',
@@ -100,8 +154,13 @@ const Journey = () => {
             org: "Proyectos independientes",
             description:
                 "Desarrollo de soluciones web y aplicaciones personalizadas, trabajando en interfaces, lógica de negocio, APIs y bases de datos.",
-            tech: ["React", "JavaScript", "Node.js"]
+            tech: [
+                "React",
+                "JavaScript",
+                "Node.js"
+            ]
         },
+
         {
             id: 8,
             type: 'edu',
@@ -111,8 +170,13 @@ const Journey = () => {
             org: "Coderhouse",
             description:
                 "Formación y certificación en desarrollo de interfaces web modernas utilizando React, JavaScript y herramientas del ecosistema Front-End.",
-            tech: ["React", "JavaScript", "CSS Modules"]
+            tech: [
+                "React",
+                "JavaScript",
+                "CSS Modules"
+            ]
         },
+
         {
             id: 9,
             type: 'exp',
@@ -122,8 +186,13 @@ const Journey = () => {
             org: "Pasantía técnica",
             description:
                 "Mantenimiento preventivo, resolución de fallas de hardware y software y optimización de sistemas operativos.",
-            tech: ["Mantenimiento", "Soporte", "Sistemas"]
+            tech: [
+                "Mantenimiento",
+                "Soporte",
+                "Sistemas"
+            ]
         },
+
         {
             id: 10,
             type: 'edu',
@@ -133,9 +202,15 @@ const Journey = () => {
             org: "Educación Secundaria Técnica",
             description:
                 "Formación integral en informática, hardware, redes, sistemas y fundamentos de programación.",
-            tech: ["Lógica", "Hardware", "Redes"]
+            tech: [
+                "Lógica",
+                "Hardware",
+                "Redes"
+            ]
         }
+
     ];
+
 
     const filteredData =
         filter === 'all'
@@ -145,19 +220,24 @@ const Journey = () => {
                     item.type === filter
             );
 
+
     return (
+
         <section
             className={styles.journey}
             id="journey"
         >
+
             <div
                 className={styles.journeyBlob}
             ></div>
+
 
             <div
                 className={styles.titleContainer}
                 data-aos="fade-down"
             >
+
                 <svg
                     className={styles.titleIcon}
                     xmlns="http://www.w3.org/2000/svg"
@@ -171,21 +251,30 @@ const Journey = () => {
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                 </svg>
 
-                <h2 className={styles.title}>
+
+                <h2
+                    className={styles.title}
+                >
                     Mi <span>Recorrido</span>
                 </h2>
+
             </div>
+
 
             <div
                 className={styles.filterTabs}
                 data-aos="fade-up"
             >
+
                 <button
-                    className={`${styles.tab} ${
-                        filter === 'all'
-                            ? styles.tabActive
-                            : ''
-                    }`}
+                    className={
+                        styles.tab +
+                        (
+                            filter === 'all'
+                                ? ' ' + styles.tabActive
+                                : ''
+                        )
+                    }
                     onClick={() =>
                         setFilter('all')
                     }
@@ -193,12 +282,16 @@ const Journey = () => {
                     Todo
                 </button>
 
+
                 <button
-                    className={`${styles.tab} ${
-                        filter === 'edu'
-                            ? styles.tabActive
-                            : ''
-                    }`}
+                    className={
+                        styles.tab +
+                        (
+                            filter === 'edu'
+                                ? ' ' + styles.tabActive
+                                : ''
+                        )
+                    }
                     onClick={() =>
                         setFilter('edu')
                     }
@@ -206,29 +299,43 @@ const Journey = () => {
                     Educación
                 </button>
 
+
                 <button
-                    className={`${styles.tab} ${
-                        filter === 'exp'
-                            ? styles.tabActive
-                            : ''
-                    }`}
+                    className={
+                        styles.tab +
+                        (
+                            filter === 'exp'
+                                ? ' ' + styles.tabActive
+                                : ''
+                        )
+                    }
                     onClick={() =>
                         setFilter('exp')
                     }
                 >
                     Experiencia
                 </button>
+
             </div>
 
-            <div className={styles.timeline}>
+
+            <div
+                className={styles.timeline}
+            >
+
                 {filteredData.map(
                     (item, index) => (
+
                         <div
-                            className={`${styles.item} ${
-                                index % 2 === 0
-                                    ? styles.itemLeft
-                                    : styles.itemRight
-                            }`}
+                            className={
+                                styles.item +
+                                ' ' +
+                                (
+                                    index % 2 === 0
+                                        ? styles.itemLeft
+                                        : styles.itemRight
+                                )
+                            }
                             key={item.id}
                             data-aos={
                                 index % 2 === 0
@@ -239,81 +346,123 @@ const Journey = () => {
                                 index * 60
                             }
                         >
+
                             <div
-                                className={`${styles.node} ${
-                                    item.type === 'edu'
-                                        ? styles.nodeEdu
-                                        : styles.nodeExp
-                                }`}
+                                className={
+                                    styles.node +
+                                    ' ' +
+                                    (
+                                        item.type === 'edu'
+                                            ? styles.nodeEdu
+                                            : styles.nodeExp
+                                    )
+                                }
                             >
-                                {item.type === 'edu'
-                                    ? <EducationIcon />
-                                    : <ExperienceIcon />
+
+                                {
+                                    item.type === 'edu'
+                                        ? <EducationIcon />
+                                        : <ExperienceIcon />
                                 }
 
+
                                 {item.current && (
+
                                     <span
                                         className={styles.pulse}
                                     ></span>
+
                                 )}
+
                             </div>
 
-                            <div className={styles.card}>
+
+                            <div
+                                className={styles.card}
+                            >
+
                                 <div
                                     className={styles.cardTop}
                                 >
+
                                     <span
                                         className={styles.year}
                                     >
                                         {item.year}
                                     </span>
 
+
                                     <span
-                                        className={`${styles.typeTag} ${
-                                            item.type === 'edu'
-                                                ? styles.typeEdu
-                                                : styles.typeExp
-                                        }`}
+                                        className={
+                                            styles.typeTag +
+                                            ' ' +
+                                            (
+                                                item.type === 'edu'
+                                                    ? styles.typeEdu
+                                                    : styles.typeExp
+                                            )
+                                        }
                                     >
-                                        {item.type === 'edu'
-                                            ? 'Educación'
-                                            : 'Experiencia'
+                                        {
+                                            item.type === 'edu'
+                                                ? 'Educación'
+                                                : 'Experiencia'
                                         }
                                     </span>
+
                                 </div>
 
-                                <h3>{item.title}</h3>
 
-                                <p className={styles.org}>
+                                <h3>
+                                    {item.title}
+                                </h3>
+
+
+                                <p
+                                    className={styles.org}
+                                >
                                     {item.org}
                                 </p>
 
+
                                 <p
-                                    className={
-                                        styles.description
-                                    }
+                                    className={styles.description}
                                 >
                                     {item.description}
                                 </p>
 
+
                                 <div
                                     className={styles.badges}
                                 >
+
                                     {item.tech.map(
                                         (t, i) => (
-                                            <span key={i}>
+
+                                            <span
+                                                key={i}
+                                            >
                                                 {t}
                                             </span>
+
                                         )
                                     )}
+
                                 </div>
+
                             </div>
+
                         </div>
+
                     )
                 )}
+
             </div>
+
         </section>
+
     );
 };
+
 
 export default Journey;
