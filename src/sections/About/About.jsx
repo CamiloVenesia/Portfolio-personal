@@ -1,142 +1,639 @@
 import React from 'react';
 import styles from './About.module.css';
+import { scrollToSection } from '../../utils/scrollToSection';
+
 
 const About = () => {
+
+    const capabilities = [
+        "Arquitectura Full-Stack",
+        "APIs REST",
+        "Autenticación y roles",
+        "Bases SQL y NoSQL",
+        "Integridad de datos",
+        "Deploy y producción"
+    ];
+
+
     return (
-        <section className={styles.about} id="about">
-            <div className={styles.container}>
-                <div className={styles.aboutBlob}></div>
 
-                <div className={styles.headerContainer} data-aos="fade-down">
-                    <div className={styles.pillTitle}>
-                        <svg
-                            className={styles.pillIcon}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
+        <section
+            className={styles.about}
+            id="about"
+        >
 
-                        <h2 className={styles.mainTitle}>
-                            Sobre <span>Mi</span>
-                        </h2>
+            <div
+                className={styles.backgroundGrid}
+            ></div>
+
+            <div
+                className={styles.glowOne}
+            ></div>
+
+            <div
+                className={styles.glowTwo}
+            ></div>
+
+
+            <div
+                className={styles.container}
+            >
+
+                {/* CABECERA */}
+
+                <div
+                    className={styles.sectionHeader}
+                    data-aos="fade-up"
+                >
+
+                    <div
+                        className={styles.eyebrow}
+                    >
+
+                        <span
+                            className={styles.eyebrowDot}
+                        ></span>
+
+                        Perfil profesional
+
                     </div>
+
+
+                    <h2
+                        className={styles.title}
+                    >
+                        Sobre <span>mí</span>
+                    </h2>
+
+
+                    <p
+                        className={styles.headerDescription}
+                    >
+                        Desarrollo productos web completos combinando
+                        ingeniería, diseño de interfaces y una mirada
+                        orientada a resolver problemas reales.
+                    </p>
+
                 </div>
 
-                <div className={styles.grid}>
 
-                    {/* 1. QUIÉN SOY */}
-                    <div
-                        className={`${styles.card} ${styles.large}`}
+                {/* GRID PRINCIPAL */}
+
+                <div
+                    className={styles.profileGrid}
+                >
+
+                    {/* TARJETA PRINCIPAL */}
+
+                    <article
+                        className={
+                            styles.card +
+                            ' ' +
+                            styles.mainCard
+                        }
                         data-aos="fade-right"
                     >
-                        <div className={styles.cardContent}>
-                            <div className={styles.iconBox}>🚀</div>
+
+                        <div
+                            className={styles.mainContent}
+                        >
+
+                            <span
+                                className={styles.cardLabel}
+                            >
+                                FULL-STACK DEVELOPER
+                            </span>
+
 
                             <h3>
-                                Full-Stack <span>Developer</span>
+                                Construyo productos,
+                                <br />
+                                no solamente páginas web.
                             </h3>
 
-                            <p>
-                                Soy un desarrollador radicado en Rosario, enfocado en el ecosistema{' '}
-                                <strong>JavaScript</strong> y en la creación de aplicaciones web
-                                completas. Trabajo tanto en interfaces modernas con React como en
-                                APIs, lógica de servidor y bases de datos con Node.js, Express,
-                                MongoDB y SQL. Disfruto construir productos digitales funcionales,
-                                escalables y con especial atención al diseño y la experiencia de
-                                usuario.
-                            </p>
-                        </div>
-                    </div>
 
-                    {/* 2. FORMACIÓN */}
-                    <div
-                        className={`${styles.card} ${styles.tall}`}
-                        data-aos="fade-left"
-                        data-aos-delay="200"
-                    >
-                        <div className={styles.cardContent}>
-                            <div className={styles.iconBox}>🎓</div>
-
-                            <h4>Formación</h4>
-
-                            <div className={styles.educationItem}>
-                                <h5>Desarrollo Back-End</h5>
-                                <p>Coderhouse (Finalizado)</p>
-                            </div>
-
-                            <div className={styles.educationItem}>
-                                <h5>Desarrollo Front-End</h5>
-                                <p>Coderhouse (Certificado)</p>
-                            </div>
-
-                            <div className={styles.educationItem}>
-                                <h5>Idiomas</h5>
-                                <p>
-                                    Inglés (Técnico) | Portugués (En aprendizaje)
-                                </p>
-                            </div>
-
-                            <a
-                                href="https://www.linkedin.com/in/camilovenesia/details/certifications/"
-                                target="_blank"
-                                rel="noreferrer"
-                                className={styles.certButton}
+                            <p
+                                className={styles.mainDescription}
                             >
-                                Ver Certificados 📄
-                            </a>
-                        </div>
-                    </div>
+                                Soy desarrollador Full-Stack radicado en Rosario.
+                                Trabajo principalmente con el ecosistema JavaScript,
+                                desarrollando desde la experiencia de usuario y el
+                                frontend hasta APIs, lógica de negocio, autenticación,
+                                bases de datos y despliegue.
+                            </p>
 
-                    {/* 3. ENFOQUE */}
-                    <div
-                        className={`${styles.card} ${styles.medium}`}
+
+                            <p
+                                className={styles.mainDescription}
+                            >
+                                Mi objetivo es construir aplicaciones que además de
+                                verse bien sean claras, mantenibles, seguras y
+                                preparadas para funcionar en escenarios reales.
+                            </p>
+
+
+                            <div
+                                className={styles.capabilityList}
+                            >
+
+                                {capabilities.map(
+                                    item => (
+
+                                        <span
+                                            key={item}
+                                            className={styles.capability}
+                                        >
+                                            {item}
+                                        </span>
+
+                                    )
+                                )}
+
+                            </div>
+
+
+                            <div
+                                className={styles.actions}
+                            >
+
+                                <a
+                                    href="#projects"
+                                    className={styles.primaryAction}
+                                    onClick={
+                                        e =>
+                                            scrollToSection(
+                                                e,
+                                                'projects'
+                                            )
+                                    }
+                                >
+                                    Ver proyectos
+
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <line
+                                            x1="5"
+                                            y1="12"
+                                            x2="19"
+                                            y2="12"
+                                        ></line>
+
+                                        <polyline
+                                            points="12 5 19 12 12 19"
+                                        ></polyline>
+                                    </svg>
+
+                                </a>
+
+
+                                <a
+                                    href="#journey"
+                                    className={styles.secondaryAction}
+                                    onClick={
+                                        e =>
+                                            scrollToSection(
+                                                e,
+                                                'journey'
+                                            )
+                                    }
+                                >
+                                    Ver recorrido
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            className={styles.codePanel}
+                        >
+
+                            <div
+                                className={styles.codeHeader}
+                            >
+
+                                <div
+                                    className={styles.windowDots}
+                                >
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <span>
+                                    stack.config
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                className={styles.codeBody}
+                            >
+
+                                <div
+                                    className={styles.codeLine}
+                                >
+                                    <span>
+                                        frontend
+                                    </span>
+
+                                    <strong>
+                                        React · Vite
+                                    </strong>
+                                </div>
+
+
+                                <div
+                                    className={styles.codeLine}
+                                >
+                                    <span>
+                                        backend
+                                    </span>
+
+                                    <strong>
+                                        Node.js · Express
+                                    </strong>
+                                </div>
+
+
+                                <div
+                                    className={styles.codeLine}
+                                >
+                                    <span>
+                                        data
+                                    </span>
+
+                                    <strong>
+                                        MongoDB · Firestore · SQL
+                                    </strong>
+                                </div>
+
+
+                                <div
+                                    className={styles.codeLine}
+                                >
+                                    <span>
+                                        cloud
+                                    </span>
+
+                                    <strong>
+                                        Firebase · Render · Atlas
+                                    </strong>
+                                </div>
+
+
+                                <div
+                                    className={styles.codeStatus}
+                                >
+
+                                    <span
+                                        className={styles.statusDot}
+                                    ></span>
+
+                                    end-to-end development
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    {/* FORMA DE TRABAJO */}
+
+                    <article
+                        className={
+                            styles.card +
+                            ' ' +
+                            styles.approachCard
+                        }
+                        data-aos="fade-left"
+                    >
+
+                        <div
+                            className={styles.cardIcon}
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                            </svg>
+
+                        </div>
+
+
+                        <span
+                            className={styles.cardLabel}
+                        >
+                            CÓMO TRABAJO
+                        </span>
+
+
+                        <h4>
+                            Diseño con intención.
+                        </h4>
+
+
+                        <p>
+                            No separo desarrollo y experiencia de usuario.
+                            Busco interfaces claras, jerarquía visual,
+                            flujos simples y decisiones técnicas que
+                            hagan el producto más fácil de mantener.
+                        </p>
+
+
+                        <div
+                            className={styles.miniFeatures}
+                        >
+
+                            <span>
+                                UX/UI
+                            </span>
+
+                            <span>
+                                Código mantenible
+                            </span>
+
+                            <span>
+                                Responsive
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    {/* FORMACIÓN */}
+
+                    <article
+                        className={
+                            styles.card +
+                            ' ' +
+                            styles.educationCard
+                        }
+                        data-aos="fade-left"
+                        data-aos-delay="100"
+                    >
+
+                        <div
+                            className={styles.cardIcon}
+                        >
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5Z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+
+                        </div>
+
+
+                        <span
+                            className={styles.cardLabel}
+                        >
+                            FORMACIÓN
+                        </span>
+
+
+                        <div
+                            className={styles.educationBlock}
+                        >
+
+                            <div
+                                className={styles.educationItem}
+                            >
+
+                                <span
+                                    className={styles.educationState}
+                                >
+                                    COMPLETADO
+                                </span>
+
+                                <h5>
+                                    Carrera de Desarrollo Full Stack
+                                </h5>
+
+                                <p>
+                                    Coderhouse
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                className={styles.educationDivider}
+                            ></div>
+
+
+                            <div
+                                className={styles.educationItem}
+                            >
+
+                                <span
+                                    className={
+                                        styles.educationState +
+                                        ' ' +
+                                        styles.educationUpcoming
+                                    }
+                                >
+                                    INGRESO 2027
+                                </span>
+
+                                <h5>
+                                    Tecnicatura Universitaria en Desarrollo Web
+                                </h5>
+
+                                <p>
+                                    Facultad de Ciencias de la Administración · UNER
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    {/* ENFOQUE PROFESIONAL */}
+
+                    <article
+                        className={
+                            styles.card +
+                            ' ' +
+                            styles.focusCard
+                        }
                         data-aos="fade-up"
                     >
-                        <div className={styles.cardContent}>
-                            <div className={styles.iconBox}>🎯</div>
 
-                            <h4>Disciplina y Detalle</h4>
+                        <div
+                            className={styles.focusTop}
+                        >
 
-                            <p>
-                                La constancia que aplico en mi día a día entrenando,
-                                la traslado a mi código. Me interesan los detalles,
-                                la estética, la organización y construir soluciones
-                                simples que resuelvan problemas reales.
-                            </p>
+                            <div
+                                className={styles.cardIcon}
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                >
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                    ></circle>
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="6"
+                                    ></circle>
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="2"
+                                    ></circle>
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <span
+                                    className={styles.cardLabel}
+                                >
+                                    ENFOQUE
+                                </span>
+
+                                <h4>
+                                    Resolver antes que complicar.
+                                </h4>
+
+                            </div>
+
                         </div>
-                    </div>
 
-                    {/* 4. STACK */}
-                    <div
-                        className={`${styles.card} ${styles.medium}`}
+
+                        <p>
+                            Me interesa transformar necesidades reales en
+                            sistemas claros y utilizables. Antes de sumar
+                            complejidad, priorizo una arquitectura comprensible,
+                            datos consistentes y una experiencia que tenga sentido
+                            para quien realmente va a usar el producto.
+                        </p>
+
+                    </article>
+
+
+                    {/* EXPERIENCIA PRÁCTICA */}
+
+                    <article
+                        className={
+                            styles.card +
+                            ' ' +
+                            styles.experienceCard
+                        }
                         data-aos="fade-up"
-                        data-aos-delay="200"
+                        data-aos-delay="100"
                     >
-                        <div className={styles.cardContent}>
-                            <div className={styles.iconBox}>💻</div>
 
-                            <h4>Mi Stack</h4>
+                        <span
+                            className={styles.cardLabel}
+                        >
+                            EXPERIENCIA PRÁCTICA
+                        </span>
 
-                            <p>
-                                <strong>Front:</strong> React, JavaScript, CSS Modules, Vite.
-                                <br />
-                                <strong>Back:</strong> Node.js, Express, MongoDB, SQL.
-                                <br />
-                                <strong>Cloud:</strong> Firebase, Render, MongoDB Atlas.
-                            </p>
+
+                        <h4>
+                            Del concepto a producción.
+                        </h4>
+
+
+                        <p>
+                            Mis proyectos incluyen e-commerce, sistemas de gestión,
+                            APIs, autenticación, roles, procesamiento de datos,
+                            dashboards y despliegues en servicios cloud.
+                        </p>
+
+
+                        <div
+                            className={styles.projectTypes}
+                        >
+
+                            <div>
+                                <strong>
+                                    Frontend
+                                </strong>
+
+                                <span>
+                                    interfaces y producto
+                                </span>
+                            </div>
+
+
+                            <div>
+                                <strong>
+                                    Backend
+                                </strong>
+
+                                <span>
+                                    APIs y lógica
+                                </span>
+                            </div>
+
+
+                            <div>
+                                <strong>
+                                    Data
+                                </strong>
+
+                                <span>
+                                    persistencia y reglas
+                                </span>
+                            </div>
+
                         </div>
-                    </div>
+
+                    </article>
 
                 </div>
+
             </div>
+
         </section>
+
     );
+
 };
+
 
 export default About;
