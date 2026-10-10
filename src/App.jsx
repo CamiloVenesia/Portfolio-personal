@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 import "./styles/global.css";
 import Header from "./components/Header";
 import Hero from "./sections/Hero/Hero";
+import Value from "./sections/Value/Value";
 import Projects from "./sections/Projects/Projects";
 import Skills from "./sections/Skills/Skills";
 import Journey from "./sections/Journey/Journey";
@@ -46,6 +47,7 @@ function App() {
     <>
       <Header />
       <Hero />
+      <Value />
       <Projects />
       <Skills />
       <Journey />
