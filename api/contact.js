@@ -10,7 +10,7 @@ const rateStore =
 globalThis.__portfolioContactRateStore = rateStore;
 
 const escapeHtml = (value = '') => {
-  return value
+  return String(value)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
@@ -54,7 +54,7 @@ const isAllowedOrigin = (origin) => {
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     allowedOrigins.add(
       'https://' +
-        process.env.VERCEL_PROJECT_PRODUCTION_URL
+      process.env.VERCEL_PROJECT_PRODUCTION_URL
     );
   }
 
@@ -174,10 +174,14 @@ export default async function handler(req, res) {
   }
 
   const cleanName = String(name).trim();
-  const cleanEmail = String(email).trim().toLowerCase();
+  const cleanEmail = String(email)
+    .trim()
+    .toLowerCase();
+
   const cleanSubject = String(subject)
     .trim()
     .replace(/[\r\n]+/g, ' ');
+
   const cleanMessage = String(message).trim();
 
   if (
@@ -219,6 +223,15 @@ export default async function handler(req, res) {
 
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
+
+  const smtpHost =
+    process.env.SMTP_HOST ||
+    'smtp.gmail.com';
+
+  const smtpPort = Number(
+    process.env.SMTP_PORT || 465
+  );
+
   const contactTo =
     process.env.CONTACT_TO ||
     'camilovenesia.dev@gmail.com';
@@ -235,9 +248,9 @@ export default async function handler(req, res) {
   }
 
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: Number(process.env.SMTP_PORT || 465),
-    secure: true,
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
     auth: {
       user: smtpUser,
       pass: smtpPass
@@ -247,8 +260,154 @@ export default async function handler(req, res) {
   const safeName = escapeHtml(cleanName);
   const safeEmail = escapeHtml(cleanEmail);
   const safeSubject = escapeHtml(cleanSubject);
+
   const safeMessage = escapeHtml(cleanMessage)
     .replace(/\n/g, '<br>');
+
+  const replyHref =
+    'mailto:' +
+    encodeURIComponent(cleanEmail) +
+    '?subject=' +
+    encodeURIComponent('Re: ' + cleanSubject);
+
+  const emailHtml =
+    '<!DOCTYPE html>' +
+    '<html lang="es">' +
+    '<head>' +
+    '<meta charset="UTF-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+    '<title>Nuevo mensaje desde el portfolio</title>' +
+    '</head>' +
+
+    '<body style="margin:0;padding:0;background:#f3f6f8;font-family:Arial,Helvetica,sans-serif;color:#0f172a;">' +
+
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#f3f6f8;">' +
+
+    '<tr>' +
+    '<td align="center" style="padding:40px 18px;">' +
+
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:680px;background:#ffffff;border:1px solid #e2e8f0;border-radius:18px;overflow:hidden;">' +
+
+    '<tr>' +
+    '<td style="padding:30px 34px;background:#071d2b;border-bottom:3px solid #00abf0;">' +
+
+    '<div style="margin-bottom:9px;font-size:11px;font-weight:700;letter-spacing:2.2px;color:#00abf0;">' +
+    'CAMILO VENESIA · PORTFOLIO' +
+    '</div>' +
+
+    '<div style="font-size:27px;font-weight:700;line-height:1.2;color:#ffffff;">' +
+    'Nuevo mensaje recibido' +
+    '</div>' +
+
+    '<div style="margin-top:8px;font-size:14px;line-height:1.5;color:#94a3b8;">' +
+    'Alguien completó el formulario de contacto de tu portfolio.' +
+    '</div>' +
+
+    '</td>' +
+    '</tr>' +
+
+    '<tr>' +
+    '<td style="padding:32px 34px;">' +
+
+    '<div style="margin-bottom:14px;font-size:11px;font-weight:700;letter-spacing:1.5px;color:#64748b;text-transform:uppercase;">' +
+    'Datos de contacto' +
+    '</div>' +
+
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;border-collapse:collapse;">' +
+
+    '<tr>' +
+    '<td style="padding:14px 0;border-bottom:1px solid #e5e7eb;">' +
+    '<div style="margin-bottom:5px;font-size:12px;color:#94a3b8;">Nombre</div>' +
+    '<div style="font-size:16px;font-weight:600;color:#0f172a;">' +
+    safeName +
+    '</div>' +
+    '</td>' +
+    '</tr>' +
+
+    '<tr>' +
+    '<td style="padding:14px 0;border-bottom:1px solid #e5e7eb;">' +
+    '<div style="margin-bottom:5px;font-size:12px;color:#94a3b8;">Email</div>' +
+    '<div style="font-size:16px;font-weight:600;">' +
+    '<a href="mailto:' +
+    cleanEmail +
+    '" style="color:#009fe3;text-decoration:none;">' +
+    safeEmail +
+    '</a>' +
+    '</div>' +
+    '</td>' +
+    '</tr>' +
+
+    '<tr>' +
+    '<td style="padding:14px 0 4px;">' +
+    '<div style="margin-bottom:5px;font-size:12px;color:#94a3b8;">Asunto</div>' +
+    '<div style="font-size:16px;font-weight:600;color:#0f172a;">' +
+    safeSubject +
+    '</div>' +
+    '</td>' +
+    '</tr>' +
+
+    '</table>' +
+
+    '<div style="margin-top:30px;margin-bottom:12px;font-size:11px;font-weight:700;letter-spacing:1.5px;color:#64748b;text-transform:uppercase;">' +
+    'Mensaje' +
+    '</div>' +
+
+    '<div style="padding:22px 24px;background:#f8fafc;border:1px solid #e2e8f0;border-left:3px solid #00abf0;border-radius:10px;font-size:15px;line-height:1.75;color:#334155;">' +
+    safeMessage +
+    '</div>' +
+
+    '<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin-top:28px;">' +
+    '<tr>' +
+    '<td style="border-radius:8px;background:#00abf0;">' +
+
+    '<a href="' +
+    replyHref +
+    '" style="display:inline-block;padding:13px 21px;font-size:14px;font-weight:700;color:#ffffff;text-decoration:none;">' +
+    'Responder mensaje →' +
+    '</a>' +
+
+    '</td>' +
+    '</tr>' +
+    '</table>' +
+
+    '<div style="margin-top:28px;padding-top:20px;border-top:1px solid #e5e7eb;font-size:12px;line-height:1.65;color:#94a3b8;">' +
+    'También podés responder este correo directamente desde Gmail. La respuesta será enviada automáticamente a ' +
+    safeEmail +
+    '.' +
+    '</div>' +
+
+    '</td>' +
+    '</tr>' +
+
+    '<tr>' +
+    '<td style="padding:18px 34px;background:#f8fafc;border-top:1px solid #e2e8f0;">' +
+
+    '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">' +
+    '<tr>' +
+
+    '<td style="font-size:11px;line-height:1.5;color:#94a3b8;">' +
+    'Enviado desde camilovenesia.dev · Portfolio personal' +
+    '</td>' +
+
+    '<td align="right" style="font-size:11px;font-weight:700;color:#00abf0;">' +
+    'CONTACTO' +
+    '</td>' +
+
+    '</tr>' +
+    '</table>' +
+
+    '</td>' +
+    '</tr>' +
+
+    '</table>' +
+
+    '</td>' +
+    '</tr>' +
+
+    '</table>' +
+
+    '</body>' +
+    '</html>';
 
   try {
     await transporter.sendMail({
@@ -260,8 +419,9 @@ export default async function handler(req, res) {
       replyTo: cleanEmail,
       subject:
         '[Portfolio] ' + cleanSubject,
+
       text:
-        'Nuevo mensaje desde el portfolio\n\n' +
+        'NUEVO MENSAJE DESDE TU PORTFOLIO\n\n' +
         'Nombre: ' +
         cleanName +
         '\n' +
@@ -272,23 +432,11 @@ export default async function handler(req, res) {
         cleanSubject +
         '\n\n' +
         'Mensaje:\n' +
-        cleanMessage,
-      html:
-        '<div style="font-family:Arial,sans-serif;max-width:650px;margin:auto;color:#111827">' +
-        '<h2 style="margin-bottom:24px">Nuevo mensaje desde tu portfolio</h2>' +
-        '<p><strong>Nombre:</strong> ' +
-        safeName +
-        '</p>' +
-        '<p><strong>Email:</strong> ' +
-        safeEmail +
-        '</p>' +
-        '<p><strong>Asunto:</strong> ' +
-        safeSubject +
-        '</p>' +
-        '<div style="margin-top:24px;padding:20px;background:#f3f4f6;border-radius:10px;line-height:1.6">' +
-        safeMessage +
-        '</div>' +
-        '</div>'
+        cleanMessage +
+        '\n\n' +
+        'Podés responder directamente a este correo.',
+
+      html: emailHtml
     });
 
     return res.status(200).json({
