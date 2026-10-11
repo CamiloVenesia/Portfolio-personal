@@ -1,108 +1,323 @@
-import React, { useRef } from 'react';
-import emailjs from '@emailjs/browser';
+import React, { useRef, useState } from 'react';
 import styles from './Contact.module.css';
-import toast, { Toaster } from 'react-hot-toast';
 
 const Contact = () => {
-    const form = useRef();
+  const startedAt = useRef(Date.now());
 
-    const sendEmail = (e) => {
-        e.preventDefault();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    website: ''
+  });
 
-        const toastId = toast.loading('Enviando mensaje...');
+  const [status, setStatus] = useState({
+    type: 'idle',
+    message: ''
+  });
 
-        emailjs.sendForm(
-            import.meta.env.VITE_EMAILJS_SERVICE_ID, 
-            import.meta.env.VITE_EMAILJS_TEMPLATE_ID, 
-            form.current, 
-            import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-        )
-        .then(() => {
-            toast.success('¡Mensaje enviado con éxito! Te responderé pronto.', {
-                id: toastId, 
-            });
-            e.target.reset(); 
-        }, () => {
-            toast.error('Hubo un error al enviar el mensaje. Por favor, intentá de nuevo.', {
-                id: toastId,
-            });
-        });
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-    return (
-        <section className={styles.contact} id="contact">
-            <div className={styles.contactBlob}></div>
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-            <Toaster position="bottom-right" reverseOrder={false} />
+  const sendMessage = async (e) => {
+    e.preventDefault();
 
-            <div className={styles.titleContainer} data-aos="fade-down">
-                <svg className={styles.titleIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-                <h2 className={styles.title}>Mi <span>Contacto</span></h2>
+    if (status.type === 'sending') return;
+
+    setStatus({
+      type: 'sending',
+      message: 'Enviando mensaje...'
+    });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...formData,
+          formStartedAt: startedAt.current
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || 'No se pudo enviar el mensaje.'
+        );
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+        website: ''
+      });
+
+      startedAt.current = Date.now();
+
+      setStatus({
+        type: 'success',
+        message: 'Tu mensaje fue enviado correctamente. Gracias por contactarme.'
+      });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message:
+          error.message ||
+          'Ocurrió un error al enviar el mensaje. Intentá nuevamente.'
+      });
+    }
+  };
+
+  return (
+    <section className={styles.contact} id="contact">
+      <div className={styles.gridBackground}></div>
+      <div className={styles.contactBlob}></div>
+
+      <div className={styles.container}>
+        <div className={styles.header} data-aos="fade-up">
+          <div>
+            <div className={styles.eyebrow}>
+              <span></span>
+              CONTACTO
             </div>
 
-            <div className={styles.container}>
-                <div className={styles.infoColumn} data-aos="fade-right">
-                    <h3>¡Hablemos de código!</h3>
-                    <p>
-                        Actualmente estoy abierto a nuevas oportunidades laborales y proyectos freelance. 
-                        Si tenés alguna consulta, propuesta o simplemente querés saludar, ¡no dudes en escribirme!
-                    </p>
-                    
-                    <div className={styles.socialLinks}>
-                        <a href="https://www.linkedin.com/in/camilovenesia/" target="_blank" rel="noreferrer" className={styles.socialBtn}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            LinkedIn
-                        </a>
-                        
-                        <a 
-                            href="https://mail.google.com/mail/?view=cm&fs=1&to=camilovenesia.dev@gmail.com" 
-                            target="_blank" 
-                            rel="noreferrer" 
-                            className={styles.socialBtn}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                            Enviar Email
-                        </a>
-                    </div>
+            <h2 className={styles.title}>
+              Hablemos<span>.</span>
+            </h2>
+          </div>
+
+          <p className={styles.headerText}>
+            Si querés conversar sobre una oportunidad, un proyecto o una
+            posible colaboración, podés escribirme directamente desde el
+            formulario.
+          </p>
+        </div>
+
+        <div className={styles.contactGrid}>
+          <div className={styles.infoColumn} data-aos="fade-right">
+            <div className={styles.availability}>
+              <span className={styles.statusDot}></span>
+              Disponible para oportunidades
+            </div>
+
+            <h3>Podés contactarme directamente.</h3>
+
+            <p className={styles.intro}>
+              Estoy abierto a conversar sobre desarrollo web, proyectos
+              freelance y oportunidades profesionales.
+            </p>
+
+            <div className={styles.contactDetails}>
+              <a
+                href="mailto:camilovenesia.dev@gmail.com"
+                className={styles.contactItem}
+              >
+                <div className={styles.iconBox}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="m3 7 9 6 9-6"></path>
+                  </svg>
                 </div>
 
-                <form ref={form} onSubmit={sendEmail} className={styles.formColumn} data-aos="fade-left">
-                    <div className={styles.inputGroup}>
-                        <div className={styles.fieldWrapper}>
-                            <label htmlFor="user_name" className={styles.srOnly}>Tu nombre</label>
-                            <input id="user_name" type="text" name="user_name" placeholder="Tu Nombre" required className={styles.input} />
-                        </div>
-                        <div className={styles.fieldWrapper}>
-                            <label htmlFor="user_email" className={styles.srOnly}>Tu email</label>
-                            <input id="user_email" type="email" name="user_email" placeholder="Tu Email" required className={styles.input} />
-                        </div>
-                    </div>
+                <div>
+                  <span>Email</span>
+                  <strong>camilovenesia.dev@gmail.com</strong>
+                </div>
+              </a>
 
-                    <div className={styles.fieldWrapper}>
-                        <label htmlFor="subject" className={styles.srOnly}>Asunto</label>
-                        <input id="subject" type="text" name="subject" placeholder="Asunto" required className={styles.input} />
-                    </div>
+              <div className={styles.contactItem}>
+                <div className={styles.iconBox}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="2.5"></circle>
+                  </svg>
+                </div>
 
-                    <div className={styles.fieldWrapper}>
-                        <label htmlFor="message" className={styles.srOnly}>Tu mensaje</label>
-                        <textarea id="message" name="message" placeholder="Tu Mensaje..." required className={styles.textarea}></textarea>
-                    </div>
-                    
-                    <button type="submit" className={styles.submitBtn}>
-                        Enviar Mensaje
-                    </button>
-                </form>
+                <div>
+                  <span>Ubicación</span>
+                  <strong>Rosario, Argentina</strong>
+                </div>
+              </div>
             </div>
-        </section>
-    );
+
+            <div className={styles.socialLinks}>
+              <a
+                href="https://www.linkedin.com/in/camilovenesia/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+                <span>↗</span>
+              </a>
+
+              <a
+                href="https://github.com/CamiloVenesia"
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <form
+            className={styles.formCard}
+            onSubmit={sendMessage}
+            data-aos="fade-left"
+          >
+            <div className={styles.formHeader}>
+              <span>ENVIAR MENSAJE</span>
+              <p>
+                Completá el formulario y el mensaje llegará directamente a mi email.
+              </p>
+            </div>
+
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <label htmlFor="contact-name">Nombre</label>
+
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Tu nombre"
+                  autoComplete="name"
+                  maxLength="80"
+                  required
+                />
+              </div>
+
+              <div className={styles.field}>
+                <label htmlFor="contact-email">Email</label>
+
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="tu@email.com"
+                  autoComplete="email"
+                  maxLength="254"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="contact-subject">Asunto</label>
+
+              <input
+                id="contact-subject"
+                name="subject"
+                type="text"
+                value={formData.subject}
+                onChange={handleChange}
+                placeholder="¿Sobre qué querés conversar?"
+                maxLength="120"
+                required
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="contact-message">Mensaje</label>
+
+              <textarea
+                id="contact-message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Contame brevemente en qué puedo ayudarte..."
+                maxLength="3000"
+                required
+              ></textarea>
+
+              <span className={styles.characterCount}>
+                {formData.message.length} / 3000
+              </span>
+            </div>
+
+            <div className={styles.honeypot} aria-hidden="true">
+              <label htmlFor="contact-website">Website</label>
+
+              <input
+                id="contact-website"
+                name="website"
+                type="text"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex="-1"
+                autoComplete="off"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={status.type === 'sending'}
+            >
+              <span>
+                {status.type === 'sending'
+                  ? 'Enviando...'
+                  : 'Enviar mensaje'}
+              </span>
+
+              {status.type !== 'sending' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14"></path>
+                  <path d="m13 6 6 6-6 6"></path>
+                </svg>
+              )}
+
+              {status.type === 'sending' && (
+                <span className={styles.loader}></span>
+              )}
+            </button>
+
+            <div
+              className={
+                styles.status +
+                (status.type === 'success'
+                  ? ' ' + styles.statusSuccess
+                  : '') +
+                (status.type === 'error'
+                  ? ' ' + styles.statusError
+                  : '')
+              }
+              aria-live="polite"
+            >
+              {status.type === 'success' && (
+                <span className={styles.statusIcon}>✓</span>
+              )}
+
+              {status.type === 'error' && (
+                <span className={styles.statusIcon}>!</span>
+              )}
+
+              {status.type !== 'idle' &&
+                status.type !== 'sending' &&
+                status.message}
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Contact;
