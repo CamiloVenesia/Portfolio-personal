@@ -5,14 +5,28 @@ const Journey = () => {
   const [filter, setFilter] = useState('all');
 
   const EducationIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M22 10 12 5 2 10l10 5 10-5Z"></path>
       <path d="M6 12.5V17c3.5 2.7 8.5 2.7 12 0v-4.5"></path>
     </svg>
   );
 
   const ExperienceIcon = () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="3" y="7" width="18" height="13" rx="2"></rect>
       <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
       <path d="M3 12h18"></path>
@@ -23,168 +37,168 @@ const Journey = () => {
     {
       id: 11,
       type: 'edu',
-      year: "Ingreso 2027",
+      year: 'Ingreso 2027',
       current: false,
-      title: "Tecnicatura Universitaria en Desarrollo Web",
-      org: "Facultad de Ciencias de la Administración — UNER",
+      title: 'Tecnicatura Universitaria en Desarrollo Web',
+      org: 'Facultad de Ciencias de la Administración — UNER',
       description:
-        "Tecnicatura universitaria a distancia de 2 años y medio, orientada a la planificación, diseño, desarrollo e implementación de aplicaciones y servicios web. Preinscripción realizada en octubre de 2026.",
+        'Tecnicatura universitaria a distancia de 2 años y medio, orientada a la planificación, diseño, desarrollo e implementación de aplicaciones y servicios web. Preinscripción realizada en octubre de 2026.',
       tech: [
-        "Programación",
-        "Ingeniería de Software",
-        "Redes",
-        "Aplicaciones Web",
-        "Servicios Web"
+        'Programación',
+        'Ingeniería de Software',
+        'Redes',
+        'Aplicaciones Web',
+        'Servicios Web'
       ]
     },
     {
       id: 1,
       type: 'exp',
-      year: "2026 - Actualidad",
+      year: '2026 - Actualidad',
       current: true,
-      title: "Full Stack Developer",
-      org: "LaMatera",
+      title: 'Full Stack Developer',
+      org: 'LaMatera',
       description:
-        "Desarrollo de un e-commerce de mates, termos y accesorios con catálogo, búsqueda, filtros, carrito persistente y checkout conectado a Firestore.",
+        'Desarrollo de un e-commerce de mates, termos y accesorios con catálogo, búsqueda, filtros, carrito persistente y checkout conectado a Firestore.',
       tech: [
-        "React",
-        "Firebase",
-        "Firestore"
+        'React',
+        'Firebase',
+        'Firestore'
       ]
     },
     {
       id: 2,
       type: 'exp',
-      year: "2026",
+      year: '2026',
       current: false,
-      title: "Full Stack Developer",
-      org: "Kinetic Gym",
+      title: 'Full Stack Developer',
+      org: 'Kinetic Gym',
       description:
-        "Desarrollo y despliegue de un sistema de gestión para gimnasios con socios, membresías, pagos, roles, estadísticas, autenticación y modo kiosco.",
+        'Desarrollo y despliegue de un sistema de gestión para gimnasios con socios, membresías, pagos, roles, estadísticas, autenticación y modo kiosco.',
       tech: [
-        "Node.js",
-        "Express",
-        "MongoDB"
+        'Node.js',
+        'Express',
+        'MongoDB'
       ]
     },
     {
       id: 3,
       type: 'exp',
-      year: "Jul - Sep 2026",
+      year: 'Jul - Sep 2026',
       current: false,
-      title: "ShipNow — API de Gestión Logística",
-      org: "Proyecto final · Back-End III · Coderhouse",
+      title: 'ShipNow — API de Gestión Logística',
+      org: 'Proyecto final · Back-End III · Coderhouse',
       description:
-        "API REST para gestión de usuarios, pedidos y entregas, desarrollada de forma incremental durante el proyecto final del curso.",
+        'API REST para gestión de usuarios, pedidos y entregas, desarrollada de forma incremental durante el proyecto final del curso.',
       tech: [
-        "Node.js",
-        "Express",
-        "MongoDB"
+        'Node.js',
+        'Express',
+        'MongoDB'
       ]
     },
     {
       id: 4,
       type: 'edu',
-      year: "Jul - Sep 2026",
+      year: 'Jul - Sep 2026',
       current: false,
-      title: "Programación Backend III: Testing y Escalabilidad",
-      org: "Coderhouse",
+      title: 'Programación Backend III: Testing y Escalabilidad',
+      org: 'Coderhouse',
       description:
-        "Etapa final de la formación Back-End, enfocada en testing, optimización, arquitectura y escalabilidad de aplicaciones.",
+        'Etapa final de la formación Back-End, enfocada en testing, optimización, arquitectura y escalabilidad de aplicaciones.',
       tech: [
-        "Testing",
-        "Escalabilidad",
-        "MongoDB"
+        'Testing',
+        'Escalabilidad',
+        'MongoDB'
       ]
     },
     {
       id: 5,
       type: 'edu',
-      year: "May - Jul 2026",
+      year: 'May - Jul 2026',
       current: false,
-      title: "Programación Backend II: Diseño y Arquitectura",
-      org: "Coderhouse",
+      title: 'Programación Backend II: Diseño y Arquitectura',
+      org: 'Coderhouse',
       description:
-        "Formación enfocada en diseño y arquitectura de aplicaciones escalables dentro del ecosistema Back-End.",
+        'Formación enfocada en diseño y arquitectura de aplicaciones escalables dentro del ecosistema Back-End.',
       tech: [
-        "Arquitectura",
-        "Node.js",
-        "MongoDB"
+        'Arquitectura',
+        'Node.js',
+        'MongoDB'
       ]
     },
     {
       id: 6,
       type: 'edu',
-      year: "Feb - Abr 2026",
+      year: 'Feb - Abr 2026',
       current: false,
-      title: "Programación Backend I: Desarrollo Avanzado",
-      org: "Coderhouse",
+      title: 'Programación Backend I: Desarrollo Avanzado',
+      org: 'Coderhouse',
       description:
-        "Formación en desarrollo de APIs, lógica de servidor y construcción de aplicaciones con Node.js y Express.",
+        'Formación en desarrollo de APIs, lógica de servidor y construcción de aplicaciones con Node.js y Express.',
       tech: [
-        "Node.js",
-        "Express",
-        "APIs"
+        'Node.js',
+        'Express',
+        'APIs'
       ]
     },
     {
       id: 7,
       type: 'exp',
-      year: "2025 - Actualidad",
+      year: '2025 - Actualidad',
       current: true,
-      title: "Full Stack Developer Freelance",
-      org: "Proyectos independientes",
+      title: 'Full Stack Developer Freelance',
+      org: 'Proyectos independientes',
       description:
-        "Desarrollo de soluciones web personalizadas trabajando interfaces, lógica de negocio, APIs y bases de datos.",
+        'Desarrollo de soluciones web personalizadas trabajando interfaces, lógica de negocio, APIs y bases de datos.',
       tech: [
-        "React",
-        "JavaScript",
-        "Node.js"
+        'React',
+        'JavaScript',
+        'Node.js'
       ]
     },
     {
       id: 8,
       type: 'edu',
-      year: "2025",
+      year: '2025',
       current: false,
-      title: "Desarrollo Front-End",
-      org: "Coderhouse",
+      title: 'Desarrollo Front-End',
+      org: 'Coderhouse',
       description:
-        "Formación y certificación en desarrollo de interfaces web modernas con React, JavaScript y herramientas del ecosistema Front-End.",
+        'Formación y certificación en desarrollo de interfaces web modernas con React, JavaScript y herramientas del ecosistema Front-End.',
       tech: [
-        "React",
-        "JavaScript",
-        "CSS Modules"
+        'React',
+        'JavaScript',
+        'CSS Modules'
       ]
     },
     {
       id: 9,
       type: 'exp',
-      year: "2023",
+      year: '2023',
       current: false,
-      title: "Pasante de Soporte Técnico Informático",
-      org: "Pasantía técnica",
+      title: 'Pasante de Soporte Técnico Informático',
+      org: 'Pasantía técnica',
       description:
-        "Mantenimiento preventivo, resolución de fallas de hardware y software y optimización de sistemas operativos.",
+        'Mantenimiento preventivo, resolución de fallas de hardware y software y optimización de sistemas operativos.',
       tech: [
-        "Mantenimiento",
-        "Soporte",
-        "Sistemas"
+        'Mantenimiento',
+        'Soporte',
+        'Sistemas'
       ]
     },
     {
       id: 10,
       type: 'edu',
-      year: "2023",
+      year: '2023',
       current: false,
-      title: "Técnico Informático",
-      org: "Educación Secundaria Técnica",
+      title: 'Técnico Informático',
+      org: 'Educación Secundaria Técnica',
       description:
-        "Formación integral en informática, hardware, redes, sistemas y fundamentos de programación.",
+        'Formación integral en informática, hardware, redes, sistemas y fundamentos de programación.',
       tech: [
-        "Lógica",
-        "Hardware",
-        "Redes"
+        'Lógica',
+        'Hardware',
+        'Redes'
       ]
     }
   ];
@@ -221,21 +235,30 @@ const Journey = () => {
 
             <div className={styles.filterTabs}>
               <button
-                className={styles.tab + (filter === 'all' ? ' ' + styles.tabActive : '')}
+                className={
+                  styles.tab +
+                  (filter === 'all' ? ' ' + styles.tabActive : '')
+                }
                 onClick={() => setFilter('all')}
               >
                 Todo
               </button>
 
               <button
-                className={styles.tab + (filter === 'edu' ? ' ' + styles.tabActive : '')}
+                className={
+                  styles.tab +
+                  (filter === 'edu' ? ' ' + styles.tabActive : '')
+                }
                 onClick={() => setFilter('edu')}
               >
                 Educación
               </button>
 
               <button
-                className={styles.tab + (filter === 'exp' ? ' ' + styles.tabActive : '')}
+                className={
+                  styles.tab +
+                  (filter === 'exp' ? ' ' + styles.tabActive : '')
+                }
                 onClick={() => setFilter('exp')}
               >
                 Experiencia
@@ -255,16 +278,22 @@ const Journey = () => {
               data-aos-delay={Math.min(index * 45, 250)}
             >
               <div className={styles.meta}>
-                <span className={styles.year}>{item.year}</span>
+                <span className={styles.year}>
+                  {item.year}
+                </span>
 
                 <span
                   className={
                     styles.typeTag +
                     ' ' +
-                    (item.type === 'edu' ? styles.typeEdu : styles.typeExp)
+                    (item.type === 'edu'
+                      ? styles.typeEdu
+                      : styles.typeExp)
                   }
                 >
-                  {item.type === 'edu' ? 'Educación' : 'Experiencia'}
+                  {item.type === 'edu'
+                    ? 'Educación'
+                    : 'Experiencia'}
                 </span>
               </div>
 
@@ -272,21 +301,34 @@ const Journey = () => {
                 className={
                   styles.node +
                   ' ' +
-                  (item.type === 'edu' ? styles.nodeEdu : styles.nodeExp)
+                  (item.type === 'edu'
+                    ? styles.nodeEdu
+                    : styles.nodeExp)
                 }
               >
-                {item.type === 'edu' ? <EducationIcon /> : <ExperienceIcon />}
+                {item.type === 'edu'
+                  ? <EducationIcon />
+                  : <ExperienceIcon />}
 
                 {item.current && (
                   <span className={styles.pulse}></span>
                 )}
               </div>
 
-              <div className={styles.card}>
+              <div
+                className={
+                  styles.card +
+                  (item.current
+                    ? ' ' + styles.currentCard
+                    : '')
+                }
+              >
                 <div className={styles.cardHeading}>
                   <div>
                     <h3>{item.title}</h3>
-                    <p className={styles.org}>{item.org}</p>
+                    <p className={styles.org}>
+                      {item.org}
+                    </p>
                   </div>
 
                   {item.current && (
@@ -303,7 +345,9 @@ const Journey = () => {
 
                 <div className={styles.badges}>
                   {item.tech.map((tech) => (
-                    <span key={tech}>{tech}</span>
+                    <span key={tech}>
+                      {tech}
+                    </span>
                   ))}
                 </div>
               </div>
