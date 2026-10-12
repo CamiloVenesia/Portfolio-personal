@@ -135,8 +135,7 @@
 .stats i {
   width: 1px;
   height: 26px;
-  background:
-    rgba(148, 163, 184, 0.15);
+  background: rgba(148, 163, 184, 0.15);
 }
 
 /* CAROUSEL */
@@ -165,12 +164,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-color-rgb), 0.25);
   border-radius: 50%;
-  background:
-    rgba(var(--main-color-rgb), 0.035);
+  background: rgba(var(--main-color-rgb), 0.035);
   color: var(--main-color);
   cursor: pointer;
   transition:
@@ -182,10 +178,8 @@
 
 .arrowBtn:hover:not(:disabled) {
   transform: scale(1.06);
-  border-color:
-    rgba(var(--main-color-rgb), 0.55);
-  background:
-    rgba(var(--main-color-rgb), 0.09);
+  border-color: rgba(var(--main-color-rgb), 0.55);
+  background: rgba(var(--main-color-rgb), 0.09);
 }
 
 .arrowBtn:active:not(:disabled) {
@@ -212,9 +206,7 @@
   flex-shrink: 0;
   padding: 0;
   overflow: hidden;
-  border:
-    1px solid
-    rgba(148, 163, 184, 0.11);
+  border: 1px solid rgba(148, 163, 184, 0.11);
   border-radius: 17px;
   background: #08141d;
   cursor: pointer;
@@ -222,16 +214,14 @@
   transform: scale(0.88);
   transition:
     opacity 0.4s ease,
-    transform 0.4s
-    cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.35s ease;
 }
 
 .peekCard:hover:not(:disabled) {
   opacity: 0.52;
   transform: scale(0.91);
-  border-color:
-    rgba(var(--main-color-rgb), 0.2);
+  border-color: rgba(var(--main-color-rgb), 0.2);
 }
 
 .peekCard:disabled {
@@ -402,30 +392,23 @@
   padding: 0;
   display: block;
   overflow: hidden;
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.28);
+  border: 1px solid rgba(var(--main-color-rgb), 0.28);
   border-radius: 20px;
   background: #08141d;
   cursor: pointer;
   box-shadow:
-    0 26px 65px
-    rgba(0, 0, 0, 0.25),
-    0 0 0 1px
-    rgba(var(--main-color-rgb), 0.04);
+    0 26px 65px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(var(--main-color-rgb), 0.04);
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
 .centerCard:hover {
-  border-color:
-    rgba(var(--main-color-rgb), 0.48);
+  border-color: rgba(var(--main-color-rgb), 0.48);
   box-shadow:
-    0 30px 75px
-    rgba(0, 0, 0, 0.3),
-    0 0 0 1px
-    rgba(var(--main-color-rgb), 0.08);
+    0 30px 75px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(var(--main-color-rgb), 0.08);
 }
 
 .certImage {
@@ -452,15 +435,12 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    rgba(3, 10, 18, 0.06);
-  transition:
-    background 0.3s ease;
+  background: rgba(3, 10, 18, 0.06);
+  transition: background 0.3s ease;
 }
 
 .centerCard:hover .certImage::after {
-  background:
-    rgba(3, 10, 18, 0.34);
+  background: rgba(3, 10, 18, 0.34);
 }
 
 .zoomHint {
@@ -468,8 +448,7 @@
   z-index: 3;
   left: 50%;
   top: 50%;
-  transform:
-    translate(-50%, -45%);
+  transform: translate(-50%, -45%);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -489,8 +468,7 @@
 
 .centerCard:hover .zoomHint {
   opacity: 1;
-  transform:
-    translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .featuredBadge {
@@ -510,9 +488,7 @@
 }
 
 .centerInfo {
-  padding:
-    1.3rem 1.45rem
-    1.45rem;
+  padding: 1.3rem 1.45rem 1.45rem;
   text-align: left;
 }
 
@@ -520,9 +496,7 @@
   display: inline-block;
   margin-bottom: 0.65rem;
   color: var(--main-color);
-  font-family:
-    "Courier New",
-    monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.66rem;
   font-weight: 700;
 }
@@ -555,9 +529,7 @@
 
 .carouselMeta > span {
   color: var(--text-color);
-  font-family:
-    "Courier New",
-    monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.66rem;
   opacity: 0.42;
 }
@@ -580,8 +552,7 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background:
-    rgba(148, 163, 184, 0.24);
+  background: rgba(148, 163, 184, 0.24);
   cursor: pointer;
   transition:
     width 0.25s ease,
@@ -613,12 +584,9 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.25);
+  border: 1px solid rgba(var(--main-color-rgb), 0.25);
   border-radius: 9px;
-  background:
-    rgba(var(--main-color-rgb), 0.035);
+  background: rgba(var(--main-color-rgb), 0.035);
   color: var(--main-color);
   font-size: 0.74rem;
   font-weight: 700;
@@ -632,16 +600,13 @@
 .ctaButton svg {
   width: 15px;
   height: 15px;
-  transition:
-    transform 0.25s ease;
+  transition: transform 0.25s ease;
 }
 
 .ctaButton:hover {
   transform: translateY(-2px);
-  border-color:
-    rgba(var(--main-color-rgb), 0.5);
-  background:
-    rgba(var(--main-color-rgb), 0.08);
+  border-color: rgba(var(--main-color-rgb), 0.5);
+  background: rgba(var(--main-color-rgb), 0.08);
 }
 
 .ctaButton:hover svg {
@@ -755,8 +720,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    rgba(4, 10, 16, 0.94);
+  background: rgba(4, 10, 16, 0.94);
   backdrop-filter: blur(10px);
   animation:
     lightboxFadeIn
@@ -912,8 +876,7 @@
 
 .lightboxInfo p {
   margin: 0.3rem 0 0;
-  color:
-    rgba(255, 255, 255, 0.62);
+  color: rgba(255, 255, 255, 0.62);
   font-size: 0.86rem;
 }
 
@@ -1004,8 +967,7 @@
   top: 45%;
   width: 50px;
   height: 50px;
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .navBtn:hover:not(:disabled) {
@@ -1044,8 +1006,7 @@
 
 :global(body.light) .arrowBtn,
 :global(body.light) .ctaButton {
-  background:
-    rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.45);
 }
 
 /* TABLET */
@@ -1183,8 +1144,48 @@
     }
   }
 
+  /* ECOSISTEMA MOBILE */
+
   .techArea {
     margin-top: 3rem;
+  }
+
+  .techHeader {
+    margin-bottom: 1.8rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .techHeader span {
+    width: 100%;
+    flex-shrink: 1;
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+  }
+
+  .techHeader div {
+    display: none;
+  }
+
+  .marqueeViewport {
+    -webkit-mask-image:
+      linear-gradient(
+        90deg,
+        transparent,
+        #000 10%,
+        #000 90%,
+        transparent
+      );
+    mask-image:
+      linear-gradient(
+        90deg,
+        transparent,
+        #000 10%,
+        #000 90%,
+        transparent
+      );
   }
 
   .techItem {
@@ -1247,5 +1248,10 @@
     top: 0.65rem;
     left: 0.65rem;
     font-size: 0.58rem;
+  }
+
+  .techHeader span {
+    font-size: 0.62rem;
+    letter-spacing: 0.13em;
   }
 }
