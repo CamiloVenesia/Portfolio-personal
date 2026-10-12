@@ -130,7 +130,7 @@
   color: var(--main-color);
 }
 
-/* BOTONES REALES */
+/* BOTONES */
 
 .actions {
   display: flex;
@@ -373,7 +373,7 @@
   opacity: 0.7;
 }
 
-/* ÚNICA TARJETA TÉCNICA */
+/* CAPACIDADES */
 
 .techPanel {
   position: absolute;
@@ -551,8 +551,19 @@
     margin: 0 auto;
   }
 
+  /*
+   * En mobile la foto y CAPACIDADES pasan a formar
+   * una única composición vertical.
+   */
   .visual {
-    min-height: 460px;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+  }
+
+  .visualGlow {
+    top: 40px;
   }
 
   .tiltCard {
@@ -561,9 +572,36 @@
   }
 
   .techPanel {
-    width: 225px;
-    right: 0;
-    bottom: 0;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(320px, 88vw);
+    margin-top: -34px;
+    padding: 1rem 1.1rem;
+    border-radius: 15px;
+  }
+
+  .techHeader {
+    margin-bottom: 0.65rem;
+    font-size: 0.6rem;
+  }
+
+  .techRow {
+    min-height: 34px;
+    display: grid;
+    grid-template-columns: 68px minmax(0, 1fr);
+    gap: 0.75rem;
+    font-size: 0.6rem;
+  }
+
+  .techRow span {
+    text-align: left;
+  }
+
+  .techRow strong {
+    min-width: 0;
+    text-align: right;
+    white-space: nowrap;
   }
 }
 
@@ -579,10 +617,19 @@
   }
 
   .tiltCard {
+    width: min(305px, 88vw);
     height: 395px;
   }
 
   .techPanel {
-    width: 210px;
+    width: min(305px, 88vw);
+    margin-top: -28px;
+    padding: 0.95rem 1rem;
+  }
+
+  .techRow {
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 0.55rem;
+    font-size: 0.55rem;
   }
 }
