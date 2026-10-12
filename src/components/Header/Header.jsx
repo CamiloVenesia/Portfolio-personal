@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import { scrollToSection } from "../../utils/scrollToSection";
 
@@ -16,31 +16,52 @@ const Header = () => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setDockOpen(false);
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
+
   const toggleDock = () => setDockOpen((v) => !v);
   const toggleDarkMode = () => setDarkMode((v) => !v);
   const closeDock = () => setDockOpen(false);
 
   return (
     <>
-      <div
-        className={styles.topLeftToggle + (dockOpen ? ' ' + styles.active : '')}
+      <button
+        type="button"
+        className={styles.topLeftToggle + (dockOpen ? " " + styles.active : "")}
         onClick={toggleDock}
-        role="button"
-        tabIndex="0"
-        aria-label="Abrir menú de navegación"
+        aria-label={dockOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+        aria-expanded={dockOpen}
       >
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
 
-      <nav className={styles.floatingDock + (dockOpen ? ' ' + styles.visible : '')}>
+      <div
+        className={styles.dockBackdrop + (dockOpen ? " " + styles.backdropVisible : "")}
+        onClick={closeDock}
+        aria-hidden="true"
+      ></div>
+
+      <nav
+        className={styles.floatingDock + (dockOpen ? " " + styles.visible : "")}
+        aria-label="Navegación principal"
+      >
         <div className={styles.dockContainer}>
           <a
             href="#home"
             className={styles.iconBtn}
             aria-label="Ir al inicio"
-            onClick={(e) => scrollToSection(e, 'home', closeDock)}
+            onClick={(e) => scrollToSection(e, "home", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -52,7 +73,7 @@ const Header = () => {
             href="#projects"
             className={styles.iconBtn}
             aria-label="Ir a Proyectos"
-            onClick={(e) => scrollToSection(e, 'projects', closeDock)}
+            onClick={(e) => scrollToSection(e, "projects", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
@@ -64,7 +85,7 @@ const Header = () => {
             href="#skills"
             className={styles.iconBtn}
             aria-label="Ir a Skills"
-            onClick={(e) => scrollToSection(e, 'skills', closeDock)}
+            onClick={(e) => scrollToSection(e, "skills", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="16 18 22 12 16 6"></polyline>
@@ -76,7 +97,7 @@ const Header = () => {
             href="#journey"
             className={styles.iconBtn}
             aria-label="Ir a Mi Recorrido"
-            onClick={(e) => scrollToSection(e, 'journey', closeDock)}
+            onClick={(e) => scrollToSection(e, "journey", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="9"></circle>
@@ -88,7 +109,7 @@ const Header = () => {
             href="#about"
             className={styles.iconBtn}
             aria-label="Ir a Sobre mí"
-            onClick={(e) => scrollToSection(e, 'about', closeDock)}
+            onClick={(e) => scrollToSection(e, "about", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -100,7 +121,7 @@ const Header = () => {
             href="#certifications"
             className={styles.iconBtn}
             aria-label="Ir a Certificaciones"
-            onClick={(e) => scrollToSection(e, 'certifications', closeDock)}
+            onClick={(e) => scrollToSection(e, "certifications", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"></path>
@@ -112,7 +133,7 @@ const Header = () => {
             href="#contact"
             className={styles.iconBtn}
             aria-label="Ir a Contacto"
-            onClick={(e) => scrollToSection(e, 'contact', closeDock)}
+            onClick={(e) => scrollToSection(e, "contact", closeDock)}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -123,6 +144,7 @@ const Header = () => {
           <div className={styles.divider}></div>
 
           <button
+            type="button"
             onClick={toggleDarkMode}
             className={styles.iconBtn}
             aria-label={darkMode ? "Activar modo claro" : "Activar modo oscuro"}
