@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import AOS from 'aos';
-import Lenis from 'lenis';
-import 'aos/dist/aos.css';
+import AOS from "aos";
+import Lenis from "lenis";
+import "aos/dist/aos.css";
 import "./styles/global.css";
+
 import Header from "./components/Header";
 import Hero from "./sections/Hero/Hero";
 import Value from "./sections/Value/Value";
@@ -43,17 +44,52 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const markDecorativeSvgs = () => {
+      document.querySelectorAll("svg").forEach((svg) => {
+        const hasAccessibleName =
+          svg.hasAttribute("aria-label") ||
+          svg.hasAttribute("aria-labelledby") ||
+          svg.querySelector("title");
+
+        if (!hasAccessibleName) {
+          svg.setAttribute("aria-hidden", "true");
+          svg.setAttribute("focusable", "false");
+        }
+      });
+    };
+
+    markDecorativeSvgs();
+
+    const observer = new MutationObserver(() => {
+      markDecorativeSvgs();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <Header />
-      <Hero />
-      <Value />
-      <Projects />
-      <Skills />
-      <Journey />
-      <About />
-      <Certifications />
-      <Contact />
+
+      <main id="main-content">
+        <Hero />
+        <Value />
+        <Projects />
+        <Skills />
+        <Journey />
+        <About />
+        <Certifications />
+        <Contact />
+      </main>
+
       <Footer />
     </>
   );
