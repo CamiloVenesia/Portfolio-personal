@@ -21,7 +21,13 @@
     linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 85%, transparent);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 12%,
+    black 85%,
+    transparent
+  );
 }
 
 .glow {
@@ -422,12 +428,29 @@
   background: rgba(var(--main-color-rgb), 0.5);
 }
 
-.mockChart i:nth-child(1) { height: 25%; }
-.mockChart i:nth-child(2) { height: 55%; }
-.mockChart i:nth-child(3) { height: 40%; }
-.mockChart i:nth-child(4) { height: 75%; }
-.mockChart i:nth-child(5) { height: 48%; }
-.mockChart i:nth-child(6) { height: 68%; }
+.mockChart i:nth-child(1) {
+  height: 25%;
+}
+
+.mockChart i:nth-child(2) {
+  height: 55%;
+}
+
+.mockChart i:nth-child(3) {
+  height: 40%;
+}
+
+.mockChart i:nth-child(4) {
+  height: 75%;
+}
+
+.mockChart i:nth-child(5) {
+  height: 48%;
+}
+
+.mockChart i:nth-child(6) {
+  height: 68%;
+}
 
 /* FULLSTACK FLOW */
 
@@ -883,6 +906,8 @@
   }
 }
 
+/* MOBILE */
+
 @media (max-width: 520px) {
   .header h2 {
     font-size: 2.55rem;
@@ -896,8 +921,12 @@
     font-size: 0.65rem;
   }
 
-  .frontendCard {
-    min-height: 535px;
+  /*
+   * Conservamos los puntos exactamente como estaban.
+   * Solo damos aire antes del mockup.
+   */
+  .browserMockup {
+    margin-top: 2.2rem;
   }
 
   .browserBody {
@@ -908,21 +937,41 @@
     padding: 1rem 0.6rem;
   }
 
+  /*
+   * En mobile el recorrido UI → API → Logic → Data
+   * pasa a una cuadrícula 2x2 para evitar desbordes.
+   */
   .flow {
-    gap: 4px;
+    margin-top: 1.6rem;
+    padding: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .flow > div {
+    min-width: 0;
     padding: 0.85rem 0.45rem;
+    border: 1px solid rgba(148, 163, 184, 0.09);
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.015);
+    text-align: center;
   }
 
   .flow strong {
-    font-size: 0.72rem;
+    display: block;
+    font-size: 0.76rem;
   }
 
   .flow span {
-    font-size: 0.58rem;
+    display: block;
+    margin-top: 5px;
+    font-size: 0.62rem;
+    line-height: 1.3;
   }
 
-  .flow i svg {
-    width: 15px;
+  .flow i {
+    display: none;
   }
 
   .checkList {
@@ -950,10 +999,4 @@
   .transition {
     padding-top: 3.8rem;
   }
-
-  @media (max-width: 520px) {
-  .browserMockup {
-    margin-top: 2.2rem;
-  }
-}
 }
