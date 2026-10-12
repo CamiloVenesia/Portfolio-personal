@@ -1,6 +1,6 @@
 .contact {
   position: relative;
-  padding: 105px 7% 100px;
+  padding: 68px 7% 58px;
   overflow: hidden;
 }
 
@@ -46,18 +46,14 @@
 /* HEADER */
 
 .header {
-  margin-bottom: 3.5rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.7fr);
-  align-items: end;
-  gap: 4rem;
+  margin-bottom: 1.8rem;
 }
 
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   color: var(--main-color);
   font-size: 0.76rem;
   font-weight: 800;
@@ -75,7 +71,7 @@
 .title {
   margin: 0;
   color: var(--text-color);
-  font-size: clamp(3.3rem, 6vw, 5.3rem);
+  font-size: clamp(3.1rem, 5vw, 4.7rem);
   line-height: 0.95;
   letter-spacing: -0.055em;
 }
@@ -84,32 +80,41 @@
   color: var(--main-color);
 }
 
-.headerText {
-  max-width: 470px;
-  margin: 0 0 0.3rem;
-  color: var(--text-color);
-  font-size: 0.96rem;
-  line-height: 1.72;
-  opacity: 0.64;
-}
-
 /* CONTENT */
 
 .contactGrid {
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(480px, 1.15fr);
-  gap: 4rem;
+  gap: 3rem;
   align-items: start;
 }
 
 .infoColumn {
-  padding-top: 1rem;
+  padding-top: 1.4rem;
 }
+
+/* FORM SUBE */
+
+.formCard {
+  margin-top: -5.7rem;
+  padding: 1.45rem;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.009)
+    );
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.08);
+}
+
+/* LEFT */
 
 .availability {
   width: fit-content;
-  margin-bottom: 2rem;
-  padding: 7px 11px;
+  margin-bottom: 1.2rem;
+  padding: 6px 10px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -117,7 +122,7 @@
   border-radius: 999px;
   background: rgba(34, 197, 94, 0.045);
   color: #22c55e;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 700;
 }
 
@@ -154,71 +159,69 @@
   max-width: 440px;
   margin: 0;
   color: var(--text-color);
-  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-size: clamp(1.45rem, 2.1vw, 1.9rem);
   line-height: 1.15;
   letter-spacing: -0.035em;
 }
 
 .intro {
   max-width: 470px;
-  margin: 1rem 0 2rem;
+  margin: 0.7rem 0 1.35rem;
   color: var(--text-color);
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.84rem;
+  line-height: 1.6;
   opacity: 0.6;
 }
-
-/* CONTACT DETAILS */
 
 .contactDetails {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .contactItem {
   width: fit-content;
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.8rem;
   color: var(--text-color);
   text-decoration: none;
 }
 
 .iconBox {
-  width: 39px;
-  height: 39px;
+  width: 34px;
+  height: 34px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(var(--main-color-rgb), 0.16);
-  border-radius: 10px;
+  border-radius: 9px;
   background: rgba(var(--main-color-rgb), 0.035);
   color: var(--main-color);
 }
 
 .iconBox svg {
-  width: 17px;
-  height: 17px;
+  width: 15px;
+  height: 15px;
 }
 
 .contactItem > div:last-child {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .contactItem span {
   color: var(--text-color);
-  font-size: 0.62rem;
+  font-size: 0.59rem;
   font-weight: 600;
   opacity: 0.42;
 }
 
 .contactItem strong {
   color: var(--text-color);
-  font-size: 0.79rem;
+  font-size: 0.76rem;
   font-weight: 600;
 }
 
@@ -229,21 +232,21 @@ a.contactItem:hover strong {
 /* SOCIAL */
 
 .socialLinks {
-  margin-top: 2.1rem;
+  margin-top: 1.35rem;
   display: flex;
-  gap: 0.7rem;
+  gap: 0.65rem;
 }
 
 .socialLinks a {
-  min-height: 39px;
-  padding: 0 13px;
+  min-height: 37px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
   gap: 7px;
   border: 1px solid rgba(148, 163, 184, 0.13);
   border-radius: 8px;
   color: var(--text-color);
-  font-size: 0.72rem;
+  font-size: 0.69rem;
   font-weight: 700;
   text-decoration: none;
   opacity: 0.72;
@@ -269,56 +272,43 @@ a.contactItem:hover strong {
 
 /* FORM */
 
-.formCard {
-  padding: 2rem;
-  border: 1px solid rgba(148, 163, 184, 0.12);
-  border-radius: 20px;
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.03),
-      rgba(255, 255, 255, 0.009)
-    );
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.08);
-}
-
 .formHeader {
-  margin-bottom: 1.7rem;
-  padding-bottom: 1.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.9rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
 }
 
 .formHeader > span {
   color: var(--main-color);
-  font-size: 0.67rem;
+  font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.13em;
 }
 
 .formHeader p {
-  margin: 0.45rem 0 0;
+  margin: 0.35rem 0 0;
   color: var(--text-color);
-  font-size: 0.76rem;
-  line-height: 1.55;
+  font-size: 0.72rem;
+  line-height: 1.5;
   opacity: 0.5;
 }
 
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .field {
   position: relative;
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.72rem;
 }
 
 .field label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   color: var(--text-color);
-  font-size: 0.69rem;
+  font-size: 0.67rem;
   font-weight: 700;
   opacity: 0.72;
 }
@@ -332,7 +322,7 @@ a.contactItem:hover strong {
   background: rgba(255, 255, 255, 0.018);
   color: var(--text-color);
   font-family: inherit;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   transition:
     border-color 0.25s ease,
     background 0.25s ease,
@@ -340,14 +330,14 @@ a.contactItem:hover strong {
 }
 
 .field input {
-  height: 46px;
-  padding: 0 0.9rem;
+  height: 40px;
+  padding: 0 0.85rem;
 }
 
 .field textarea {
-  min-height: 145px;
-  padding: 0.85rem 0.9rem 1.8rem;
-  line-height: 1.55;
+  min-height: 96px;
+  padding: 0.75rem 0.85rem 1.6rem;
+  line-height: 1.45;
   resize: vertical;
 }
 
@@ -367,14 +357,12 @@ a.contactItem:hover strong {
 .characterCount {
   position: absolute;
   right: 10px;
-  bottom: 9px;
+  bottom: 8px;
   color: var(--text-color);
   font-family: "Courier New", monospace;
-  font-size: 0.58rem;
+  font-size: 0.56rem;
   opacity: 0.3;
 }
-
-/* HONEYPOT */
 
 .honeypot {
   position: absolute !important;
@@ -388,8 +376,8 @@ a.contactItem:hover strong {
 
 .submitButton {
   width: 100%;
-  height: 48px;
-  margin-top: 0.2rem;
+  height: 42px;
+  margin-top: 0.05rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -399,28 +387,22 @@ a.contactItem:hover strong {
   background: var(--main-color);
   color: #ffffff;
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 800;
   cursor: pointer;
   transition:
     transform 0.25s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
+    box-shadow 0.25s ease;
 }
 
 .submitButton svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.25s ease;
+  width: 15px;
+  height: 15px;
 }
 
 .submitButton:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(var(--main-color-rgb), 0.25);
-}
-
-.submitButton:hover:not(:disabled) svg {
-  transform: translateX(3px);
 }
 
 .submitButton:disabled {
@@ -453,15 +435,15 @@ a.contactItem:hover strong {
   gap: 8px;
   overflow: hidden;
   color: var(--text-color);
-  font-size: 0.72rem;
-  line-height: 1.45;
+  font-size: 0.7rem;
+  line-height: 1.4;
 }
 
 .statusSuccess,
 .statusError {
-  min-height: 40px;
-  margin-top: 1rem;
-  padding: 0.75rem 0.85rem;
+  min-height: 36px;
+  margin-top: 0.8rem;
+  padding: 0.65rem 0.75rem;
   border-radius: 8px;
 }
 
@@ -506,21 +488,16 @@ a.contactItem:hover strong {
 
 @media (max-width: 900px) {
   .contact {
-    padding: 95px 6% 85px;
-  }
-
-  .header {
-    grid-template-columns: 1fr;
-    gap: 1.3rem;
-  }
-
-  .headerText {
-    max-width: 620px;
+    padding: 85px 6% 75px;
   }
 
   .contactGrid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+
+  .formCard {
+    margin-top: 0;
   }
 
   .infoColumn {
@@ -530,7 +507,7 @@ a.contactItem:hover strong {
 
 @media (max-width: 600px) {
   .contact {
-    padding: 80px 5% 75px;
+    padding: 75px 5% 65px;
   }
 
   .title {
@@ -543,7 +520,7 @@ a.contactItem:hover strong {
   }
 
   .formCard {
-    padding: 1.4rem;
+    padding: 1.3rem;
     border-radius: 16px;
   }
 

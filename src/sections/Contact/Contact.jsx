@@ -97,12 +97,6 @@ const Contact = () => {
               Hablemos<span>.</span>
             </h2>
           </div>
-
-          <p className={styles.headerText}>
-            Si querés conversar sobre una oportunidad, un proyecto o una
-            posible colaboración, podés escribirme directamente desde el
-            formulario.
-          </p>
         </div>
 
         <div className={styles.contactGrid}>
