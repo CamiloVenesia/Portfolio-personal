@@ -950,4 +950,10 @@
   .transition {
     padding-top: 3.8rem;
   }
+
+  @media (max-width: 520px) {
+  .browserMockup {
+    margin-top: 2.2rem;
+  }
+}
 }
