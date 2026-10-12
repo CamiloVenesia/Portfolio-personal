@@ -58,6 +58,11 @@
 
 .content {
   position: relative;
+  animation:
+    heroContentIn
+    0.7s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
 }
 
 .eyebrow {
@@ -240,6 +245,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation:
+    heroVisualIn
+    0.8s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
 }
 
 .visualGlow {
@@ -431,6 +441,33 @@
   text-align: right;
 }
 
+/* ENTRADA DEL HERO */
+
+/*
+ * A diferencia de AOS, estas animaciones NO utilizan opacity: 0.
+ * El contenido del Hero es visible desde el primer paint.
+ */
+
+@keyframes heroContentIn {
+  from {
+    transform: translate3d(-18px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroVisualIn {
+  from {
+    transform: translate3d(18px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 /* LIGHT */
 
 :global(body.light) .photoCard {
@@ -551,10 +588,6 @@
     margin: 0 auto;
   }
 
-  /*
-   * En mobile la foto y CAPACIDADES pasan a formar
-   * una única composición vertical.
-   */
   .visual {
     min-height: 0;
     flex-direction: column;
@@ -631,5 +664,14 @@
     grid-template-columns: 62px minmax(0, 1fr);
     gap: 0.55rem;
     font-size: 0.55rem;
+  }
+}
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .visual {
+    animation: none;
   }
 }

@@ -11,7 +11,7 @@ const Hero = () => {
       <div className={styles.glow + ' ' + styles.glowRight}></div>
 
       <div className={styles.container}>
-        <div className={styles.content} data-aos="fade-right">
+        <div className={styles.content}>
           <div className={styles.eyebrow}>
             <span className={styles.statusDot}></span>
             FULL-STACK DEVELOPER
@@ -47,7 +47,15 @@ const Hero = () => {
               onClick={(e) => scrollToSection(e, 'projects')}
             >
               Ver proyectos
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -65,31 +73,40 @@ const Hero = () => {
           <div className={styles.specialties}>
             <div>
               <span>01</span>
+
               <div>
                 <strong>Frontend & UX</strong>
-                <p>Interfaces modernas, responsive y orientadas al producto.</p>
+                <p>
+                  Interfaces modernas, responsive y orientadas al producto.
+                </p>
               </div>
             </div>
 
             <div>
               <span>02</span>
+
               <div>
                 <strong>Full-Stack</strong>
-                <p>Frontend, APIs, autenticación, datos y lógica de negocio.</p>
+                <p>
+                  Frontend, APIs, autenticación, datos y lógica de negocio.
+                </p>
               </div>
             </div>
 
             <div>
               <span>03</span>
+
               <div>
                 <strong>Producción</strong>
-                <p>Aplicaciones desplegadas y preparadas para usuarios reales.</p>
+                <p>
+                  Aplicaciones desplegadas y preparadas para usuarios reales.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.visual} data-aos="fade-left">
+        <div className={styles.visual}>
           <div className={styles.visualGlow}></div>
 
           <Tilt
@@ -120,6 +137,9 @@ const Hero = () => {
                   src="/assets/yoformal.jpg"
                   alt="Camilo Venesia"
                   className={styles.heroImage}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                 />
 
                 <div className={styles.imageOverlay}></div>
