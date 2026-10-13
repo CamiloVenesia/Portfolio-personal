@@ -20,7 +20,7 @@ body.light {
 }
 
 /* =========================
-   RESET
+   BASE
 ========================= */
 
 *,
@@ -60,6 +60,10 @@ body {
   overflow-x: hidden;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 main {
   display: block;
   width: 100%;
@@ -76,7 +80,9 @@ a {
 ========================= */
 
 ::selection {
-  background-color: var(--main-color);
+  background-color:
+    var(--main-color);
+
   color: #03131f;
 }
 
@@ -88,24 +94,27 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--main-color);
+  outline:
+    2px solid
+    var(--main-color);
+
   outline-offset: 3px;
 }
 
 /*
- * El celeste #00abf0 con texto blanco no tiene
- * suficiente contraste para texto pequeño.
+ * El celeste principal tiene poco
+ * contraste con texto blanco pequeño.
  *
- * Conservamos exactamente el mismo botón,
- * pero usamos texto oscuro.
+ * Conservamos visualmente el CTA,
+ * usando texto oscuro.
  */
 #home a[href="#projects"] {
   color: #03131f !important;
 }
 
 /*
- * Mejoramos contraste de información secundaria
- * del footer sin cambiar su estructura.
+ * Mayor legibilidad para información
+ * secundaria del footer.
  */
 footer p {
   opacity: 0.8 !important;
@@ -116,9 +125,11 @@ footer p {
 ========================= */
 
 /*
- * El punto sigue viéndose pequeño.
- * Solo hacemos más grande su área interactiva
- * para cumplir con touch targets.
+ * El punto continúa viéndose pequeño,
+ * pero el área real clickeable es mayor.
+ *
+ * Así conservamos el diseño y mejoramos
+ * accesibilidad/touch targets.
  */
 
 #certifications
@@ -140,7 +151,8 @@ button[aria-label^="Ir a "]:empty {
   border: 0 !important;
   border-radius: 999px !important;
 
-  background: transparent !important;
+  background:
+    transparent !important;
 }
 
 #certifications
@@ -155,7 +167,12 @@ button[aria-label^="Ir a "]:empty::before {
   border-radius: 999px;
 
   background:
-    rgba(148, 163, 184, 0.28);
+    rgba(
+      148,
+      163,
+      184,
+      0.28
+    );
 
   transition:
     width 0.25s ease,
@@ -166,12 +183,34 @@ button[aria-label^="Ir a "]:empty::before {
 #certifications
 button[aria-label^="Ir a "][class*="dotActive"]:empty::before {
   width: 20px;
-  background: var(--main-color);
+
+  background:
+    var(--main-color);
 }
 
 #certifications
 button[aria-label^="Ir a "]:empty:hover::before {
-  transform: scale(1.15);
+  transform:
+    scale(1.15);
+}
+
+/* =========================
+   AOS
+========================= */
+
+/*
+ * IMPORTANTE:
+ *
+ * No anulamos opacity, transform ni
+ * transition de AOS en mobile.
+ *
+ * AOS puede volver a controlar sus
+ * animaciones normalmente en todas
+ * las resoluciones.
+ */
+
+[data-aos] {
+  backface-visibility: hidden;
 }
 
 /* =========================
@@ -183,127 +222,67 @@ button[aria-label^="Ir a "]:empty:hover::before {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-color);
+  background:
+    var(--bg-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--second-bg-color);
+  background:
+    var(--second-bg-color);
 
-  border: 2px solid var(--bg-color);
+  border:
+    2px solid
+    var(--bg-color);
+
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--main-color);
+  background:
+    var(--main-color);
 }
 
-/* =========================================
-   MOBILE PERFORMANCE MODE
-========================================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 768px) {
   /*
-   * En teléfono usamos el scroll nativo.
-   * Safari/Chrome mobile ya hacen un excelente
-   * trabajo sin necesidad de Lenis.
+   * No desactivamos animaciones,
+   * transforms, blur, backdrop-filter
+   * ni AOS.
+   *
+   * El comportamiento visual vuelve
+   * a ser el original.
    */
+
   html {
     scroll-behavior: smooth;
   }
-
-  /*
-   * AOS no se inicializa en mobile.
-   * Por lo tanto anulamos sus estados ocultos
-   * para que absolutamente todo sea visible.
-   */
-  [data-aos],
-  [data-aos][data-aos],
-  [data-aos].aos-init,
-  [data-aos].aos-animate {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  /*
-   * Esta es una optimización muy importante.
-   *
-   * Chrome no necesita calcular/layout/paint de
-   * todas las secciones que están miles de px
-   * por debajo del Hero durante el primer frame.
-   */
-  main > section:not(#home) {
-    content-visibility: auto;
-    contain-intrinsic-size: 900px;
-  }
-
-  /*
-   * Los glows y blobs son puramente decorativos.
-   *
-   * Algunos tienen tamaños de 500-650px y blur
-   * de hasta 180px. Eso obliga al navegador a
-   * rasterizar superficies enormes.
-   *
-   * En mobile los quitamos. El diseño principal
-   * no cambia: cards, fondos, bordes y colores
-   * siguen exactamente iguales.
-   */
-  [class*="glow"],
-  [class*="Glow"],
-  [class*="blob"],
-  [class*="Blob"] {
-    display: none !important;
-  }
-
-  /*
-   * backdrop-filter es uno de los efectos más
-   * costosos para composición en dispositivos
-   * móviles.
-   *
-   * Las superficies ya tienen un background
-   * sólido/translúcido, por lo que visualmente
-   * el cambio es mínimo.
-   */
-  *,
-  *::before,
-  *::after {
-    -webkit-backdrop-filter:
-      none !important;
-
-    backdrop-filter:
-      none !important;
-  }
-
-  /*
-   * Evitamos promover demasiados elementos
-   * a capas separadas en pantallas pequeñas.
-   */
-  * {
-    will-change: auto !important;
-  }
 }
 
-/* =========================================
+/* =========================
    REDUCED MOTION
-========================================= */
+========================= */
 
-@media (prefers-reduced-motion: reduce) {
+/*
+ * Evitamos la regla global anterior
+ * que llevaba TODAS las animaciones
+ * de la web a 0.01ms.
+ *
+ * Únicamente quitamos el scroll
+ * animado si el sistema operativo
+ * pide menos movimiento.
+ *
+ * No interferimos con carruseles,
+ * microinteracciones o animaciones
+ * funcionales.
+ */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
   html {
-    scroll-behavior: auto !important;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration:
-      0.01ms !important;
-
-    animation-iteration-count:
-      1 !important;
-
-    transition-duration:
-      0.01ms !important;
-
     scroll-behavior:
       auto !important;
   }

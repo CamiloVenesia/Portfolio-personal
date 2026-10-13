@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import AOS from "aos";
+import Lenis from "lenis";
 import "aos/dist/aos.css";
 import "./styles/global.css";
 
@@ -15,111 +17,118 @@ import Footer from "./components/Footer/Footer";
 
 function App() {
   useEffect(() => {
-    const isMobile = window.matchMedia(
-      "(max-width: 768px)"
-    ).matches;
+    /*
+     * AOS vuelve a funcionar en TODAS
+     * las resoluciones.
+     *
+     * Las secciones que tengan data-aos
+     * vuelven a animarse al entrar al viewport.
+     */
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out-cubic"
+    });
 
     /*
-     * En mobile usamos scroll nativo y dejamos
-     * desactivadas las animaciones AOS.
-     *
-     * Esto evita trabajo innecesario antes del
-     * primer paint y mejora la experiencia en
-     * dispositivos con menos potencia.
+     * Lenis vuelve a controlar el scroll
+     * suave como en la versión original.
      */
-    if (isMobile) {
-      document.documentElement.classList.add(
-        "mobile-performance"
-      );
+    const lenis = new Lenis({
+      duration: 1.05,
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1
+    });
 
-      return () => {
-        document.documentElement.classList.remove(
-          "mobile-performance"
-        );
-      };
-    }
+    let animationFrame;
 
-    let active = true;
-    let lenis = null;
-    let animationFrame = null;
-    let idleHandle = null;
-
-    const startDesktopEnhancements = async () => {
-      const [
-        aosModule,
-        lenisModule
-      ] = await Promise.all([
-        import("aos"),
-        import("lenis")
-      ]);
-
-      if (!active) return;
-
-      const AOS = aosModule.default;
-      const Lenis = lenisModule.default;
-
-      AOS.init({
-        duration: 800,
-        once: true
-      });
-
-      lenis = new Lenis({
-        duration: 1.05,
-        smoothWheel: true,
-        wheelMultiplier: 0.9,
-        touchMultiplier: 1
-      });
-
-      const raf = (time) => {
-        if (!active || !lenis) return;
-
-        lenis.raf(time);
-        animationFrame =
-          requestAnimationFrame(raf);
-      };
+    const raf = (time) => {
+      lenis.raf(time);
 
       animationFrame =
         requestAnimationFrame(raf);
     };
 
+    animationFrame =
+      requestAnimationFrame(raf);
+
     /*
-     * AOS y Lenis no forman parte del contenido
-     * esencial. Los iniciamos después de que el
-     * navegador tenga oportunidad de pintar.
+     * Refrescamos AOS después de que React
+     * haya terminado de montar todas las
+     * secciones.
      */
-    if ("requestIdleCallback" in window) {
-      idleHandle = window.requestIdleCallback(
-        startDesktopEnhancements,
-        {
-          timeout: 1000
-        }
-      );
-    } else {
-      idleHandle = window.setTimeout(
-        startDesktopEnhancements,
-        0
-      );
-    }
+    const refreshTimer =
+      window.setTimeout(() => {
+        AOS.refresh();
+      }, 150);
 
     return () => {
-      active = false;
+      window.clearTimeout(
+        refreshTimer
+      );
 
-      if (
-        "cancelIdleCallback" in window &&
-        typeof idleHandle === "number"
-      ) {
-        window.cancelIdleCallback(idleHandle);
-      } else if (idleHandle) {
-        window.clearTimeout(idleHandle);
-      }
+      cancelAnimationFrame(
+        animationFrame
+      );
 
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
+      lenis.destroy();
+    };
+  }, []);
 
-      if (lenis) {
-        lenis.destroy();
+  useEffect(() => {
+    /*
+     * Los SVG puramente decorativos no
+     * necesitan ser anunciados por lectores
+     * de pantalla.
+     *
+     * Esto conserva la mejora de accesibilidad
+     * que ya habíamos hecho.
+     */
+    const markDecorativeSvgs = () => {
+      document
+        .querySelectorAll("svg")
+        .forEach((svg) => {
+          const hasAccessibleName =
+            svg.hasAttribute(
+              "aria-label"
+            ) ||
+            svg.hasAttribute(
+              "aria-labelledby"
+            ) ||
+            svg.querySelector("title");
+
+          if (!hasAccessibleName) {
+            svg.setAttribute(
+              "aria-hidden",
+              "true"
+            );
+
+            svg.setAttribute(
+              "focusable",
+              "false"
+            );
+          }
+        });
+    };
+
+    markDecorativeSvgs();
+
+    const observer =
+      new MutationObserver(() => {
+        markDecorativeSvgs();
+      });
+
+    observer.observe(
+      document.body,
+      {
+        childList: true,
+        subtree: true
       }
+    );
+
+    return () => {
+      observer.disconnect();
     };
   }, []);
 
