@@ -41,6 +41,13 @@
       href="/assets/favicon.png"
     />
 
+    <link
+      rel="preload"
+      as="image"
+      href="/assets/yoformal.jpg"
+      fetchpriority="high"
+    />
+
     <!-- OPEN GRAPH -->
 
     <meta
@@ -163,10 +170,120 @@
         ]
       }
     </script>
+
+    <!--
+      FALLBACK DE PRIMER PAINT
+
+      Este contenido existe antes de que React descargue
+      y ejecute JavaScript.
+
+      React lo reemplaza automáticamente cuando monta
+      la aplicación.
+    -->
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #081b29;
+      }
+
+      #initial-render {
+        min-height: 100vh;
+        padding: 100px 7%;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        background: #081b29;
+        color: #ededed;
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+
+      #initial-render-content {
+        width: 100%;
+        max-width: 850px;
+      }
+
+      #initial-render-eyebrow {
+        margin: 0 0 18px;
+        color: #00abf0;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+      }
+
+      #initial-render h1 {
+        max-width: 800px;
+        margin: 0;
+        color: #ededed;
+        font-size: clamp(48px, 7vw, 88px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+
+      #initial-render h1 span {
+        color: #00abf0;
+      }
+
+      #initial-render p {
+        max-width: 620px;
+        margin: 22px 0 0;
+        color: #cbd5e1;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        #initial-render {
+          padding:
+            95px 5%
+            70px;
+        }
+
+        #initial-render h1 {
+          font-size:
+            clamp(
+              42px,
+              12vw,
+              60px
+            );
+        }
+
+        #initial-render p {
+          font-size: 15px;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="initial-render">
+        <div id="initial-render-content">
+          <div id="initial-render-eyebrow">
+            FULL-STACK DEVELOPER · ROSARIO, ARGENTINA
+          </div>
+
+          <h1>
+            Construyo experiencias web
+            <span> completas.</span>
+          </h1>
+
+          <p>
+            Frontend sólido. Backend funcional.
+            Producto de punta a punta.
+          </p>
+        </div>
+      </div>
+    </div>
 
     <script
       type="module"
