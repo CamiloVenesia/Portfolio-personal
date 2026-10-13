@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import AOS from "aos";
-import Lenis from "lenis";
 import "aos/dist/aos.css";
 import "./styles/global.css";
 
@@ -17,61 +15,111 @@ import Footer from "./components/Footer/Footer";
 
 function App() {
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      once: true
-    });
+    const isMobile = window.matchMedia(
+      "(max-width: 768px)"
+    ).matches;
 
-    const lenis = new Lenis({
-      duration: 1.05,
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1
-    });
+    /*
+     * En mobile usamos scroll nativo y dejamos
+     * desactivadas las animaciones AOS.
+     *
+     * Esto evita trabajo innecesario antes del
+     * primer paint y mejora la experiencia en
+     * dispositivos con menos potencia.
+     */
+    if (isMobile) {
+      document.documentElement.classList.add(
+        "mobile-performance"
+      );
 
-    let animationFrame;
+      return () => {
+        document.documentElement.classList.remove(
+          "mobile-performance"
+        );
+      };
+    }
 
-    const raf = (time) => {
-      lenis.raf(time);
-      animationFrame = requestAnimationFrame(raf);
-    };
+    let active = true;
+    let lenis = null;
+    let animationFrame = null;
+    let idleHandle = null;
 
-    animationFrame = requestAnimationFrame(raf);
+    const startDesktopEnhancements = async () => {
+      const [
+        aosModule,
+        lenisModule
+      ] = await Promise.all([
+        import("aos"),
+        import("lenis")
+      ]);
 
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      lenis.destroy();
-    };
-  }, []);
+      if (!active) return;
 
-  useEffect(() => {
-    const markDecorativeSvgs = () => {
-      document.querySelectorAll("svg").forEach((svg) => {
-        const hasAccessibleName =
-          svg.hasAttribute("aria-label") ||
-          svg.hasAttribute("aria-labelledby") ||
-          svg.querySelector("title");
+      const AOS = aosModule.default;
+      const Lenis = lenisModule.default;
 
-        if (!hasAccessibleName) {
-          svg.setAttribute("aria-hidden", "true");
-          svg.setAttribute("focusable", "false");
-        }
+      AOS.init({
+        duration: 800,
+        once: true
       });
+
+      lenis = new Lenis({
+        duration: 1.05,
+        smoothWheel: true,
+        wheelMultiplier: 0.9,
+        touchMultiplier: 1
+      });
+
+      const raf = (time) => {
+        if (!active || !lenis) return;
+
+        lenis.raf(time);
+        animationFrame =
+          requestAnimationFrame(raf);
+      };
+
+      animationFrame =
+        requestAnimationFrame(raf);
     };
 
-    markDecorativeSvgs();
-
-    const observer = new MutationObserver(() => {
-      markDecorativeSvgs();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
+    /*
+     * AOS y Lenis no forman parte del contenido
+     * esencial. Los iniciamos después de que el
+     * navegador tenga oportunidad de pintar.
+     */
+    if ("requestIdleCallback" in window) {
+      idleHandle = window.requestIdleCallback(
+        startDesktopEnhancements,
+        {
+          timeout: 1000
+        }
+      );
+    } else {
+      idleHandle = window.setTimeout(
+        startDesktopEnhancements,
+        0
+      );
+    }
 
     return () => {
-      observer.disconnect();
+      active = false;
+
+      if (
+        "cancelIdleCallback" in window &&
+        typeof idleHandle === "number"
+      ) {
+        window.cancelIdleCallback(idleHandle);
+      } else if (idleHandle) {
+        window.clearTimeout(idleHandle);
+      }
+
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+
+      if (lenis) {
+        lenis.destroy();
+      }
     };
   }, []);
 

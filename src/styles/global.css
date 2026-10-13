@@ -1,6 +1,6 @@
 /* =========================
-   Variables y tema
-   ========================= */
+   VARIABLES
+========================= */
 
 :root {
   --bg-color: #081b29;
@@ -20,8 +20,8 @@ body.light {
 }
 
 /* =========================
-   Base
-   ========================= */
+   RESET
+========================= */
 
 *,
 *::before,
@@ -30,12 +30,13 @@ body.light {
 }
 
 html {
-  scroll-behavior: smooth !important;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+
   font-family:
     "Inter",
     -apple-system,
@@ -45,13 +46,17 @@ body {
     Helvetica,
     Arial,
     sans-serif;
+
   background-color: var(--bg-color);
   color: var(--text-color);
+
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
   overflow-x: hidden;
 }
 
@@ -67,8 +72,8 @@ a {
 }
 
 /* =========================
-   Selección
-   ========================= */
+   SELECCIÓN
+========================= */
 
 ::selection {
   background-color: var(--main-color);
@@ -76,8 +81,8 @@ a {
 }
 
 /* =========================
-   Accesibilidad
-   ========================= */
+   ACCESIBILIDAD
+========================= */
 
 a:focus-visible,
 button:focus-visible,
@@ -88,49 +93,70 @@ textarea:focus-visible {
 }
 
 /*
- * El celeste principal es muy luminoso para
- * texto blanco pequeño. Usamos texto oscuro
- * solamente en el CTA principal del Hero.
+ * El celeste #00abf0 con texto blanco no tiene
+ * suficiente contraste para texto pequeño.
+ *
+ * Conservamos exactamente el mismo botón,
+ * pero usamos texto oscuro.
  */
 #home a[href="#projects"] {
   color: #03131f !important;
 }
 
 /*
- * Mejoramos la legibilidad de los textos
- * secundarios del footer.
+ * Mejoramos contraste de información secundaria
+ * del footer sin cambiar su estructura.
  */
 footer p {
-  opacity: 0.76 !important;
+  opacity: 0.8 !important;
 }
 
+/* =========================
+   DOTS CERTIFICACIONES
+========================= */
+
 /*
- * Los indicadores del carrusel continúan
- * viéndose pequeños, pero cada botón tiene
- * un área táctil real de 28 × 28 px.
+ * El punto sigue viéndose pequeño.
+ * Solo hacemos más grande su área interactiva
+ * para cumplir con touch targets.
  */
-#certifications button[aria-label^="Ir a "]:empty {
+
+#certifications
+button[aria-label^="Ir a "]:empty {
   position: relative;
+
   width: 28px !important;
   min-width: 28px !important;
+
   height: 28px !important;
   min-height: 28px !important;
+
   padding: 0 !important;
-  border: 0 !important;
-  border-radius: 999px !important;
-  background: transparent !important;
+
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+
+  border: 0 !important;
+  border-radius: 999px !important;
+
+  background: transparent !important;
 }
 
-#certifications button[aria-label^="Ir a "]:empty::before {
+#certifications
+button[aria-label^="Ir a "]:empty::before {
   content: "";
+
   width: 6px;
   height: 6px;
+
   flex-shrink: 0;
+
   border-radius: 999px;
-  background: rgba(148, 163, 184, 0.28);
+
+  background:
+    rgba(148, 163, 184, 0.28);
+
   transition:
     width 0.25s ease,
     background 0.25s ease,
@@ -138,18 +164,19 @@ footer p {
 }
 
 #certifications
-  button[aria-label^="Ir a "][class*="dotActive"]:empty::before {
+button[aria-label^="Ir a "][class*="dotActive"]:empty::before {
   width: 20px;
   background: var(--main-color);
 }
 
-#certifications button[aria-label^="Ir a "]:empty:hover::before {
+#certifications
+button[aria-label^="Ir a "]:empty:hover::before {
   transform: scale(1.15);
 }
 
 /* =========================
-   Scrollbar
-   ========================= */
+   SCROLLBAR
+========================= */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -161,6 +188,7 @@ footer p {
 
 ::-webkit-scrollbar-thumb {
   background: var(--second-bg-color);
+
   border: 2px solid var(--bg-color);
   border-radius: 10px;
 }
@@ -169,9 +197,95 @@ footer p {
   background: var(--main-color);
 }
 
-/* =========================
-   Movimiento reducido
-   ========================= */
+/* =========================================
+   MOBILE PERFORMANCE MODE
+========================================= */
+
+@media (max-width: 768px) {
+  /*
+   * En teléfono usamos el scroll nativo.
+   * Safari/Chrome mobile ya hacen un excelente
+   * trabajo sin necesidad de Lenis.
+   */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /*
+   * AOS no se inicializa en mobile.
+   * Por lo tanto anulamos sus estados ocultos
+   * para que absolutamente todo sea visible.
+   */
+  [data-aos],
+  [data-aos][data-aos],
+  [data-aos].aos-init,
+  [data-aos].aos-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /*
+   * Esta es una optimización muy importante.
+   *
+   * Chrome no necesita calcular/layout/paint de
+   * todas las secciones que están miles de px
+   * por debajo del Hero durante el primer frame.
+   */
+  main > section:not(#home) {
+    content-visibility: auto;
+    contain-intrinsic-size: 900px;
+  }
+
+  /*
+   * Los glows y blobs son puramente decorativos.
+   *
+   * Algunos tienen tamaños de 500-650px y blur
+   * de hasta 180px. Eso obliga al navegador a
+   * rasterizar superficies enormes.
+   *
+   * En mobile los quitamos. El diseño principal
+   * no cambia: cards, fondos, bordes y colores
+   * siguen exactamente iguales.
+   */
+  [class*="glow"],
+  [class*="Glow"],
+  [class*="blob"],
+  [class*="Blob"] {
+    display: none !important;
+  }
+
+  /*
+   * backdrop-filter es uno de los efectos más
+   * costosos para composición en dispositivos
+   * móviles.
+   *
+   * Las superficies ya tienen un background
+   * sólido/translúcido, por lo que visualmente
+   * el cambio es mínimo.
+   */
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter:
+      none !important;
+
+    backdrop-filter:
+      none !important;
+  }
+
+  /*
+   * Evitamos promover demasiados elementos
+   * a capas separadas en pantallas pequeñas.
+   */
+  * {
+    will-change: auto !important;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -181,8 +295,16 @@ footer p {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation-duration:
+      0.01ms !important;
+
+    animation-iteration-count:
+      1 !important;
+
+    transition-duration:
+      0.01ms !important;
+
+    scroll-behavior:
+      auto !important;
   }
 }
