@@ -59,7 +59,7 @@ const Projects = () => {
         "Seguimiento GPS y comprobantes",
         "Planificación de rutas y métricas"
       ],
-      tech: ["React", "Node.js", "MongoDB", "Leaflet"],
+      tech: ["React", "Node.js", "MongoDB", "JavaScript"],
       image: "/assets/deliveryops.jpg",
       github: "https://github.com/CamiloVenesia/deliveryops-api",
       githubWeb: "https://github.com/CamiloVenesia/deliveryops-web",
