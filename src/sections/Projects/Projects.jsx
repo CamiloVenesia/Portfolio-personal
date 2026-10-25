@@ -84,15 +84,15 @@ const Projects = () => {
     {
       id: 5,
       number: "05",
-      title: "Proyecto Full-Stack",
-      category: "APLICACIÓN WEB",
+      title: "RITMO PÁDEL",
+      category: "PLATAFORMA FULL-STACK · DEMO ONLINE",
       description:
-        "Proyecto en preparación para ampliar el portfolio con una nueva aplicación enfocada en experiencia de usuario, lógica de negocio y desarrollo de producto.",
-      tech: ["Frontend", "Backend", "Database"],
-      image: null,
-      github: null,
-      demo: null,
-      placeholder: true
+        "Plataforma de reservas de pádel con cuatro canchas interactivas, escena 3D, disponibilidad por fecha y turnos de 90 minutos. Incluye cuentas de usuario, historial de reservas, cancelaciones y un panel de administración, con API Express y PostgreSQL.",
+      tech: ["React", "TypeScript", "Three.js", "PostgreSQL"],
+      image: "/assets/ritmo-padel.png",
+      github: "https://github.com/CamiloVenesia/ritmo-padel",
+      demo: "https://ritmo-padel-app.onrender.com",
+      placeholder: false
     },
     {
       id: 6,
@@ -216,7 +216,11 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className={styles.secondaryBtn}
                     >
-                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
                         <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.29-5.27-5.73 0-1.27.45-2.3 1.19-3.11-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.19A11 11 0 0 1 12 6.04c.98 0 1.96.13 2.88.39 2.2-1.5 3.17-1.19 3.17-1.19.63 1.6.23 2.78.11 3.07.74.81 1.19 1.84 1.19 3.11 0 4.45-2.71 5.43-5.29 5.72.42.36.79 1.07.79 2.16v3.25c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z" />
                       </svg>
                       {project.githubWeb ? 'GitHub API' : 'Código'}
@@ -229,7 +233,11 @@ const Projects = () => {
                         rel="noopener noreferrer"
                         className={styles.secondaryBtn}
                       >
-                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
                           <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.57-.29-5.27-1.29-5.27-5.73 0-1.27.45-2.3 1.19-3.11-.12-.29-.52-1.47.11-3.07 0 0 .97-.31 3.17 1.19A11 11 0 0 1 12 6.04c.98 0 1.96.13 2.88.39 2.2-1.5 3.17-1.19 3.17-1.19.63 1.6.23 2.78.11 3.07.74.81 1.19 1.84 1.19 3.11 0 4.45-2.71 5.43-5.29 5.72.42.36.79 1.07.79 2.16v3.25c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z" />
                         </svg>
                         GitHub Web
@@ -347,6 +355,21 @@ const Projects = () => {
                   <h3>{project.title}</h3>
 
                   <p>{project.description}</p>
+
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.secondaryBtn}
+                      style={{
+                        alignSelf: 'flex-start',
+                        marginTop: '1.25rem'
+                      }}
+                    >
+                      Ver demo en vivo ↗
+                    </a>
+                  )}
 
                   <div className={styles.secondaryTech}>
                     {project.tech.map((item) => (
