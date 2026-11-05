@@ -1,3 +1,4 @@
+
 .value {
   position: relative;
   padding: 105px 7% 90px;
@@ -560,22 +561,22 @@
 }
 
 .process > div:not(.processLine) {
-  min-width: 80px;
+  min-width: 92px;
   text-align: center;
 }
 
 .process span {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--main-color);
   font-family: "Courier New", monospace;
-  font-size: 0.78rem;
+  font-size: 1.15rem;
   font-weight: 700;
 }
 
 .process strong {
   color: var(--text-color);
-  font-size: 0.82rem;
+  font-size: 1.2rem;
   font-weight: 700;
 }
 

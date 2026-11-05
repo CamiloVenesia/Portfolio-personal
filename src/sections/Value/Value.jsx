@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from './Value.module.css';
 import { scrollToSection } from '../../utils/scrollToSection';
