@@ -117,8 +117,8 @@ const Hero = () => {
             glareMaxOpacity={0.1}
             glareColor="#00abf0"
             glarePosition="all"
-            scale={1.01}
-            transitionSpeed={1200}
+            scale={1}
+            transitionSpeed={450}
             className={styles.tiltCard}
           >
             <div className={styles.photoCard}>
