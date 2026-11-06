@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import AOS from "aos";
 import Lenis from "lenis";
@@ -14,26 +15,16 @@ import About from "./sections/About/About";
 import Certifications from "./sections/Certifications/Certifications";
 import Contact from "./sections/Contact/Contact";
 import Footer from "./components/Footer/Footer";
+import TopographicBackground from "./components/TopographicBackground/TopographicBackground";
 
 function App() {
   useEffect(() => {
-    /*
-     * AOS vuelve a funcionar en TODAS
-     * las resoluciones.
-     *
-     * Las secciones que tengan data-aos
-     * vuelven a animarse al entrar al viewport.
-     */
     AOS.init({
       duration: 800,
       once: true,
       easing: "ease-out-cubic"
     });
 
-    /*
-     * Lenis vuelve a controlar el scroll
-     * suave como en la versión original.
-     */
     const lenis = new Lenis({
       duration: 1.05,
       smoothWheel: true,
@@ -45,87 +36,47 @@ function App() {
 
     const raf = (time) => {
       lenis.raf(time);
-
-      animationFrame =
-        requestAnimationFrame(raf);
+      animationFrame = requestAnimationFrame(raf);
     };
 
-    animationFrame =
-      requestAnimationFrame(raf);
+    animationFrame = requestAnimationFrame(raf);
 
-    /*
-     * Refrescamos AOS después de que React
-     * haya terminado de montar todas las
-     * secciones.
-     */
-    const refreshTimer =
-      window.setTimeout(() => {
-        AOS.refresh();
-      }, 150);
+    const refreshTimer = window.setTimeout(() => {
+      AOS.refresh();
+    }, 150);
 
     return () => {
-      window.clearTimeout(
-        refreshTimer
-      );
-
-      cancelAnimationFrame(
-        animationFrame
-      );
-
+      window.clearTimeout(refreshTimer);
+      cancelAnimationFrame(animationFrame);
       lenis.destroy();
     };
   }, []);
 
   useEffect(() => {
-    /*
-     * Los SVG puramente decorativos no
-     * necesitan ser anunciados por lectores
-     * de pantalla.
-     *
-     * Esto conserva la mejora de accesibilidad
-     * que ya habíamos hecho.
-     */
     const markDecorativeSvgs = () => {
-      document
-        .querySelectorAll("svg")
-        .forEach((svg) => {
-          const hasAccessibleName =
-            svg.hasAttribute(
-              "aria-label"
-            ) ||
-            svg.hasAttribute(
-              "aria-labelledby"
-            ) ||
-            svg.querySelector("title");
+      document.querySelectorAll("svg").forEach((svg) => {
+        const hasAccessibleName =
+          svg.hasAttribute("aria-label") ||
+          svg.hasAttribute("aria-labelledby") ||
+          svg.querySelector("title");
 
-          if (!hasAccessibleName) {
-            svg.setAttribute(
-              "aria-hidden",
-              "true"
-            );
-
-            svg.setAttribute(
-              "focusable",
-              "false"
-            );
-          }
-        });
+        if (!hasAccessibleName) {
+          svg.setAttribute("aria-hidden", "true");
+          svg.setAttribute("focusable", "false");
+        }
+      });
     };
 
     markDecorativeSvgs();
 
-    const observer =
-      new MutationObserver(() => {
-        markDecorativeSvgs();
-      });
+    const observer = new MutationObserver(() => {
+      markDecorativeSvgs();
+    });
 
-    observer.observe(
-      document.body,
-      {
-        childList: true,
-        subtree: true
-      }
-    );
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
 
     return () => {
       observer.disconnect();
@@ -134,6 +85,8 @@ function App() {
 
   return (
     <>
+      <TopographicBackground />
+
       <Header />
 
       <main id="main-content">

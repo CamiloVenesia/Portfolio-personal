@@ -1,0 +1,229 @@
+
+/* =========================================
+   CAPA GLOBAL
+========================================= */
+
+:global(#root) {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+
+  background: transparent;
+}
+
+/* =========================================
+   ILUMINACIÓN AMBIENTAL GLOBAL
+========================================= */
+
+.layer::before {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  inset: -15%;
+
+  background:
+    radial-gradient(
+      ellipse 48vw 54vh at 12% 16%,
+      rgba(0, 171, 240, 0.105),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 50vw 56vh at 88% 78%,
+      rgba(0, 128, 190, 0.09),
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 35vw 34vh at 52% 48%,
+      rgba(17, 86, 122, 0.045),
+      transparent 74%
+    );
+
+  filter: blur(28px);
+
+  opacity: 0.95;
+
+  transform: translate3d(0, 0, 0);
+
+  animation:
+    ambientDrift
+    38s
+    ease-in-out
+    infinite
+    alternate;
+
+  pointer-events: none;
+}
+
+.layer::after {
+  content: "";
+
+  position: absolute;
+  z-index: 2;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 45%,
+      rgba(2, 10, 17, 0.12) 100%
+    );
+
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* =========================================
+   ANIMACIÓN DE LAS LUCES
+========================================= */
+
+@keyframes ambientDrift {
+  0% {
+    transform: translate3d(-1.2%, -0.8%, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0.6%, 0.5%, 0) scale(1.025);
+  }
+
+  100% {
+    transform: translate3d(1.2%, 1%, 0) scale(1.04);
+  }
+}
+
+/* =========================================
+   TOPOGRAPHIC LINES
+========================================= */
+
+.background {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  background: transparent;
+}
+
+.background canvas {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* =========================================
+   MODO CLARO
+========================================= */
+
+:global(body.light) .layer::before {
+  background:
+    radial-gradient(
+      ellipse 48vw 54vh at 12% 16%,
+      rgba(0, 145, 195, 0.12),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 50vw 56vh at 88% 78%,
+      rgba(72, 151, 185, 0.10),
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 35vw 34vh at 52% 48%,
+      rgba(100, 158, 185, 0.055),
+      transparent 74%
+    );
+
+  opacity: 0.95;
+}
+
+:global(body.light) .layer::after {
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 48%,
+      rgba(45, 83, 105, 0.035) 100%
+    );
+
+  opacity: 0.4;
+}
+
+/* =========================================
+   ELIMINAR LUCES INDIVIDUALES
+   DE LAS SECCIONES
+========================================= */
+
+:global(#home > [class*="glow"]),
+:global(#value > [class*="glow"]),
+:global(#projects > [class*="glow"]),
+:global(#skills > [class*="skillsBlob"]),
+:global(#journey > [class*="journeyBlob"]),
+:global(#about > [class*="glow"]),
+:global(#certifications > [class*="certBlob"]),
+:global(#contact > [class*="contactBlob"]),
+:global(footer > [class*="glow"]) {
+  display: none !important;
+}
+
+/* =========================================
+   REDUCIR GRIDS ANTIGUOS
+========================================= */
+
+:global(main > section > [class*="gridBackground"]) {
+  opacity: 0.025 !important;
+}
+
+:global(body.light main > section > [class*="gridBackground"]) {
+  opacity: 0.02 !important;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .layer::before {
+    inset: -10%;
+    filter: blur(20px);
+  }
+
+  .background canvas {
+    opacity: 0.82;
+  }
+
+  .layer::after {
+    opacity: 0.3;
+  }
+
+  :global(body.light) .layer::after {
+    opacity: 0.2;
+  }
+}
+
+/* =========================================
+   ACCESIBILIDAD
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .layer::before {
+    animation: none;
+  }
+}
