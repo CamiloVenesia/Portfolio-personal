@@ -37,19 +37,14 @@ const TopographicBackground = () => {
       <Topolines
         className={styles.background}
         seed="camilo-portfolio-topographic"
-
-        color={isLight ? "#648BA2" : "#078DB8"}
-
+        color={isLight ? "#527D96" : "#078DB8"}
         speed={0.0022}
         scale={1.6}
-        levels={7}
-        lineWidth={0.8}
-
-        opacity={isLight ? 0.15 : 0.065}
-
+        levels={8}
+        lineWidth={0.9}
+        opacity={isLight ? 0.23 : 0.075}
         drift={[0.001, 0.00055]}
         warp={0.08}
-
         maxDpr={1.2}
         interactive={false}
       />

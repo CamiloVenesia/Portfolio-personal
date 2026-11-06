@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import styles from './Hero.module.css';
@@ -68,41 +69,6 @@ const Hero = () => {
             >
               Contactarme
             </a>
-          </div>
-
-          <div className={styles.specialties}>
-            <div>
-              <span>01</span>
-
-              <div>
-                <strong>Frontend & UX</strong>
-                <p>
-                  Interfaces modernas, responsive y orientadas al producto.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <span>02</span>
-
-              <div>
-                <strong>Full-Stack</strong>
-                <p>
-                  Frontend, APIs, autenticación, datos y lógica de negocio.
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <span>03</span>
-
-              <div>
-                <strong>Producción</strong>
-                <p>
-                  Aplicaciones desplegadas y preparadas para usuarios reales.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 

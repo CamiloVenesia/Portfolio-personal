@@ -1,0 +1,122 @@
+
+/* =========================================
+   SISTEMA TIPOGRÁFICO GLOBAL
+   Camilo Monti Venesia
+========================================= */
+
+/*
+   IMPORTANTE:
+   No modificar globalmente h1, h2 ni h3.
+   Cada sección conserva su jerarquía original.
+*/
+
+/* =========================================
+   1. PÁRRAFOS
+========================================= */
+
+#main-content > section:not(#home) p {
+  font-size: clamp(16px, 1.05vw, 18px) !important;
+  line-height: 1.7 !important;
+}
+
+/* =========================================
+   2. TEXTOS SECUNDARIOS
+========================================= */
+
+#main-content > section:not(#home) :where(
+  li,
+  small,
+  time,
+  label,
+  input,
+  textarea,
+  select,
+  button
+) {
+  font-size: 16px !important;
+}
+
+/* =========================================
+   3. ETIQUETAS Y METADATOS
+========================================= */
+
+#main-content > section:not(#home) :where(
+  [class*="eyebrow"],
+  [class*="label"],
+  [class*="category"],
+  [class*="status"],
+  [class*="meta"],
+  [class*="year"],
+  [class*="tag"],
+  [class*="badge"],
+  [class*="count"],
+  [class*="filter"],
+  [class*="index"],
+  [class*="hint"]
+) {
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+}
+
+/* =========================================
+   4. FORMULARIOS
+========================================= */
+
+#main-content input,
+#main-content textarea,
+#main-content select {
+  font-size: 16px !important;
+}
+
+/* =========================================
+   5. FOOTER
+========================================= */
+
+footer p {
+  font-size: 17px !important;
+  line-height: 1.7 !important;
+  color: var(--text-muted, inherit);
+  opacity: 1 !important;
+}
+
+footer a,
+footer button {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+/* =========================================
+   6. MODO CLARO
+========================================= */
+
+body.light #main-content > section:not(#home) p {
+  opacity: 1 !important;
+}
+
+/* =========================================
+   7. MÓVILES
+========================================= */
+
+@media (max-width: 768px) {
+  #main-content > section:not(#home) p {
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+  }
+
+  #main-content > section:not(#home) :where(
+    li,
+    small,
+    time,
+    label,
+    input,
+    textarea,
+    select,
+    button
+  ) {
+    font-size: 16px !important;
+  }
+
+  footer p {
+    font-size: 16px !important;
+  }
+}

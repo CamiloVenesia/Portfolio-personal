@@ -1,31 +1,78 @@
-/* =========================
-   VARIABLES
-========================= */
+
+/* =========================================
+   PORTFOLIO — SISTEMA VISUAL GLOBAL
+   Camilo Monti Venesia
+========================================= */
+
+/* =========================================
+   1. PALETA — MODO OSCURO
+========================================= */
 
 :root {
   --bg-color: #081b29;
-  --bg-color-deep: #06131d;
-  --bg-color-mid: #0b2232;
-  --second-bg-color: #14354d;
-  --text-color: #ededed;
+  --bg-color-deep: #061521;
+  --bg-color-mid: #0d2638;
+  --second-bg-color: #14354a;
+
+  --surface-color: rgba(13, 35, 51, 0.86);
+  --surface-elevated: rgba(18, 45, 64, 0.94);
+  --surface-border: rgba(148, 183, 204, 0.16);
+
+  --text-color: #f1f5f9;
+  --text-muted: #c1ced8;
+  --text-subtle: #a8bac7;
+
   --main-color: #00abf0;
   --main-color-rgb: 0, 171, 240;
-  --blob-opacity: 0.28;
+
+  --blob-opacity: 0.18;
+
+  --shadow-color: 2, 12, 22;
+
+  --font-body: 18px;
+  --font-secondary: 16px;
+  --font-lead: 21px;
+
+  --heading-section: clamp(42px, 4.5vw, 68px);
+  --heading-card: clamp(24px, 2vw, 30px);
+
+  --line-height-body: 1.75;
+  --line-height-heading: 1.08;
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-smooth: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* =========================================
+   2. PALETA — MODO CLARO
+========================================= */
 
 body.light {
-  --bg-color: #f4f7f9;
-  --bg-color-deep: #edf3f8;
-  --bg-color-mid: #f8fbfd;
-  --second-bg-color: #e8eef3;
-  --text-color: #111111;
-  --main-color: #00abf0;
-  --blob-opacity: 0.45;
+  --bg-color: #f2f6f9;
+  --bg-color-deep: #f8fbfd;
+  --bg-color-mid: #e9f1f6;
+  --second-bg-color: #dce7ef;
+
+  --surface-color: rgba(255, 255, 255, 0.9);
+  --surface-elevated: #ffffff;
+  --surface-border: rgba(30, 64, 88, 0.15);
+
+  --text-color: #142a3a;
+  --text-muted: #40596c;
+  --text-subtle: #536d80;
+
+  --main-color: #087fa8;
+  --main-color-rgb: 8, 127, 168;
+
+  --blob-opacity: 0.16;
+
+  --shadow-color: 31, 56, 75;
 }
 
-/* =========================
-   BASE
-========================= */
+/* =========================================
+   3. RESET
+========================================= */
 
 *,
 *::before,
@@ -34,10 +81,14 @@ body.light {
 }
 
 html {
+  font-size: 16px;
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
+  position: relative;
+
   margin: 0;
   min-height: 100vh;
 
@@ -51,40 +102,24 @@ body {
     Arial,
     sans-serif;
 
+  font-size: var(--font-body);
+  line-height: var(--line-height-body);
+
   color: var(--text-color);
 
   background-color: var(--bg-color);
+
   background-image:
-    radial-gradient(
-      circle at 12% 14%,
-      rgba(var(--main-color-rgb), 0.16) 0%,
-      rgba(var(--main-color-rgb), 0.08) 16%,
-      transparent 34%
-    ),
-    radial-gradient(
-      circle at 84% 10%,
-      rgba(56, 189, 248, 0.12) 0%,
-      rgba(56, 189, 248, 0.06) 14%,
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 78% 62%,
-      rgba(var(--main-color-rgb), 0.08) 0%,
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 22% 84%,
-      rgba(14, 165, 233, 0.08) 0%,
-      transparent 30%
-    ),
     linear-gradient(
-      180deg,
+      145deg,
       var(--bg-color-deep) 0%,
-      var(--bg-color) 32%,
+      var(--bg-color) 52%,
       var(--bg-color-mid) 100%
     );
 
+  background-repeat: no-repeat;
   background-attachment: fixed;
+
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -93,86 +128,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   overflow-x: hidden;
-  position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-
-  background:
-    radial-gradient(
-      520px 520px at 18% 22%,
-      rgba(var(--main-color-rgb), 0.11),
-      transparent 70%
-    ),
-    radial-gradient(
-      620px 620px at 82% 18%,
-      rgba(34, 211, 238, 0.08),
-      transparent 72%
-    ),
-    radial-gradient(
-      560px 560px at 50% 78%,
-      rgba(var(--main-color-rgb), 0.07),
-      transparent 75%
-    );
-
-  filter: blur(14px);
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
+body.light {
+  color-scheme: light;
 
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
-
-  background-size: 56px 56px;
-  mask-image: radial-gradient(circle at center, black 38%, transparent 100%);
-  opacity: 0.22;
+    linear-gradient(
+      145deg,
+      #f8fbfd 0%,
+      #f2f6f9 52%,
+      #e9f1f6 100%
+    );
 }
 
+body:not(.light) {
+  color-scheme: dark;
+}
+
+/* =========================================
+   4. ESTRUCTURA
+========================================= */
+
 #root {
+  position: relative;
+  isolation: isolate;
   min-height: 100vh;
 }
 
 main {
+  position: relative;
   display: block;
   width: 100%;
   padding: 0;
-  position: relative;
-  isolation: isolate;
-}
-
-main::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.018) 0%,
-      rgba(255, 255, 255, 0.006) 18%,
-      rgba(255, 255, 255, 0) 42%
-    ),
-    radial-gradient(
-      900px 280px at 50% 0%,
-      rgba(var(--main-color-rgb), 0.08),
-      transparent 70%
-    );
 }
 
 main > section {
+  position: relative;
+}
+
+footer {
   position: relative;
 }
 
@@ -181,60 +176,54 @@ a {
   text-decoration: none;
 }
 
-/* =========================
-   SELECCIÓN
-========================= */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* =========================================
+   5. SELECCIÓN
+========================================= */
 
 ::selection {
   background-color: var(--main-color);
   color: #03131f;
 }
 
-/* =========================
-   ACCESIBILIDAD
-========================= */
+/* =========================================
+   6. ACCESIBILIDAD
+========================================= */
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible {
+textarea:focus-visible,
+select:focus-visible {
   outline: 2px solid var(--main-color);
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
 
-/*
- * El celeste principal tiene poco
- * contraste con texto blanco pequeño.
- *
- * Conservamos visualmente el CTA,
- * usando texto oscuro.
- */
+/* CTA principal */
+
 #home a[href="#projects"] {
   color: #03131f !important;
 }
 
-/*
- * Mayor legibilidad para información
- * secundaria del footer.
- */
-footer p {
-  opacity: 0.8 !important;
-}
-
-/* =========================
-   DOTS CERTIFICACIONES
-========================= */
-
+/* =========================================
+   7. CERTIFICACIONES — NAVEGACIÓN
+========================================= */
 
 #certifications
 button[aria-label^="Ir a "]:empty {
   position: relative;
 
-  width: 28px !important;
-  min-width: 28px !important;
+  width: 32px !important;
+  min-width: 32px !important;
 
-  height: 28px !important;
-  min-height: 28px !important;
+  height: 32px !important;
+  min-height: 32px !important;
 
   padding: 0 !important;
 
@@ -252,19 +241,13 @@ button[aria-label^="Ir a "]:empty {
 button[aria-label^="Ir a "]:empty::before {
   content: "";
 
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 
   flex-shrink: 0;
-
   border-radius: 999px;
 
-  background: rgba(
-    148,
-    163,
-    184,
-    0.28
-  );
+  background: rgba(148, 163, 184, 0.35);
 
   transition:
     width 0.25s ease,
@@ -274,7 +257,7 @@ button[aria-label^="Ir a "]:empty::before {
 
 #certifications
 button[aria-label^="Ir a "][class*="dotActive"]:empty::before {
-  width: 20px;
+  width: 22px;
   background: var(--main-color);
 }
 
@@ -283,19 +266,17 @@ button[aria-label^="Ir a "]:empty:hover::before {
   transform: scale(1.15);
 }
 
-/* =========================
-   AOS
-========================= */
-
-
+/* =========================================
+   8. ANIMACIONES AOS
+========================================= */
 
 [data-aos] {
   backface-visibility: hidden;
 }
 
-/* =========================
-   SCROLLBAR
-========================= */
+/* =========================================
+   9. SCROLLBAR
+========================================= */
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -315,73 +296,27 @@ button[aria-label^="Ir a "]:empty:hover::before {
   background: var(--main-color);
 }
 
-/* =========================
-   LIGHT THEME
-========================= */
+/* =========================================
+   10. MOVIMIENTO REDUCIDO
+========================================= */
 
-body.light {
-  background-image:
-    radial-gradient(
-      circle at 10% 14%,
-      rgba(var(--main-color-rgb), 0.12) 0%,
-      rgba(var(--main-color-rgb), 0.05) 16%,
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 86% 12%,
-      rgba(56, 189, 248, 0.08) 0%,
-      transparent 26%
-    ),
-    radial-gradient(
-      circle at 80% 66%,
-      rgba(var(--main-color-rgb), 0.06) 0%,
-      transparent 24%
-    ),
-    linear-gradient(
-      180deg,
-      var(--bg-color-mid) 0%,
-      var(--bg-color) 45%,
-      var(--bg-color-deep) 100%
-    );
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-body.light::before {
-  background:
-    radial-gradient(
-      460px 460px at 16% 20%,
-      rgba(var(--main-color-rgb), 0.09),
-      transparent 72%
-    ),
-    radial-gradient(
-      540px 540px at 82% 18%,
-      rgba(56, 189, 248, 0.07),
-      transparent 72%
-    );
-}
-
-body.light::after {
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
-  opacity: 0.18;
-}
-
-/* =========================
-   MOBILE
-========================= */
+/* =========================================
+   11. RESPONSIVE
+========================================= */
 
 @media (max-width: 768px) {
   html {
-    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
 
-  body::before {
-    filter: blur(20px);
-    opacity: 0.95;
-  }
-
-  body::after {
-    background-size: 42px 42px;
-    opacity: 0.16;
+  body {
+    font-size: 16px;
+    background-attachment: scroll;
   }
 }
