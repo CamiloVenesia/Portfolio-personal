@@ -1,3 +1,4 @@
+
 .journey {
   position: relative;
   padding: 105px 7% 80px;
@@ -21,13 +22,7 @@
     linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 12%,
-    black 88%,
-    transparent
-  );
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
 }
 
 .journeyBlob {
@@ -43,16 +38,12 @@
   pointer-events: none;
 }
 
-/* =========================================
-   HEADER
-========================================= */
+/* HEADER */
 
 .header {
   margin-bottom: 3.2rem;
   display: grid;
-  grid-template-columns:
-    minmax(0, 1.15fr)
-    minmax(320px, 0.85fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   align-items: end;
   gap: 4rem;
 }
@@ -63,7 +54,7 @@
   gap: 10px;
   margin-bottom: 1rem;
   color: var(--main-color);
-  font-size: 0.76rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.17em;
 }
@@ -73,13 +64,12 @@
   height: 8px;
   border-radius: 50%;
   background: var(--main-color);
-  box-shadow:
-    0 0 10px
-    rgba(var(--main-color-rgb), 0.7);
+  box-shadow: 0 0 10px rgba(var(--main-color-rgb), 0.7);
+  animation: statusGlow 2s ease-in-out infinite;
 }
 
 .title {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0;
   color: var(--text-color);
   font-size: clamp(3rem, 5vw, 4.7rem);
@@ -101,54 +91,77 @@
   max-width: 480px;
   margin: 0 0 1.35rem;
   color: var(--text-color);
-  font-size: 0.98rem;
-  line-height: 1.72;
-  opacity: 0.66;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  opacity: 0.82;
 }
 
-/* =========================================
-   FILTROS
-========================================= */
+/* REVEAL */
+
+.revealItem {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0) scale(0.985);
+  filter: blur(4px);
+
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.isVisible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* FILTERS */
 
 .filterTabs {
   display: inline-flex;
-  gap: 4px;
-  padding: 4px;
+  gap: 5px;
+  padding: 5px;
   border: 1px solid rgba(148, 163, 184, 0.13);
   border-radius: 11px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .tab {
-  padding: 8px 15px;
+  position: relative;
+  padding: 10px 17px;
   border: 0;
   border-radius: 8px;
   background: transparent;
   color: var(--text-color);
   font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.92rem;
+  font-weight: 650;
   cursor: pointer;
-  opacity: 0.55;
+  opacity: 0.72;
+
   transition:
-    color 0.25s ease,
-    background 0.25s ease,
-    opacity 0.25s ease;
+    color 0.3s ease,
+    background 0.3s ease,
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .tab:hover {
-  opacity: 0.9;
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .tabActive {
   color: #ffffff;
   background: var(--main-color);
   opacity: 1;
+  box-shadow: 0 7px 22px rgba(var(--main-color-rgb), 0.28);
 }
 
-/* =========================================
-   TIMELINE DESKTOP
-========================================= */
+/* TIMELINE PANEL */
 
 .timelinePanel {
   --panel-inline: 2rem;
@@ -159,32 +172,29 @@
   position: relative;
   padding: 2rem;
   overflow: hidden;
+  isolation: isolate;
 
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.17);
   border-radius: 25px;
 
   background:
     linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.026),
-      rgba(255, 255, 255, 0.008)
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.018)
     );
 
-  box-shadow:
-    0 24px 70px
-    rgba(0, 0, 0, 0.07);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.07);
+
+  animation: panelEnter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/*
- * La posición ya no es un número arbitrario.
- *
- * Se calcula usando:
- * padding panel
- * + ancho metadata
- * + centro de columna del nodo.
- */
+/* LÍNEA PRINCIPAL */
+
 .timelineLine {
   position: absolute;
+  z-index: 0;
+
   top: 48px;
   bottom: 48px;
 
@@ -195,53 +205,131 @@
   );
 
   width: 2px;
-
   transform: translateX(-50%);
 
-  background:
-    linear-gradient(
-      to bottom,
-      rgba(var(--main-color-rgb), 0.08),
-      rgba(var(--main-color-rgb), 0.55) 8%,
-      rgba(var(--main-color-rgb), 0.55) 92%,
-      rgba(var(--main-color-rgb), 0.08)
-    );
-
-  box-shadow:
-    0 0 10px
-    rgba(var(--main-color-rgb), 0.08);
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--main-color-rgb), 0.06),
+    rgba(var(--main-color-rgb), 0.55),
+    rgba(var(--main-color-rgb), 0.55),
+    rgba(var(--main-color-rgb), 0.06)
+  );
 }
+
+/* HALO LUMINOSO */
+
+.timelineLine::before {
+  content: '';
+  position: absolute;
+  inset: 0 -3px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #00cfff 15%,
+    #5378ff 35%,
+    #b36cff 55%,
+    #ed65dc 70%,
+    #00dfff 90%,
+    transparent
+  );
+
+  filter: blur(6px);
+  opacity: 0.65;
+}
+
+/* DESTELLOS MULTICOLOR QUE RECORREN LA LÍNEA */
+
+.timelineLine::after {
+  content: '';
+  position: absolute;
+  inset: 0 -1px;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 29px,
+    #00e5ff 31px,
+    #00baff 34px,
+    #7775ff 37px,
+    #ce69ff 40px,
+    #f06bdc 42px,
+    transparent 45px,
+    transparent 76px
+  );
+
+  background-size: 100% 152px;
+  background-repeat: repeat-y;
+
+  filter: drop-shadow(0 0 5px #00cfff);
+  opacity: 0.95;
+
+  animation: lineFlow 1.9s linear infinite;
+}
+
+/* ITEMS */
 
 .timelineItem {
   position: relative;
+  z-index: 1;
 
   display: grid;
-
   grid-template-columns:
     var(--meta-column)
     var(--node-column)
     minmax(0, 1fr);
 
-  gap: 0;
-
   align-items: start;
+}
+
+/* CONEXIÓN HORIZONTAL ENTRE NODO Y PROYECTO */
+
+.timelineItem::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+
+  left: calc(var(--meta-column) + var(--node-center));
+  top: 33px;
+
+  width: calc(var(--node-column) - var(--node-center));
+  height: 2px;
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  opacity: 0;
+
+  background: linear-gradient(
+    90deg,
+    #00dfff,
+    #657aff,
+    #bd6cff
+  );
+
+  box-shadow: 0 0 9px rgba(0, 207, 255, 0.6);
+}
+
+.isVisible.timelineItem::before {
+  animation: connectorDraw 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--reveal-delay, 0ms) + 160ms);
 }
 
 .timelineItem + .timelineItem {
   margin-top: 0.8rem;
 }
 
-/* =========================================
-   META
-========================================= */
+/* FECHAS */
 
 .meta {
+  position: relative;
+  z-index: 2;
+
   padding: 1.1rem 1.3rem 0 0;
 
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-
   gap: 0.55rem;
 
   text-align: right;
@@ -249,61 +337,41 @@
 
 .year {
   color: var(--text-color);
-
   white-space: nowrap;
-
-  font-size: 0.84rem;
-  font-weight: 700;
+  font-size: 0.98rem;
+  font-weight: 750;
 }
 
 .typeTag {
   padding: 5px 10px;
-
   border-radius: 999px;
-
-  font-size: 0.64rem;
+  font-size: 0.76rem;
   font-weight: 700;
-
   letter-spacing: 0.04em;
-
   white-space: nowrap;
 }
 
 .typeEdu {
   color: var(--main-color);
-
-  background:
-    rgba(var(--main-color-rgb), 0.09);
-
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.15);
+  background: rgba(var(--main-color-rgb), 0.09);
+  border: 1px solid rgba(var(--main-color-rgb), 0.15);
 }
 
-.typeExp {
-  color: var(--text-color);
-
-  background:
-    rgba(148, 163, 184, 0.075);
-
-  border:
-    1px solid
-    rgba(148, 163, 184, 0.12);
-
-  opacity: 0.78;
+.typeProject {
+  color: var(--main-color);
+  background: rgba(var(--main-color-rgb), 0.12);
+  border: 1px solid rgba(var(--main-color-rgb), 0.24);
 }
 
-/* =========================================
-   NODO
-========================================= */
+/* NODOS */
 
 .node {
   position: relative;
-  z-index: 3;
+  z-index: 10;
+  isolation: isolate;
 
   width: 36px;
   height: 36px;
-
   margin: 0.75rem auto 0;
 
   display: flex;
@@ -311,265 +379,403 @@
   justify-content: center;
 
   border-radius: 50%;
-
   background: var(--bg-color);
-}
-
-.nodeEdu {
-  border:
-    1px solid
-    rgba(148, 163, 184, 0.42);
-
-  color: var(--text-color);
 
   box-shadow:
-    0 0 12px
-    rgba(148, 163, 184, 0.05);
-}
+    0 0 0 6px var(--bg-color),
+    0 0 20px rgba(var(--main-color-rgb), 0.12);
 
-.nodeExp {
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.65);
-
-  color: var(--main-color);
-
-  box-shadow:
-    0 0 20px
-    rgba(var(--main-color-rgb), 0.14);
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
 }
 
 .node svg {
-  width: 16px;
-  height: 16px;
+  position: relative;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+
+  transition: transform 0.4s ease;
 }
 
-.pulse {
+/* DOS ONDAS EXPANSIVAS */
+
+.node::before,
+.node::after {
+  content: '';
   position: absolute;
+  z-index: -1;
+  inset: -5px;
 
-  top: -3px;
-  right: -3px;
-
-  width: 11px;
-  height: 11px;
-
-  border:
-    2px solid
-    var(--bg-color);
-
+  border: 1px solid rgba(0, 213, 255, 0.85);
   border-radius: 50%;
 
-  background: #22c55e;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.node::after {
+  inset: -9px;
+  border-color: rgba(166, 108, 255, 0.75);
+}
+
+.isVisible .node {
+  animation: nodePop 0.72s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isVisible .node::before {
+  animation: nodeRipple 1.35s ease-out 0.1s;
+}
+
+.isVisible .node::after {
+  animation: nodeRipple 1.55s ease-out 0.28s;
+}
+
+.nodeEdu {
+  border: 1px solid rgba(148, 163, 184, 0.42);
+  color: var(--text-color);
+}
+
+.nodeProject {
+  border: 1px solid rgba(var(--main-color-rgb), 0.82);
+  color: var(--main-color);
+}
+
+.timelineItem:hover .node {
+  transform: scale(1.13) rotate(-5deg);
 
   box-shadow:
-    0 0 8px
-    rgba(34, 197, 94, 0.55);
+    0 0 0 7px var(--bg-color),
+    0 0 28px rgba(var(--main-color-rgb), 0.35);
 }
 
-.pulse::before {
-  content: "";
-
-  position: absolute;
-  inset: -4px;
-
-  border: 1px solid #22c55e;
-  border-radius: 50%;
-
-  animation:
-    pulseRing
-    1.8s ease-out infinite;
+.timelineItem:hover .node svg {
+  transform: scale(1.12);
 }
 
-@keyframes pulseRing {
-  0% {
-    transform: scale(0.8);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-}
-
-/* =========================================
-   CARD
-========================================= */
+/* TARJETAS */
 
 .card {
   position: relative;
+  z-index: 2;
 
-  padding: 1.35rem 1.5rem;
-
+  padding: 1.55rem 1.7rem;
   overflow: hidden;
 
-  border:
-    1px solid
-    rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 17px;
 
-  border-radius: 15px;
-
-  background:
-    rgba(255, 255, 255, 0.018);
+  background: rgba(255, 255, 255, 0.018);
 
   transition:
-    transform 0.3s ease,
-    border-color 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* LÍNEA LUMINOSA SUPERIOR */
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+
+  width: 84%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00dfff,
+    #9b70ff,
+    transparent
+  );
+
+  opacity: 0.4;
+  transform: scaleX(0.7);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s ease;
+
+  pointer-events: none;
+}
+
+/* REFLEJO DE LUZ */
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(0, 213, 255, 0.11) 48%,
+    rgba(155, 112, 255, 0.07) 55%,
+    transparent 70%
+  );
+
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.isVisible .card {
+  animation:
+    cardArrive 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    cardSignal 1.6s ease-out 0.3s;
+}
+
+.isVisible .card::before {
+  animation: edgeTrace 1.1s ease-out 0.2s;
+}
+
+.isVisible .card::after {
+  animation: cardSweep 1.25s ease-out 0.35s;
 }
 
 .card:hover {
-  transform: translateY(-2px);
+  transform: perspective(1000px) translateY(-5px) rotateX(1deg);
 
-  border-color:
-    rgba(var(--main-color-rgb), 0.25);
+  border-color: rgba(var(--main-color-rgb), 0.3);
+  background: rgba(var(--main-color-rgb), 0.035);
 
-  background:
-    rgba(var(--main-color-rgb), 0.025);
-
-  box-shadow:
-    0 14px 35px
-    rgba(0, 0, 0, 0.06);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.1);
 }
 
-.currentCard {
-  border-color:
-    rgba(var(--main-color-rgb), 0.16);
+.projectCard {
+  border-color: rgba(var(--main-color-rgb), 0.15);
+}
+
+.cardHeading,
+.description,
+.badges {
+  position: relative;
+  z-index: 1;
 }
 
 .cardHeading {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
   gap: 1.5rem;
 }
 
 .card h3 {
   margin: 0;
-
   color: var(--text-color);
-
-  font-size: 1.12rem;
-  line-height: 1.25;
-
+  font-size: 1.32rem;
+  line-height: 1.32;
   letter-spacing: -0.015em;
 }
 
 .org {
   margin: 0.3rem 0 0;
-
   color: var(--main-color);
-
-  font-size: 0.81rem;
-  font-weight: 600;
-
-  opacity: 0.88;
-}
-
-.currentLabel {
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-
-  gap: 6px;
-
-  color: #22c55e;
-
-  font-size: 0.62rem;
-  font-weight: 800;
-
-  letter-spacing: 0.1em;
-}
-
-.currentLabel span {
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: #22c55e;
-
-  box-shadow:
-    0 0 7px
-    rgba(34, 197, 94, 0.6);
+  font-size: 0.98rem;
+  font-weight: 650;
+  opacity: 0.92;
 }
 
 .description {
   margin: 0.72rem 0 0;
-
   max-width: 780px;
 
   color: var(--text-color);
-
-  font-size: 0.83rem;
-  line-height: 1.6;
-
-  opacity: 0.68;
+  font-size: 1rem;
+  line-height: 1.72;
+  opacity: 0.8;
 }
 
 .badges {
   margin-top: 0.95rem;
-
   display: flex;
   flex-wrap: wrap;
-
-  gap: 0.45rem;
+  gap: 0.55rem;
 }
 
 .badges span {
   padding: 5px 9px;
 
-  border:
-    1px solid
-    rgba(var(--main-color-rgb), 0.12);
-
+  border: 1px solid rgba(var(--main-color-rgb), 0.12);
   border-radius: 6px;
 
-  background:
-    rgba(var(--main-color-rgb), 0.038);
-
+  background: rgba(var(--main-color-rgb), 0.038);
   color: var(--text-color);
 
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 650;
+  opacity: 0.9;
 
-  opacity: 0.7;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 
-/* =========================================
-   LIGHT MODE
-========================================= */
+.badges span:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--main-color-rgb), 0.4);
+  background: rgba(var(--main-color-rgb), 0.09);
+}
+
+/* ANIMACIONES */
+
+@keyframes panelEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes lineFlow {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 0 152px;
+  }
+}
+
+@keyframes connectorDraw {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.85;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes nodePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-18deg);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.18) rotate(5deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes nodeRipple {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.65);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.25);
+  }
+}
+
+@keyframes cardArrive {
+  from {
+    opacity: 0;
+    transform: translateX(25px) translateY(8px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes cardSignal {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 213, 255, 0);
+  }
+
+  35% {
+    box-shadow:
+      0 0 0 1px rgba(0, 213, 255, 0.38),
+      0 0 34px rgba(0, 213, 255, 0.16),
+      0 0 55px rgba(155, 112, 255, 0.08);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(0, 213, 255, 0);
+  }
+}
+
+@keyframes edgeTrace {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scaleX(0.7);
+  }
+}
+
+@keyframes cardSweep {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes statusGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(var(--main-color-rgb), 0.35);
+  }
+
+  50% {
+    box-shadow: 0 0 16px rgba(var(--main-color-rgb), 0.9);
+  }
+}
+
+/* MODO CLARO */
 
 :global(body.light) .timelinePanel {
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.88),
-      rgba(255, 255, 255, 0.55)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.94),
+    rgba(255, 255, 255, 0.76)
+  );
 
-  border-color:
-    rgba(15, 23, 42, 0.08);
-
-  box-shadow:
-    0 24px 70px
-    rgba(15, 23, 42, 0.045);
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.045);
 }
 
 :global(body.light) .card {
-  background:
-    rgba(255, 255, 255, 0.48);
-
-  border-color:
-    rgba(15, 23, 42, 0.07);
+  background: rgba(255, 255, 255, 0.48);
+  border-color: rgba(15, 23, 42, 0.07);
 }
 
-/* =========================================
-   TABLET
-========================================= */
+/* TABLET */
 
 @media (max-width: 900px) {
   .journey {
@@ -594,29 +800,17 @@
     padding: 1.5rem;
   }
 
-  .timelineLine {
-    left: calc(
-      var(--panel-inline) +
-      var(--meta-column) +
-      var(--node-center)
-    );
-  }
-
   .meta {
     padding-right: 1rem;
   }
 }
 
-/* =========================================
-   MOBILE
-========================================= */
+/* MÓVIL */
 
 @media (max-width: 700px) {
   .journey {
     padding: 82px 5% 68px;
   }
-
-  /* HEADER */
 
   .header {
     margin-bottom: 2.4rem;
@@ -625,91 +819,56 @@
 
   .eyebrow {
     margin-bottom: 0.85rem;
-    font-size: 0.68rem;
+    font-size: 0.82rem;
   }
 
   .title {
-    max-width: 360px;
+    max-width: 390px;
     font-size: 2.65rem;
     line-height: 1;
   }
 
   .headerRight > p {
     margin-bottom: 1.2rem;
-    font-size: 0.86rem;
-    line-height: 1.65;
+    font-size: 0.98rem;
+    line-height: 1.7;
   }
-
-  /* FILTROS */
 
   .filterTabs {
     width: 100%;
-
     display: grid;
-
-    grid-template-columns:
-      repeat(3, 1fr);
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding: 4px;
   }
 
   .tab {
     width: 100%;
-
     padding: 9px 5px;
-
-    font-size: 0.68rem;
-
+    font-size: 0.82rem;
     text-align: center;
   }
 
-  /* CONTENEDOR TIMELINE */
-
   .timelinePanel {
-    padding:
-      1.25rem 0.95rem
-      1.4rem;
-
-    overflow: hidden;
-
+    padding: 1.25rem 0.95rem 1.4rem;
     border-radius: 18px;
   }
 
   .timelineLine {
     top: 37px;
     bottom: 37px;
-
     left: 32px;
-
     width: 2px;
-
-    background:
-      linear-gradient(
-        to bottom,
-        transparent,
-        rgba(var(--main-color-rgb), 0.5) 4%,
-        rgba(var(--main-color-rgb), 0.5) 96%,
-        transparent
-      );
-
-    box-shadow:
-      0 0 10px
-      rgba(var(--main-color-rgb), 0.06);
   }
 
   .timelineItem {
     display: grid;
-
-    grid-template-columns:
-      34px minmax(0, 1fr);
-
+    grid-template-columns: 34px minmax(0, 1fr);
     grid-template-areas:
       "node meta"
       ". card";
 
     column-gap: 0.9rem;
     row-gap: 0.65rem;
-
     align-items: center;
   }
 
@@ -717,59 +876,43 @@
     margin-top: 1.6rem;
   }
 
-  /* META */
+  .timelineItem::before {
+    display: none;
+  }
 
   .meta {
     grid-area: meta;
-
     min-width: 0;
-
     padding: 0;
 
     display: flex;
     flex-direction: row;
-
     align-items: center;
     justify-content: flex-start;
-
     flex-wrap: wrap;
-
     gap: 0.5rem;
 
     text-align: left;
   }
 
   .year {
-    color: var(--text-color);
-
-    font-size: 0.76rem;
+    font-size: 0.9rem;
     font-weight: 750;
-
     line-height: 1.2;
   }
 
   .typeTag {
     padding: 4px 8px;
-
-    font-size: 0.56rem;
-
-    white-space: nowrap;
+    font-size: 0.68rem;
   }
-
-  /* NODO */
 
   .node {
     grid-area: node;
-
     width: 32px;
     height: 32px;
-
     margin: 0;
-
     justify-self: center;
     align-self: center;
-
-    background: var(--bg-color);
   }
 
   .node svg {
@@ -777,120 +920,44 @@
     height: 14px;
   }
 
-  .pulse {
-    top: -2px;
-    right: -2px;
-
-    width: 9px;
-    height: 9px;
-  }
-
-  /* CARD */
-
   .card {
     grid-area: card;
-
     width: 100%;
-
     min-width: 0;
-
-    padding:
-      1.05rem
-      1.05rem
-      1.1rem;
-
-    overflow: visible;
-
+    padding: 1.05rem 1.05rem 1.1rem;
     border-radius: 14px;
   }
 
-  .currentCard {
-    border-color:
-      rgba(var(--main-color-rgb), 0.2);
-
-    box-shadow:
-      inset 3px 0 0
-      rgba(var(--main-color-rgb), 0.55);
-  }
-
-  .cardHeading {
-    display: block;
-  }
-
   .card h3 {
-    padding-right: 0;
-
-    font-size: 1.02rem;
-
-    line-height: 1.35;
-
-    letter-spacing: -0.018em;
+    font-size: 1.16rem;
+    line-height: 1.38;
   }
 
   .org {
     margin-top: 0.3rem;
-
-    font-size: 0.73rem;
-
-    line-height: 1.45;
-  }
-
-  .currentLabel {
-    width: fit-content;
-
-    margin-top: 0.65rem;
-
-    padding: 4px 7px;
-
-    border:
-      1px solid
-      rgba(34, 197, 94, 0.17);
-
-    border-radius: 999px;
-
-    background:
-      rgba(34, 197, 94, 0.045);
-
-    font-size: 0.52rem;
-  }
-
-  .currentLabel span {
-    width: 6px;
-    height: 6px;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .description {
     margin-top: 0.72rem;
-
-    font-size: 0.77rem;
-
-    line-height: 1.62;
-
-    opacity: 0.64;
+    font-size: 0.91rem;
+    line-height: 1.68;
   }
-
-  /* BADGES */
 
   .badges {
     margin-top: 0.85rem;
-
     gap: 0.38rem;
   }
 
   .badges span {
     padding: 4px 7px;
-
-    border-radius: 5px;
-
-    font-size: 0.58rem;
-
-    line-height: 1.2;
+    font-size: 0.84rem;
+    line-height: 1.35;
   }
 }
 
-/* =========================================
-   MOBILE PEQUEÑO
-========================================= */
+/* MÓVIL PEQUEÑO */
 
 @media (max-width: 430px) {
   .journey {
@@ -900,14 +967,11 @@
 
   .title {
     max-width: 330px;
-
     font-size: 2.35rem;
   }
 
   .timelinePanel {
-    padding:
-      1.15rem 0.75rem
-      1.3rem;
+    padding: 1.15rem 0.75rem 1.3rem;
   }
 
   .timelineLine {
@@ -915,9 +979,7 @@
   }
 
   .timelineItem {
-    grid-template-columns:
-      32px minmax(0, 1fr);
-
+    grid-template-columns: 32px minmax(0, 1fr);
     column-gap: 0.72rem;
   }
 
@@ -932,13 +994,12 @@
   }
 
   .year {
-    font-size: 0.7rem;
+    font-size: 0.84rem;
   }
 
   .typeTag {
     padding: 3px 7px;
-
-    font-size: 0.52rem;
+    font-size: 0.68rem;
   }
 
   .card {
@@ -946,25 +1007,21 @@
   }
 
   .card h3 {
-    font-size: 0.96rem;
+    font-size: 1.08rem;
   }
 
   .org {
-    font-size: 0.68rem;
+    font-size: 0.82rem;
   }
 
   .description {
-    font-size: 0.73rem;
+    font-size: 0.86rem;
   }
 
   .badges span {
-    font-size: 0.55rem;
+    font-size: 0.72rem;
   }
 }
-
-/* =========================================
-   MOBILE MUY PEQUEÑO
-========================================= */
 
 @media (max-width: 360px) {
   .title {
@@ -978,8 +1035,7 @@
   .tab {
     padding-left: 3px;
     padding-right: 3px;
-
-    font-size: 0.62rem;
+    font-size: 0.74rem;
   }
 
   .timelinePanel {
@@ -992,9 +1048,7 @@
   }
 
   .timelineItem {
-    grid-template-columns:
-      30px minmax(0, 1fr);
-
+    grid-template-columns: 30px minmax(0, 1fr);
     column-gap: 0.65rem;
   }
 
@@ -1005,5 +1059,44 @@
 
   .card {
     padding: 0.85rem;
+  }
+}
+
+/* ACCESIBILIDAD */
+
+.tab:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revealItem {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .timelinePanel,
+  .timelineLine::after,
+  .eyebrow span,
+  .isVisible .node,
+  .isVisible .node::before,
+  .isVisible .node::after,
+  .isVisible .card,
+  .isVisible .card::before,
+  .isVisible .card::after,
+  .isVisible.timelineItem::before {
+    animation: none !important;
+  }
+
+  .card,
+  .node,
+  .node svg,
+  .tab,
+  .card::before,
+  .card::after,
+  .badges span {
+    transition: none !important;
   }
 }
