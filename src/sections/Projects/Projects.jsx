@@ -71,15 +71,13 @@ const Projects = () => {
       id: 4,
       number: "04",
       title: "NEXO CRM",
-      subtitle: "Plataforma de gestión comercial",
-      category: "PROYECTO WEB",
+      category: "PLATAFORMA DE GESTIÓN COMERCIAL",
       description:
         "Aplicación CRM desarrollada con React, TypeScript y Supabase para gestionar clientes, contactos, oportunidades comerciales, tareas y actividades. Incluye autenticación multiusuario, calendario, mensajería interna, notificaciones, reportes y una demostración interactiva con datos ficticios.",
       tech: ["React", "TypeScript", "Vite", "Supabase", "PostgreSQL", "Vercel"],
       image: "https://raw.githubusercontent.com/CamiloVenesia/nexo-crm/main/docs/screenshots/dashboard.png",
       github: "https://github.com/CamiloVenesia/nexo-crm",
       demo: "https://nexo-crm-oficial.vercel.app/?demo=1",
-      showActions: true,
       placeholder: false
     },
     {
@@ -349,37 +347,11 @@ const Projects = () => {
                 </div>
 
                 <div className={styles.secondaryCardContent}>
-                  {project.subtitle ? (
-                    <>
-                      <h3>{project.title}</h3>
+                  <span className={styles.secondaryCategory}>
+                    {project.category}
+                  </span>
 
-                      <span
-                        style={{
-                          display: 'block',
-                          marginTop: '-0.65rem',
-                          marginBottom: '0.8rem',
-                          color: 'var(--text-color)',
-                          fontSize: '0.88rem',
-                          fontWeight: 600,
-                          opacity: 0.55
-                        }}
-                      >
-                        {project.subtitle}
-                      </span>
-
-                      <span className={styles.secondaryCategory}>
-                        {project.category}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <span className={styles.secondaryCategory}>
-                        {project.category}
-                      </span>
-
-                      <h3>{project.title}</h3>
-                    </>
-                  )}
+                  <h3>{project.title}</h3>
 
                   <p>{project.description}</p>
 
@@ -396,9 +368,9 @@ const Projects = () => {
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={project.showActions ? styles.primaryBtn : styles.secondaryBtn}
+                          className={styles.primaryBtn}
                         >
-                          {project.showActions ? 'Ver demostración' : 'Ver demo en vivo ↗'}
+                          Ver demostración
                         </a>
                       )}
 
