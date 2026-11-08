@@ -1,639 +1,392 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './About.module.css';
 import { scrollToSection } from '../../utils/scrollToSection';
 
+const projects = [
+  {
+    id: 'matera',
+    number: '01',
+    name: 'La Matera',
+    category: 'COMERCIO ELECTRÓNICO',
+    headline: 'Una experiencia de compra, de principio a fin.',
+    description:
+      'Una tienda online de mates, termos y accesorios que conecta la experiencia de compra con la gestión del negocio. El proyecto integra catálogo, búsqueda, filtros y carrito persistente, junto con la administración de productos, pedidos y stock.',
+    focus: [
+      'Catálogo y filtros',
+      'Carrito persistente',
+      'Productos, pedidos y stock'
+    ]
+  },
+  {
+    id: 'kinetic',
+    number: '02',
+    name: 'Kinetic Gym',
+    category: 'GESTIÓN DE GIMNASIOS',
+    headline: 'Toda la operación de un gimnasio, conectada.',
+    description:
+      'Un sistema que centraliza la gestión de socios, membresías, pagos y accesos. Incluye autenticación, roles y permisos, estadísticas, panel administrativo y un modo kiosco para agilizar las operaciones.',
+    focus: [
+      'Socios y membresías',
+      'Pagos y accesos',
+      'Administración y kiosco'
+    ]
+  },
+  {
+    id: 'ritmo',
+    number: '03',
+    name: 'RITMO PÁDEL',
+    category: 'RESERVAS DEPORTIVAS',
+    headline: 'La experiencia de reservar también importa.',
+    description:
+      'Una plataforma para un club de pádel con cuatro canchas interactivas. Permite consultar disponibilidad, gestionar turnos de 90 minutos y acceder a cuentas de usuario, historial de reservas y administración.',
+    focus: [
+      'Disponibilidad por fecha',
+      'Escena 3D interactiva',
+      'Reservas e historial'
+    ]
+  },
+  {
+    id: 'delivery',
+    number: '04',
+    name: 'DeliveryOps',
+    category: 'OPERACIONES LOGÍSTICAS',
+    headline: 'Del depósito al destino, con todo bajo control.',
+    description:
+      'Una plataforma que conecta pedidos, depósitos y repartidores para organizar operaciones logísticas. Incorpora despacho, seguimiento GPS, comprobantes de entrega, planificación de rutas y métricas operativas.',
+    focus: [
+      'Despacho y seguimiento GPS',
+      'Comprobantes de entrega',
+      'Rutas y métricas'
+    ]
+  },
+  {
+    id: 'nexo',
+    number: '05',
+    name: 'NEXO CRM',
+    category: 'GESTIÓN COMERCIAL',
+    headline: 'Las relaciones comerciales, en un mismo lugar.',
+    description:
+      'Un CRM multiusuario para organizar empresas, contactos, oportunidades comerciales, tareas y actividades. Integra calendario, mensajería interna, notificaciones, reportes y un modo demo con datos ficticios aislados.',
+    focus: [
+      'Empresas y oportunidades',
+      'Calendario y mensajería',
+      'Reportes y modo demo'
+    ]
+  }
+];
+
+const ArrowIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
 
 const About = () => {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
-    const capabilities = [
-        "Arquitectura Full-Stack",
-        "APIs REST",
-        "Autenticación y roles",
-        "Bases SQL y NoSQL",
-        "Integridad de datos",
-        "Deploy y producción"
-    ];
+  const activeProject = projects[activeProjectIndex];
 
+  const handleContactClick = (event) => {
+    scrollToSection(event, 'contact');
+  };
 
-    return (
+  return (
+    <section
+      className={styles.about}
+      id="about"
+      aria-labelledby="about-title"
+    >
+      <div className={styles.backgroundGrid} aria-hidden="true"></div>
+      <div className={styles.glowOne} aria-hidden="true"></div>
+      <div className={styles.glowTwo} aria-hidden="true"></div>
+
+      <div className={styles.container}>
+        {/* PRESENTACIÓN */}
+
+        <header className={styles.sectionHeader} data-aos="fade-up">
+          <div className={styles.eyebrow}>
+            <span className={styles.eyebrowDot}></span>
+            PERFIL PROFESIONAL
+          </div>
+
+          <div className={styles.headerGrid}>
+            <h2 className={styles.title} id="about-title">
+              De la informática
+              <span className={styles.titleAccent}>
+                al desarrollo de productos.
+              </span>
+            </h2>
+
+            <div className={styles.headerAside}>
+              <span className={styles.asideLabel}>CAMINO FULL-STACK</span>
+
+              <p>
+                Soy Camilo Venesia, desarrollador Full Stack radicado en
+                Rosario. Me interesa comprender cómo se conectan las distintas
+                partes de una aplicación para convertir una necesidad en una
+                herramienta útil.
+              </p>
+
+              <div className={styles.locationLine}>
+                <span className={styles.locationDot}></span>
+                Rosario, Argentina
+                <span className={styles.locationSeparator}>/</span>
+                Desarrollo web
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* MI HISTORIA - SE CONSERVA */}
+
+        <div className={styles.story} data-aos="fade-up">
+          <div className={styles.sectionMarker}>
+            <span className={styles.markerNumber}>01</span>
+            <span className={styles.markerLabel}>MI HISTORIA</span>
+          </div>
+
+          <div className={styles.storyContent}>
+            <p className={styles.storyLead}>
+              Mi recorrido comenzó con una{' '}
+              <strong>formación técnica en informática</strong>. Ese punto de
+              partida despertó mi interés por entender no solo lo que una
+              aplicación muestra, sino también todo lo que sucede detrás.
+            </p>
+
+            <div className={styles.storyColumns}>
+              <p>
+                Me fui formando en desarrollo web desde el frontend, trabajando
+                con interfaces y experiencia de usuario, y amplié ese camino
+                hacia el backend: APIs, lógica de negocio, autenticación, bases
+                de datos y despliegue.
+              </p>
+
+              <p>
+                Aprendo construyendo. Cada proyecto independiente me permite
+                enfrentar un contexto distinto, tomar decisiones técnicas y
+                llevar lo aprendido a funcionalidades concretas. Esa
+                combinación entre curiosidad, práctica y mejora continua es la
+                que quiero seguir desarrollando.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* EXPLORADOR DE PROYECTOS */}
 
         <section
-            className={styles.about}
-            id="about"
+          className={styles.projectExperience}
+          aria-labelledby="projects-title"
         >
-
-            <div
-                className={styles.backgroundGrid}
-            ></div>
-
-            <div
-                className={styles.glowOne}
-            ></div>
-
-            <div
-                className={styles.glowTwo}
-            ></div>
-
-
-            <div
-                className={styles.container}
-            >
-
-                {/* CABECERA */}
-
-                <div
-                    className={styles.sectionHeader}
-                    data-aos="fade-up"
-                >
-
-                    <div
-                        className={styles.eyebrow}
-                    >
-
-                        <span
-                            className={styles.eyebrowDot}
-                        ></span>
-
-                        Perfil profesional
-
-                    </div>
-
-
-                    <h2
-                        className={styles.title}
-                    >
-                        Sobre <span>mí</span>
-                    </h2>
-
-
-                    <p
-                        className={styles.headerDescription}
-                    >
-                        Desarrollo productos web completos combinando
-                        ingeniería, diseño de interfaces y una mirada
-                        orientada a resolver problemas reales.
-                    </p>
-
-                </div>
-
-
-                {/* GRID PRINCIPAL */}
-
-                <div
-                    className={styles.profileGrid}
-                >
-
-                    {/* TARJETA PRINCIPAL */}
-
-                    <article
-                        className={
-                            styles.card +
-                            ' ' +
-                            styles.mainCard
-                        }
-                        data-aos="fade-right"
-                    >
-
-                        <div
-                            className={styles.mainContent}
-                        >
-
-                            <span
-                                className={styles.cardLabel}
-                            >
-                                FULL-STACK DEVELOPER
-                            </span>
-
-
-                            <h3>
-                                Construyo productos,
-                                <br />
-                                no solamente páginas web.
-                            </h3>
-
-
-                            <p
-                                className={styles.mainDescription}
-                            >
-                                Soy desarrollador Full-Stack radicado en Rosario.
-                                Trabajo principalmente con el ecosistema JavaScript,
-                                desarrollando desde la experiencia de usuario y el
-                                frontend hasta APIs, lógica de negocio, autenticación,
-                                bases de datos y despliegue.
-                            </p>
-
-
-                            <p
-                                className={styles.mainDescription}
-                            >
-                                Mi objetivo es construir aplicaciones que además de
-                                verse bien sean claras, mantenibles, seguras y
-                                preparadas para funcionar en escenarios reales.
-                            </p>
-
-
-                            <div
-                                className={styles.capabilityList}
-                            >
-
-                                {capabilities.map(
-                                    item => (
-
-                                        <span
-                                            key={item}
-                                            className={styles.capability}
-                                        >
-                                            {item}
-                                        </span>
-
-                                    )
-                                )}
-
-                            </div>
-
-
-                            <div
-                                className={styles.actions}
-                            >
-
-                                <a
-                                    href="#projects"
-                                    className={styles.primaryAction}
-                                    onClick={
-                                        e =>
-                                            scrollToSection(
-                                                e,
-                                                'projects'
-                                            )
-                                    }
-                                >
-                                    Ver proyectos
-
-                                    <svg
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <line
-                                            x1="5"
-                                            y1="12"
-                                            x2="19"
-                                            y2="12"
-                                        ></line>
-
-                                        <polyline
-                                            points="12 5 19 12 12 19"
-                                        ></polyline>
-                                    </svg>
-
-                                </a>
-
-
-                                <a
-                                    href="#journey"
-                                    className={styles.secondaryAction}
-                                    onClick={
-                                        e =>
-                                            scrollToSection(
-                                                e,
-                                                'journey'
-                                            )
-                                    }
-                                >
-                                    Ver recorrido
-                                </a>
-
-                            </div>
-
-                        </div>
-
-
-                        <div
-                            className={styles.codePanel}
-                        >
-
-                            <div
-                                className={styles.codeHeader}
-                            >
-
-                                <div
-                                    className={styles.windowDots}
-                                >
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-
-                                <span>
-                                    stack.config
-                                </span>
-
-                            </div>
-
-
-                            <div
-                                className={styles.codeBody}
-                            >
-
-                                <div
-                                    className={styles.codeLine}
-                                >
-                                    <span>
-                                        frontend
-                                    </span>
-
-                                    <strong>
-                                        React · Vite
-                                    </strong>
-                                </div>
-
-
-                                <div
-                                    className={styles.codeLine}
-                                >
-                                    <span>
-                                        backend
-                                    </span>
-
-                                    <strong>
-                                        Node.js · Express
-                                    </strong>
-                                </div>
-
-
-                                <div
-                                    className={styles.codeLine}
-                                >
-                                    <span>
-                                        data
-                                    </span>
-
-                                    <strong>
-                                        MongoDB · Firestore · SQL
-                                    </strong>
-                                </div>
-
-
-                                <div
-                                    className={styles.codeLine}
-                                >
-                                    <span>
-                                        cloud
-                                    </span>
-
-                                    <strong>
-                                        Firebase · Render · Atlas
-                                    </strong>
-                                </div>
-
-
-                                <div
-                                    className={styles.codeStatus}
-                                >
-
-                                    <span
-                                        className={styles.statusDot}
-                                    ></span>
-
-                                    end-to-end development
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {/* FORMA DE TRABAJO */}
-
-                    <article
-                        className={
-                            styles.card +
-                            ' ' +
-                            styles.approachCard
-                        }
-                        data-aos="fade-left"
-                    >
-
-                        <div
-                            className={styles.cardIcon}
-                        >
-
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
-                            </svg>
-
-                        </div>
-
-
-                        <span
-                            className={styles.cardLabel}
-                        >
-                            CÓMO TRABAJO
-                        </span>
-
-
-                        <h4>
-                            Diseño con intención.
-                        </h4>
-
-
-                        <p>
-                            No separo desarrollo y experiencia de usuario.
-                            Busco interfaces claras, jerarquía visual,
-                            flujos simples y decisiones técnicas que
-                            hagan el producto más fácil de mantener.
-                        </p>
-
-
-                        <div
-                            className={styles.miniFeatures}
-                        >
-
-                            <span>
-                                UX/UI
-                            </span>
-
-                            <span>
-                                Código mantenible
-                            </span>
-
-                            <span>
-                                Responsive
-                            </span>
-
-                        </div>
-
-                    </article>
-
-
-                    {/* FORMACIÓN */}
-
-                    <article
-                        className={
-                            styles.card +
-                            ' ' +
-                            styles.educationCard
-                        }
-                        data-aos="fade-left"
-                        data-aos-delay="100"
-                    >
-
-                        <div
-                            className={styles.cardIcon}
-                        >
-
-                            <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5Z"></path>
-                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                            </svg>
-
-                        </div>
-
-
-                        <span
-                            className={styles.cardLabel}
-                        >
-                            FORMACIÓN
-                        </span>
-
-
-                        <div
-                            className={styles.educationBlock}
-                        >
-
-                            <div
-                                className={styles.educationItem}
-                            >
-
-                                <span
-                                    className={styles.educationState}
-                                >
-                                    COMPLETADO
-                                </span>
-
-                                <h5>
-                                    Carrera de Desarrollo Full Stack
-                                </h5>
-
-                                <p>
-                                    Coderhouse
-                                </p>
-
-                            </div>
-
-
-                            <div
-                                className={styles.educationDivider}
-                            ></div>
-
-
-                            <div
-                                className={styles.educationItem}
-                            >
-
-                                <span
-                                    className={
-                                        styles.educationState +
-                                        ' ' +
-                                        styles.educationUpcoming
-                                    }
-                                >
-                                    INGRESO 2027
-                                </span>
-
-                                <h5>
-                                    Tecnicatura Universitaria en Desarrollo Web
-                                </h5>
-
-                                <p>
-                                    Facultad de Ciencias de la Administración · UNER
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    {/* ENFOQUE PROFESIONAL */}
-
-                    <article
-                        className={
-                            styles.card +
-                            ' ' +
-                            styles.focusCard
-                        }
-                        data-aos="fade-up"
-                    >
-
-                        <div
-                            className={styles.focusTop}
-                        >
-
-                            <div
-                                className={styles.cardIcon}
-                            >
-
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="10"
-                                    ></circle>
-
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="6"
-                                    ></circle>
-
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="2"
-                                    ></circle>
-                                </svg>
-
-                            </div>
-
-
-                            <div>
-
-                                <span
-                                    className={styles.cardLabel}
-                                >
-                                    ENFOQUE
-                                </span>
-
-                                <h4>
-                                    Resolver antes que complicar.
-                                </h4>
-
-                            </div>
-
-                        </div>
-
-
-                        <p>
-                            Me interesa transformar necesidades reales en
-                            sistemas claros y utilizables. Antes de sumar
-                            complejidad, priorizo una arquitectura comprensible,
-                            datos consistentes y una experiencia que tenga sentido
-                            para quien realmente va a usar el producto.
-                        </p>
-
-                    </article>
-
-
-                    {/* EXPERIENCIA PRÁCTICA */}
-
-                    <article
-                        className={
-                            styles.card +
-                            ' ' +
-                            styles.experienceCard
-                        }
-                        data-aos="fade-up"
-                        data-aos-delay="100"
-                    >
-
-                        <span
-                            className={styles.cardLabel}
-                        >
-                            EXPERIENCIA PRÁCTICA
-                        </span>
-
-
-                        <h4>
-                            Del concepto a producción.
-                        </h4>
-
-
-                        <p>
-                            Mis proyectos incluyen e-commerce, sistemas de gestión,
-                            APIs, autenticación, roles, procesamiento de datos,
-                            dashboards y despliegues en servicios cloud.
-                        </p>
-
-
-                        <div
-                            className={styles.projectTypes}
-                        >
-
-                            <div>
-                                <strong>
-                                    Frontend
-                                </strong>
-
-                                <span>
-                                    interfaces y producto
-                                </span>
-                            </div>
-
-
-                            <div>
-                                <strong>
-                                    Backend
-                                </strong>
-
-                                <span>
-                                    APIs y lógica
-                                </span>
-                            </div>
-
-
-                            <div>
-                                <strong>
-                                    Data
-                                </strong>
-
-                                <span>
-                                    persistencia y reglas
-                                </span>
-                            </div>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
+          <div className={styles.experienceIntro} data-aos="fade-up">
+            <div className={styles.sectionMarker}>
+              <span className={styles.markerNumber}>02</span>
+              <span className={styles.markerLabel}>EXPERIENCIA APLICADA</span>
             </div>
 
+            <div className={styles.experienceHeading}>
+              <h3 id="projects-title">
+                Distintos desafíos.
+                <span>Una misma pasión por construir.</span>
+              </h3>
+
+              <p>
+                Cada proyecto nace de una necesidad diferente. Estos son
+                algunos de los productos que desarrollé para transformar
+                procesos cotidianos en experiencias digitales.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.projectExplorer}>
+            {/* NAVEGACIÓN */}
+
+            <div
+              className={styles.projectSelector}
+              role="group"
+              aria-label="Explorar proyectos"
+            >
+              {projects.map((project, index) => (
+                <button
+                  key={project.id}
+                  type="button"
+                  className={`${styles.projectTab} ${
+                    activeProjectIndex === index ? styles.projectTabActive : ''
+                  }`}
+                  onClick={() => setActiveProjectIndex(index)}
+                  aria-pressed={activeProjectIndex === index}
+                >
+                  <span className={styles.selectorNumber}>
+                    {project.number}
+                  </span>
+
+                  <span className={styles.selectorName}>
+                    {project.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+
+            {/* LÍNEA DE PROGRESO */}
+
+            <div
+              className={styles.projectProgress}
+              role="progressbar"
+              aria-label="Proyecto seleccionado"
+              aria-valuemin={1}
+              aria-valuemax={projects.length}
+              aria-valuenow={activeProjectIndex + 1}
+            >
+              <span
+                className={styles.projectProgressFill}
+                style={{
+                  '--project-progress': `${
+                    ((activeProjectIndex + 1) / projects.length) * 100
+                  }%`
+                }}
+              ></span>
+            </div>
+
+            {/* CONTENIDO DINÁMICO */}
+
+            <div
+              className={styles.projectStage}
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <div className={styles.projectIndex} aria-hidden="true">
+                <span className={styles.projectIndexKicker}>
+                  PROYECTO SELECCIONADO
+                </span>
+
+                <span className={styles.projectIndexNumber}>
+                  {activeProject.number}
+                </span>
+
+                <span className={styles.projectIndexName}>
+                  {activeProject.name}
+                </span>
+
+                <span className={styles.projectIndexFooter}>
+                  PORTFOLIO / 2026
+                </span>
+              </div>
+
+              <article
+                className={styles.projectDetails}
+                key={activeProject.id}
+              >
+                <div className={styles.projectDetailsTop}>
+                  <span className={styles.projectCategory}>
+                    {activeProject.category}
+                  </span>
+
+                  <span className={styles.projectCounter}>
+                    {activeProject.number} / 05
+                  </span>
+                </div>
+
+                <h4 className={styles.projectHeadline}>
+                  {activeProject.headline}
+                </h4>
+
+                <p className={styles.projectDescription}>
+                  {activeProject.description}
+                </p>
+
+                <div className={styles.projectFocus}>
+                  <span className={styles.focusLabel}>
+                    FUNCIONALIDADES PRINCIPALES
+                  </span>
+
+                  <ul>
+                    {activeProject.focus.map((item, index) => (
+                      <li
+                        key={item}
+                        style={{
+                          '--focus-delay': `${index * 100}ms`
+                        }}
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            </div>
+
+            {/* INDICACIÓN DE INTERACCIÓN */}
+
+            <div className={styles.explorerFooter}>
+              <span>SELECCIONÁ UN PROYECTO PARA EXPLORARLO</span>
+
+              <span className={styles.explorerDots}>
+                {projects.map((project, index) => (
+                  <span
+                    key={project.id}
+                    className={
+                      activeProjectIndex === index
+                        ? styles.explorerDotActive
+                        : ''
+                    }
+                  ></span>
+                ))}
+              </span>
+            </div>
+          </div>
         </section>
 
-    );
+        {/* CIERRE PROFESIONAL */}
 
+        <footer className={styles.closing} data-aos="fade-up">
+          <div className={styles.closingHeader}>
+            <div className={styles.sectionMarker}>
+              <span className={styles.markerNumber}>03</span>
+              <span className={styles.markerLabel}>
+                EN CONSTANTE EVOLUCIÓN
+              </span>
+            </div>
+
+            <span className={styles.closingAside}>
+              SIEMPRE HAY ALGO NUEVO POR CONSTRUIR
+            </span>
+          </div>
+
+          <div className={styles.closingBody}>
+            <h3 className={styles.closingTitle}>
+              Me interesa construir tecnología que
+              <span> resuelva problemas reales.</span>
+            </h3>
+
+            <div className={styles.closingBottom}>
+              <p>
+                Busco seguir creciendo en entornos donde pueda aportar una
+                mirada Full Stack, asumir nuevos desafíos y participar en la
+                construcción de productos digitales sólidos y útiles.
+              </p>
+
+              <a
+                className={styles.closingLink}
+                href="#contact"
+                onClick={handleContactClick}
+              >
+                Hablemos
+                <ArrowIcon />
+              </a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+  );
 };
-
 
 export default About;
