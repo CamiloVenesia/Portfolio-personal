@@ -1,3 +1,4 @@
+
 .journey {
   position: relative;
   padding: 105px 7% 80px;
@@ -541,7 +542,7 @@
   gap: 0.55rem;
 }
 
-/* ETIQUETAS INTERACTIVAS: ESCRITURA + CONTORNO */
+/* ETIQUETAS INTERACTIVAS: BORRADO + ESCRITURA + CONTORNO */
 
 .badges > span {
   position: relative;
@@ -584,7 +585,6 @@
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
@@ -598,9 +598,18 @@
   white-space: nowrap;
 }
 
+.badgeOriginal {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  white-space: nowrap;
+  clip-path: inset(0 0 0 0);
+}
+
 .badgeText::after {
   content: attr(data-text);
   position: absolute;
+  z-index: 1;
   inset: 0;
   color: #c4efff;
   text-shadow: 0 0 9px rgba(88, 190, 255, 0.42);
@@ -615,7 +624,7 @@
   z-index: 2;
   top: 0;
   bottom: 0;
-  left: 0;
+  left: 100%;
   width: 1px;
   background: #b9efff;
   box-shadow: 0 0 7px rgba(91, 194, 255, 0.75);
@@ -623,7 +632,8 @@
   pointer-events: none;
 }
 
-.badges > span:hover {
+.badges > span:hover,
+.badges > span:active {
   transform: translateY(-2px);
   border-color: rgba(93, 190, 255, 0.58);
   background: linear-gradient(
@@ -634,21 +644,39 @@
   box-shadow: 0 6px 18px rgba(30, 133, 255, 0.11);
 }
 
-.badges > span:hover::before {
+.badges > span:hover::before,
+.badges > span:active::before {
   opacity: 1;
   animation: badgeBorderTrace 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.badges > span:hover .badgeText::after {
-  animation: badgeTyping 0.72s steps(var(--typing-steps, 18), end) forwards;
+.badges > span:hover .badgeOriginal,
+.badges > span:active .badgeOriginal {
+  animation: badgeErase 0.48s steps(var(--typing-steps, 18), end) both;
 }
 
-.badges > span:hover .badgeText::before {
+.badges > span:hover .badgeText::after,
+.badges > span:active .badgeText::after {
+  animation: badgeTyping 0.5s steps(var(--typing-steps, 18), end) 0.62s both;
+}
+
+.badges > span:hover .badgeText::before,
+.badges > span:active .badgeText::before {
   opacity: 1;
-  animation: badgeCaret 0.72s steps(var(--typing-steps, 18), end) forwards;
+  animation: badgeCaret 1.15s linear both;
 }
 
 /* ANIMACIONES */
+
+@keyframes badgeErase {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+
+  to {
+    clip-path: inset(0 100% 0 0);
+  }
+}
 
 @keyframes badgeTyping {
   from {
@@ -661,12 +689,31 @@
 }
 
 @keyframes badgeCaret {
-  0% {
+  0%,
+  5% {
+    left: 100%;
+    opacity: 0;
+  }
+
+  8% {
+    left: 100%;
+    opacity: 1;
+    animation-timing-function: steps(var(--typing-steps, 18), end);
+  }
+
+  45% {
     left: 0;
     opacity: 1;
   }
 
-  96% {
+  55% {
+    left: 0;
+    opacity: 1;
+    animation-timing-function: steps(var(--typing-steps, 18), end);
+  }
+
+  95% {
+    left: 100%;
     opacity: 1;
   }
 
@@ -1160,6 +1207,7 @@
   }
 
   .badges > span::before,
+  .badgeOriginal,
   .badgeText::after,
   .badgeText::before {
     animation: none !important;

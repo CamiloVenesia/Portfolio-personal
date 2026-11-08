@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from 'react';
 import styles from './Journey.module.css';
 
@@ -299,7 +300,7 @@ const Journey = () => {
                         style={{ '--typing-steps': Math.max(tech.length, 1) }}
                       >
                         <span className={styles.badgeText} data-text={tech}>
-                          {tech}
+                          <span className={styles.badgeOriginal}>{tech}</span>
                         </span>
                       </span>
                     ))}
