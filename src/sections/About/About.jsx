@@ -1,228 +1,221 @@
+
 import React, { useState } from 'react';
 import styles from './About.module.css';
 import { scrollToSection } from '../../utils/scrollToSection';
 
 const projects = [
   {
-    id: 'matera',
+    id: 'lamatera',
     number: '01',
     name: 'La Matera',
-    category: 'COMERCIO ELECTRÓNICO',
-    headline: 'Una experiencia de compra, de principio a fin.',
+    category: 'E-COMMERCE · FULL-STACK',
     description:
-      'Una tienda online de mates, termos y accesorios que conecta la experiencia de compra con la gestión del negocio. El proyecto integra catálogo, búsqueda, filtros y carrito persistente, junto con la administración de productos, pedidos y stock.',
-    focus: [
-      'Catálogo y filtros',
-      'Carrito persistente',
-      'Productos, pedidos y stock'
-    ]
+      'Este proyecto me permitió experimentar con el desarrollo de un producto digital de punta a punta. Profundicé en la integración de servicios externos, la persistencia de datos y la construcción de flujos comerciales completos. Aprendí especialmente a conectar la experiencia del usuario con operaciones críticas como el checkout y el control de stock.',
+    learnings: [
+      'Integración con Firebase y Firestore',
+      'Persistencia y consistencia de datos',
+      'Lógica comercial y transacciones'
+    ],
+    code: 'https://github.com/CamiloVenesia/E-Commerce-LaMatera'
   },
   {
     id: 'kinetic',
     number: '02',
     name: 'Kinetic Gym',
-    category: 'GESTIÓN DE GIMNASIOS',
-    headline: 'Toda la operación de un gimnasio, conectada.',
+    category: 'GESTIÓN DE GIMNASIOS · FULL-STACK',
     description:
-      'Un sistema que centraliza la gestión de socios, membresías, pagos y accesos. Incluye autenticación, roles y permisos, estadísticas, panel administrativo y un modo kiosco para agilizar las operaciones.',
-    focus: [
-      'Socios y membresías',
-      'Pagos y accesos',
-      'Administración y kiosco'
-    ]
+      'Fue una oportunidad para profundizar en el desarrollo backend y comprender cómo organizar la lógica de negocio de una aplicación completa. Trabajé con APIs, autenticación, permisos y persistencia en MongoDB. También incorporé funcionalidades operativas como el sistema de acceso mediante kiosco, aprendiendo a conectar distintos flujos dentro de una misma plataforma.',
+    learnings: [
+      'Diseño e integración de APIs REST',
+      'Autenticación y control de permisos',
+      'MongoDB y lógica de negocio'
+    ],
+    code: 'https://github.com/CamiloVenesia/kinetic-gym-api'
   },
   {
-    id: 'ritmo',
+    id: 'deliveryops',
     number: '03',
-    name: 'RITMO PÁDEL',
-    category: 'RESERVAS DEPORTIVAS',
-    headline: 'La experiencia de reservar también importa.',
-    description:
-      'Una plataforma para un club de pádel con cuatro canchas interactivas. Permite consultar disponibilidad, gestionar turnos de 90 minutos y acceder a cuentas de usuario, historial de reservas y administración.',
-    focus: [
-      'Disponibilidad por fecha',
-      'Escena 3D interactiva',
-      'Reservas e historial'
-    ]
-  },
-  {
-    id: 'delivery',
-    number: '04',
     name: 'DeliveryOps',
-    category: 'OPERACIONES LOGÍSTICAS',
-    headline: 'Del depósito al destino, con todo bajo control.',
+    category: 'OPERACIONES LOGÍSTICAS · FULL-STACK',
     description:
-      'Una plataforma que conecta pedidos, depósitos y repartidores para organizar operaciones logísticas. Incorpora despacho, seguimiento GPS, comprobantes de entrega, planificación de rutas y métricas operativas.',
-    focus: [
-      'Despacho y seguimiento GPS',
-      'Comprobantes de entrega',
-      'Rutas y métricas'
-    ]
+      'Este desarrollo me llevó a trabajar con procesos más complejos, donde distintas partes del sistema deben mantenerse coordinadas. Profundicé en el modelado de operaciones logísticas, la gestión de estados, la geolocalización y el seguimiento de entregas. Me permitió comprender la importancia de la consistencia de datos y de diseñar sistemas que acompañen procesos reales.',
+    learnings: [
+      'Modelado de procesos logísticos',
+      'Geolocalización y seguimiento GPS',
+      'Arquitectura y trazabilidad operativa'
+    ],
+    code: 'https://github.com/CamiloVenesia/deliveryops-api',
+    extraCode: 'https://github.com/CamiloVenesia/deliveryops-web'
   },
   {
     id: 'nexo',
-    number: '05',
+    number: '04',
     name: 'NEXO CRM',
-    category: 'GESTIÓN COMERCIAL',
-    headline: 'Las relaciones comerciales, en un mismo lugar.',
+    category: 'GESTIÓN COMERCIAL · WEB APP',
     description:
-      'Un CRM multiusuario para organizar empresas, contactos, oportunidades comerciales, tareas y actividades. Integra calendario, mensajería interna, notificaciones, reportes y un modo demo con datos ficticios aislados.',
-    focus: [
-      'Empresas y oportunidades',
-      'Calendario y mensajería',
-      'Reportes y modo demo'
-    ]
+      'Uno de los proyectos que más me permitió profundizar en arquitectura de software. Trabajé con Supabase, PostgreSQL y políticas de seguridad a nivel de base de datos para construir una estructura multiusuario y multiempresa. También incorporé roles, mensajería, calendario y un entorno demo aislado. Me llevé una comprensión mucho más sólida de la importancia de la seguridad desde el diseño.',
+    learnings: [
+      'Arquitectura multi-tenant y RLS',
+      'PostgreSQL y seguridad de datos',
+      'Roles, permisos y aislamiento'
+    ],
+    code: 'https://github.com/CamiloVenesia/nexo-crm'
+  },
+  {
+    id: 'ritmo',
+    number: '05',
+    name: 'RITMO PÁDEL',
+    category: 'RESERVAS DEPORTIVAS · FULL-STACK',
+    description:
+      'Este proyecto me permitió profundizar en PostgreSQL, el modelado de reservas y la gestión de disponibilidad. Trabajé especialmente en pruebas unitarias y de integración, validación de operaciones y estabilidad del sistema. También exploré experiencias visuales más complejas mediante escenarios interactivos en 3D. Aprendí a equilibrar diseño, funcionalidad y confiabilidad.',
+    learnings: [
+      'PostgreSQL y modelado relacional',
+      'Testing unitario y de integración',
+      'Experiencias interactivas en 3D'
+    ],
+    code: 'https://github.com/CamiloVenesia/ritmo-padel'
   }
 ];
 
 const ArrowIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M7 17 17 7M7 7h10v10" />
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M5 12h14M12 5l7 7-7 7"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const ExternalIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path
+      d="M14 5h5v5M19 5l-9 9"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
   </svg>
 );
 
 const About = () => {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-
   const activeProject = projects[activeProjectIndex];
+
+  const handleProjectsClick = (event) => {
+    scrollToSection(event, 'projects');
+  };
 
   const handleContactClick = (event) => {
     scrollToSection(event, 'contact');
   };
 
   return (
-    <section
-      className={styles.about}
-      id="about"
-      aria-labelledby="about-title"
-    >
-      <div className={styles.backgroundGrid} aria-hidden="true"></div>
-      <div className={styles.glowOne} aria-hidden="true"></div>
-      <div className={styles.glowTwo} aria-hidden="true"></div>
+    <section className={styles.about} id="about" aria-labelledby="about-title">
+      <div className={styles.backgroundGlow} aria-hidden="true" />
+
+      <h2 className={styles.visuallyHidden} id="about-title">
+        Sobre mí
+      </h2>
 
       <div className={styles.container}>
-        {/* PRESENTACIÓN */}
-
-        <header className={styles.sectionHeader} data-aos="fade-up">
-          <div className={styles.eyebrow}>
-            <span className={styles.eyebrowDot}></span>
-            PERFIL PROFESIONAL
-          </div>
-
-          <div className={styles.headerGrid}>
-            <h2 className={styles.title} id="about-title">
-              De la informática
-              <span className={styles.titleAccent}>
-                al desarrollo de productos.
-              </span>
-            </h2>
-
-            <div className={styles.headerAside}>
-              <span className={styles.asideLabel}>CAMINO FULL-STACK</span>
-
-              <p>
-                Soy Camilo Venesia, desarrollador Full Stack radicado en
-                Rosario. Me interesa comprender cómo se conectan las distintas
-                partes de una aplicación para convertir una necesidad en una
-                herramienta útil.
-              </p>
-
-              <div className={styles.locationLine}>
-                <span className={styles.locationDot}></span>
-                Rosario, Argentina
-                <span className={styles.locationSeparator}>/</span>
-                Desarrollo web
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* MI HISTORIA - SE CONSERVA */}
-
-        <div className={styles.story} data-aos="fade-up">
+        <section
+          className={styles.story}
+          data-aos="fade-up"
+          aria-labelledby="story-title"
+        >
           <div className={styles.sectionMarker}>
             <span className={styles.markerNumber}>01</span>
-            <span className={styles.markerLabel}>MI HISTORIA</span>
+            <h3 className={styles.markerLabel} id="story-title">
+              MI HISTORIA
+            </h3>
           </div>
 
           <div className={styles.storyContent}>
             <p className={styles.storyLead}>
-              Mi recorrido comenzó con una{' '}
-              <strong>formación técnica en informática</strong>. Ese punto de
-              partida despertó mi interés por entender no solo lo que una
-              aplicación muestra, sino también todo lo que sucede detrás.
+              Mi camino en el desarrollo comenzó durante la{' '}
+              <strong>escuela secundaria técnica</strong>, cuando elegí la
+              orientación en <strong>Programación</strong>. Allí tuve mis
+              primeros acercamientos a la lógica, el pensamiento computacional
+              y la resolución de problemas, y descubrí mi interés por crear
+              soluciones mediante código. Más adelante continué formándome en{' '}
+              <strong>Coderhouse</strong> y, en paralelo, de manera autónoma:
+              realicé cursos, exploré nuevas tecnologías y llevé lo aprendido
+              a proyectos propios. Esa combinación de{' '}
+              <strong>formación estructurada</strong> y{' '}
+              <strong>práctica independiente</strong> me permitió ampliar mis
+              conocimientos y consolidar una forma de aprender que sigo
+              aplicando: <strong>investigar, experimentar y construir.</strong>
             </p>
 
             <div className={styles.storyColumns}>
               <p>
-                Me fui formando en desarrollo web desde el frontend, trabajando
-                con interfaces y experiencia de usuario, y amplié ese camino
-                hacia el backend: APIs, lógica de negocio, autenticación, bases
-                de datos y despliegue.
+                Me fui formando en desarrollo web desde el frontend,
+                trabajando con interfaces y experiencia de usuario, y amplié
+                ese camino hacia el backend: APIs, lógica de negocio,
+                autenticación, bases de datos y despliegue.
               </p>
 
               <p>
-                Aprendo construyendo. Cada proyecto independiente me permite
+                 Aprendo construyendo. Cada proyecto independiente me permite
                 enfrentar un contexto distinto, tomar decisiones técnicas y
                 llevar lo aprendido a funcionalidades concretas. Esa
-                combinación entre curiosidad, práctica y mejora continua es la
-                que quiero seguir desarrollando.
+                combinación entre curiosidad, práctica y mejora continua es
+                la que quiero seguir desarrollando.
               </p>
             </div>
           </div>
-        </div>
-
-        {/* EXPLORADOR DE PROYECTOS */}
+        </section>
 
         <section
-          className={styles.projectExperience}
+          className={styles.projectSection}
           aria-labelledby="projects-title"
         >
-          <div className={styles.experienceIntro} data-aos="fade-up">
+          <div className={styles.projectHeading} data-aos="fade-up">
             <div className={styles.sectionMarker}>
               <span className={styles.markerNumber}>02</span>
-              <span className={styles.markerLabel}>EXPERIENCIA APLICADA</span>
+              <span className={styles.markerLabel}>EXPERIENCIA</span>
             </div>
 
-            <div className={styles.experienceHeading}>
-              <h3 id="projects-title">
-                Distintos desafíos.
-                <span>Una misma pasión por construir.</span>
+            <div>
+              <h3 className={styles.projectSectionTitle} id="projects-title">
+                Lo que construí. Lo que aprendí.
               </h3>
 
-              <p>
-                Cada proyecto nace de una necesidad diferente. Estos son
-                algunos de los productos que desarrollé para transformar
-                procesos cotidianos en experiencias digitales.
+              <p className={styles.projectSectionDescription}>
+                Cada proyecto fue una oportunidad para enfrentar nuevos desafíos
+                y ampliar mis conocimientos.
               </p>
             </div>
           </div>
 
-          <div className={styles.projectExplorer}>
-            {/* NAVEGACIÓN */}
+          <div
+            className={styles.projectSelector}
+            role="group"
+            aria-label="Seleccionar experiencia"
+          >
+            {projects.map((project, index) => {
+              const isActive = activeProjectIndex === index;
 
-            <div
-              className={styles.projectSelector}
-              role="group"
-              aria-label="Explorar proyectos"
-            >
-              {projects.map((project, index) => (
+              return (
                 <button
                   key={project.id}
                   type="button"
                   className={`${styles.projectTab} ${
-                    activeProjectIndex === index ? styles.projectTabActive : ''
+                    isActive ? styles.projectTabActive : ''
                   }`}
                   onClick={() => setActiveProjectIndex(index)}
-                  aria-pressed={activeProjectIndex === index}
+                  aria-pressed={isActive}
                 >
                   <span className={styles.selectorNumber}>
                     {project.number}
@@ -232,158 +225,106 @@ const About = () => {
                     {project.name}
                   </span>
                 </button>
-              ))}
-            </div>
+              );
+            })}
+          </div>
 
-            {/* LÍNEA DE PROGRESO */}
-
-            <div
-              className={styles.projectProgress}
-              role="progressbar"
-              aria-label="Proyecto seleccionado"
-              aria-valuemin={1}
-              aria-valuemax={projects.length}
-              aria-valuenow={activeProjectIndex + 1}
-            >
+          <div
+            className={styles.projectStage}
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <div className={styles.projectVisual} aria-hidden="true">
               <span
-                className={styles.projectProgressFill}
-                style={{
-                  '--project-progress': `${
-                    ((activeProjectIndex + 1) / projects.length) * 100
-                  }%`
-                }}
-              ></span>
+                key={activeProject.id}
+                className={styles.projectNumber}
+              >
+                {activeProject.number}
+              </span>
             </div>
 
-            {/* CONTENIDO DINÁMICO */}
-
-            <div
-              className={styles.projectStage}
-              aria-live="polite"
-              aria-atomic="true"
+            <article
+              className={styles.projectDetails}
+              key={activeProject.id}
             >
-              <div className={styles.projectIndex} aria-hidden="true">
-                <span className={styles.projectIndexKicker}>
-                  PROYECTO SELECCIONADO
+              <div className={styles.projectMeta}>
+                <span className={styles.projectCategory}>
+                  {activeProject.category}
                 </span>
 
-                <span className={styles.projectIndexNumber}>
-                  {activeProject.number}
-                </span>
-
-                <span className={styles.projectIndexName}>
-                  {activeProject.name}
-                </span>
-
-                <span className={styles.projectIndexFooter}>
-                  PORTFOLIO / 2026
+                <span className={styles.projectCounter}>
+                  {activeProject.number} /{' '}
+                  {String(projects.length).padStart(2, '0')}
                 </span>
               </div>
 
-              <article
-                className={styles.projectDetails}
-                key={activeProject.id}
-              >
-                <div className={styles.projectDetailsTop}>
-                  <span className={styles.projectCategory}>
-                    {activeProject.category}
-                  </span>
+              <h4 className={styles.projectName}>
+                {activeProject.name}
+              </h4>
 
-                  <span className={styles.projectCounter}>
-                    {activeProject.number} / 05
-                  </span>
-                </div>
+              <p className={styles.projectDescription}>
+                {activeProject.description}
+              </p>
 
-                <h4 className={styles.projectHeadline}>
-                  {activeProject.headline}
-                </h4>
-
-                <p className={styles.projectDescription}>
-                  {activeProject.description}
-                </p>
-
-                <div className={styles.projectFocus}>
-                  <span className={styles.focusLabel}>
-                    FUNCIONALIDADES PRINCIPALES
-                  </span>
-
-                  <ul>
-                    {activeProject.focus.map((item, index) => (
-                      <li
-                        key={item}
-                        style={{
-                          '--focus-delay': `${index * 100}ms`
-                        }}
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            </div>
-
-            {/* INDICACIÓN DE INTERACCIÓN */}
-
-            <div className={styles.explorerFooter}>
-              <span>SELECCIONÁ UN PROYECTO PARA EXPLORARLO</span>
-
-              <span className={styles.explorerDots}>
-                {projects.map((project, index) => (
-                  <span
-                    key={project.id}
-                    className={
-                      activeProjectIndex === index
-                        ? styles.explorerDotActive
-                        : ''
-                    }
-                  ></span>
-                ))}
+              <span className={styles.learningLabel}>
+                CONOCIMIENTOS Y EXPERIENCIA
               </span>
-            </div>
+
+              <ul className={styles.projectLearnings}>
+                {activeProject.learnings.map((learning) => (
+                  <li key={learning}>{learning}</li>
+                ))}
+              </ul>
+
+              <div className={styles.projectActions}>
+                <a
+                  className={`${styles.projectAction} ${styles.projectActionPrimary}`}
+                  href="#projects"
+                  onClick={handleProjectsClick}
+                  aria-label={`Ver ${activeProject.name} en la sección de proyectos`}
+                >
+                  <span>Ver proyecto</span>
+                  <span className={styles.actionIcon}>
+                    <ArrowIcon />
+                  </span>
+                </a>
+
+                <a
+                  className={`${styles.projectAction} ${styles.projectActionSecondary}`}
+                  href={activeProject.code}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver código de ${activeProject.name} en GitHub`}
+                >
+                  Código
+                  <ExternalIcon />
+                </a>
+
+                {activeProject.extraCode && (
+                  <a
+                    className={`${styles.projectAction} ${styles.projectActionSecondary}`}
+                    href={activeProject.extraCode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Ver código frontend de DeliveryOps en GitHub"
+                  >
+                    Código web
+                    <ExternalIcon />
+                  </a>
+                )}
+              </div>
+            </article>
           </div>
         </section>
 
-        {/* CIERRE PROFESIONAL */}
+        <div className={styles.closing} data-aos="fade-up">
+          <p>¿Tenés una idea o un desafío?</p>
 
-        <footer className={styles.closing} data-aos="fade-up">
-          <div className={styles.closingHeader}>
-            <div className={styles.sectionMarker}>
-              <span className={styles.markerNumber}>03</span>
-              <span className={styles.markerLabel}>
-                EN CONSTANTE EVOLUCIÓN
-              </span>
-            </div>
-
-            <span className={styles.closingAside}>
-              SIEMPRE HAY ALGO NUEVO POR CONSTRUIR
-            </span>
-          </div>
-
-          <div className={styles.closingBody}>
-            <h3 className={styles.closingTitle}>
-              Me interesa construir tecnología que
-              <span> resuelva problemas reales.</span>
-            </h3>
-
-            <div className={styles.closingBottom}>
-              <p>
-                Busco seguir creciendo en entornos donde pueda aportar una
-                mirada Full Stack, asumir nuevos desafíos y participar en la
-                construcción de productos digitales sólidos y útiles.
-              </p>
-
-              <a
-                className={styles.closingLink}
-                href="#contact"
-                onClick={handleContactClick}
-              >
-                Hablemos
-                <ArrowIcon />
-              </a>
-            </div>
-          </div>
-        </footer>
+          <a href="#contact" onClick={handleContactClick}>
+            Hablemos
+            <ArrowIcon />
+          </a>
+        </div>
       </div>
     </section>
   );
