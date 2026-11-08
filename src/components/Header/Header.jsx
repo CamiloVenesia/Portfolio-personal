@@ -1,24 +1,129 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Header.module.css";
 import { scrollToSection } from "../../utils/scrollToSection";
 
+const navigationItems = [
+  {
+    id: "home",
+    label: "Inicio",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+  },
+  {
+    id: "projects",
+    label: "Proyectos",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+      </svg>
+    ),
+  },
+  {
+    id: "skills",
+    label: "Skills",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    ),
+  },
+  {
+    id: "journey",
+    label: "Mi recorrido",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="12 7 12 12 16 14" />
+      </svg>
+    ),
+  },
+  {
+    id: "about",
+    label: "Sobre mí",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+    ),
+  },
+  {
+    id: "certifications",
+    label: "Certificaciones",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="8" r="7" />
+        <path d="m8.2 13.4-1.2 8.1 5-3 5 3-1.2-8.1" />
+      </svg>
+    ),
+  },
+  {
+    id: "contact",
+    label: "Contacto",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <polyline points="22 6 12 13 2 6" />
+      </svg>
+    ),
+  },
+];
+
 const Header = () => {
   const [dockOpen, setDockOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light") setDarkMode(false);
-  }, []);
+  const [darkMode, setDarkMode] = useState(() => {
+    try {
+      return localStorage.getItem("theme") !== "light";
+    } catch {
+      return true;
+    }
+  });
 
+  const [activeSection, setActiveSection] = useState("home");
+
+  const toggleRef = useRef(null);
+  const navRef = useRef(null);
+
+  // Aplicar tema.
   useEffect(() => {
     document.body.classList.toggle("light", !darkMode);
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
+
+    try {
+      localStorage.setItem("theme", darkMode ? "dark" : "light");
+    } catch {
+      // El tema continúa funcionando aunque localStorage esté bloqueado.
+    }
   }, [darkMode]);
 
+  // Evitar que se pueda navegar con teclado dentro del menú cerrado.
+  // También devuelve el foco al botón cuando se cierra.
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setDockOpen(false);
+    const navigation = navRef.current;
+
+    if (!navigation) return;
+
+    navigation.inert = !dockOpen;
+
+    if (!dockOpen && navigation.contains(document.activeElement)) {
+      toggleRef.current?.focus();
+    }
+  }, [dockOpen]);
+
+  // Cerrar con Escape.
+  useEffect(() => {
+    if (!dockOpen) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setDockOpen(false);
+      }
     };
 
     window.addEventListener("keydown", handleEscape);
@@ -26,20 +131,92 @@ const Header = () => {
     return () => {
       window.removeEventListener("keydown", handleEscape);
     };
+  }, [dockOpen]);
+
+  // Detectar sección activa.
+  useEffect(() => {
+    const sections = navigationItems
+      .map((item) => document.getElementById(item.id))
+      .filter(Boolean);
+
+    if (!sections.length) return undefined;
+
+    let frameRequested = false;
+
+    const updateActiveSection = () => {
+      const activationLine = window.innerHeight * 0.38;
+      let currentSection = sections[0].id;
+
+      sections.forEach((section) => {
+        if (section.getBoundingClientRect().top <= activationLine) {
+          currentSection = section.id;
+        }
+      });
+
+      const reachedPageBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 24;
+
+      if (reachedPageBottom) {
+        currentSection = sections[sections.length - 1].id;
+      }
+
+      setActiveSection((previous) =>
+        previous === currentSection ? previous : currentSection
+      );
+
+      frameRequested = false;
+    };
+
+    const handleScroll = () => {
+      if (frameRequested) return;
+
+      frameRequested = true;
+      window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
-  const toggleDock = () => setDockOpen((v) => !v);
-  const toggleDarkMode = () => setDarkMode((v) => !v);
   const closeDock = () => setDockOpen(false);
+
+  const toggleDock = () => {
+    setDockOpen((isOpen) => !isOpen);
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode((isDark) => !isDark);
+  };
+
+  const handleNavigation = (event, targetId) => {
+    setActiveSection(targetId);
+    scrollToSection(event, targetId, closeDock);
+  };
 
   return (
     <>
       <button
+        ref={toggleRef}
         type="button"
-        className={styles.topLeftToggle + (dockOpen ? " " + styles.active : "")}
+        className={`${styles.topLeftToggle} ${
+          dockOpen ? styles.active : ""
+        }`}
         onClick={toggleDock}
-        aria-label={dockOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+        aria-label={
+          dockOpen
+            ? "Cerrar menú de navegación"
+            : "Abrir menú de navegación"
+        }
         aria-expanded={dockOpen}
+        aria-controls="floating-navigation"
       >
         <span></span>
         <span></span>
@@ -47,125 +224,109 @@ const Header = () => {
       </button>
 
       <div
-        className={styles.dockBackdrop + (dockOpen ? " " + styles.backdropVisible : "")}
+        className={`${styles.dockBackdrop} ${
+          dockOpen ? styles.backdropVisible : ""
+        }`}
         onClick={closeDock}
         aria-hidden="true"
-      ></div>
+      />
 
       <nav
-        className={styles.floatingDock + (dockOpen ? " " + styles.visible : "")}
+        ref={navRef}
+        id="floating-navigation"
+        className={`${styles.floatingDock} ${
+          dockOpen ? styles.visible : ""
+        }`}
         aria-label="Navegación principal"
+        aria-hidden={!dockOpen}
       >
         <div className={styles.dockContainer}>
-          <a
-            href="#home"
-            className={styles.iconBtn}
-            aria-label="Ir al inicio"
-            onClick={(e) => scrollToSection(e, "home", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-          </a>
+          <div className={styles.navigationGroup}>
+            {navigationItems.map((item, index) => {
+              const isActive = activeSection === item.id;
 
-          <a
-            href="#projects"
-            className={styles.iconBtn}
-            aria-label="Ir a Proyectos"
-            onClick={(e) => scrollToSection(e, "projects", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-            </svg>
-          </a>
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`${styles.dockLink} ${
+                    isActive ? styles.activeLink : ""
+                  }`}
+                  aria-label={`Ir a ${item.label}`}
+                  aria-current={isActive ? "location" : undefined}
+                  onClick={(event) =>
+                    handleNavigation(event, item.id)
+                  }
+                  style={{ "--item-index": index }}
+                >
+                  <span className={styles.iconWrap}>
+                    {item.icon}
+                  </span>
 
-          <a
-            href="#skills"
-            className={styles.iconBtn}
-            aria-label="Ir a Skills"
-            onClick={(e) => scrollToSection(e, "skills", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="16 18 22 12 16 6"></polyline>
-              <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-          </a>
+                  <span className={styles.linkLabel}>
+                    {item.label}
+                  </span>
 
-          <a
-            href="#journey"
-            className={styles.iconBtn}
-            aria-label="Ir a Mi Recorrido"
-            onClick={(e) => scrollToSection(e, "journey", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="9"></circle>
-              <polyline points="12 7 12 12 16 14"></polyline>
-            </svg>
-          </a>
+                  <span className={styles.activeIndicator} />
+                </a>
+              );
+            })}
+          </div>
 
-          <a
-            href="#about"
-            className={styles.iconBtn}
-            aria-label="Ir a Sobre mí"
-            onClick={(e) => scrollToSection(e, "about", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </a>
-
-          <a
-            href="#certifications"
-            className={styles.iconBtn}
-            aria-label="Ir a Certificaciones"
-            onClick={(e) => scrollToSection(e, "certifications", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"></path>
-              <path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"></path>
-            </svg>
-          </a>
-
-          <a
-            href="#contact"
-            className={styles.iconBtn}
-            aria-label="Ir a Contacto"
-            onClick={(e) => scrollToSection(e, "contact", closeDock)}
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-          </a>
-
-          <div className={styles.divider}></div>
+          <span
+            className={styles.divider}
+            aria-hidden="true"
+          />
 
           <button
             type="button"
             onClick={toggleDarkMode}
-            className={styles.iconBtn}
-            aria-label={darkMode ? "Activar modo claro" : "Activar modo oscuro"}
+            className={`${styles.dockLink} ${styles.themeButton}`}
+            aria-label={
+              darkMode
+                ? "Cambiar a modo claro"
+                : "Cambiar a modo oscuro"
+            }
+            aria-pressed={!darkMode}
+            title={
+              darkMode
+                ? "Cambiar a modo claro"
+                : "Cambiar a modo oscuro"
+            }
           >
-            {darkMode ? (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-            )}
+            <span className={`${styles.iconWrap} ${styles.themeIcon}`}>
+              {darkMode ? (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.9"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="4.5" />
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42" />
+                </svg>
+              ) : (
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.9"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z" />
+                  <path d="M16.5 3v4M14.5 5h4" />
+                </svg>
+              )}
+            </span>
+
+            <span className={styles.linkLabel}>
+              {darkMode ? "Modo claro" : "Modo oscuro"}
+            </span>
+
+            <span className={styles.activeIndicator} />
           </button>
         </div>
       </nav>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Tilt from 'react-parallax-tilt';
 import styles from './Hero.module.css';
@@ -8,8 +7,8 @@ const Hero = () => {
   return (
     <section className={styles.hero} id="home">
       <div className={styles.gridBackground}></div>
-      <div className={styles.glow + ' ' + styles.glowLeft}></div>
-      <div className={styles.glow + ' ' + styles.glowRight}></div>
+      <div className={`${styles.glow} ${styles.glowLeft}`}></div>
+      <div className={`${styles.glow} ${styles.glowRight}`}></div>
 
       <div className={styles.container}>
         <div className={styles.content}>
@@ -104,7 +103,6 @@ const Hero = () => {
                   alt="Camilo Venesia"
                   className={styles.heroImage}
                   loading="eager"
-                  fetchPriority="high"
                   decoding="async"
                 />
 

@@ -1,38 +1,46 @@
-/* ===== BOTÓN HAMBURGUESA ===== */
+/* =========================================
+   PORTFOLIO — NAVEGACIÓN FLOTANTE
+========================================= */
 
 .topLeftToggle {
   position: fixed;
   top: 2rem;
   left: 2rem;
+  z-index: 1001;
+
   width: 50px;
   height: 50px;
   padding: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 6px;
+
   border: 1px solid rgba(var(--main-color-rgb), 0.22);
   border-radius: 12px;
+
   background: rgba(12, 35, 49, 0.92);
   color: var(--text-color);
+
   cursor: pointer;
-  z-index: 1001;
+
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+
   transition:
     transform 0.3s ease,
     border-color 0.3s ease,
-    background 0.3s ease,
-    box-shadow 0.3s ease;
+    background 0.3s ease;
 }
 
 .topLeftToggle:hover {
   transform: translateY(-2px);
   border-color: rgba(var(--main-color-rgb), 0.55);
   background: rgba(var(--main-color-rgb), 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .topLeftToggle span {
@@ -41,9 +49,10 @@
   height: 2px;
   border-radius: 2px;
   background: var(--text-color);
+
   transition:
-    transform 0.3s ease,
-    opacity 0.3s ease,
+    transform 0.35s ease,
+    opacity 0.25s ease,
     background 0.3s ease;
 }
 
@@ -61,22 +70,33 @@
   background: var(--main-color);
 }
 
-/* ===== BACKDROP ===== */
+/* =========================================
+   FONDO
+========================================= */
 
 .dockBackdrop {
   display: none;
 }
 
-/* ===== DOCK DESKTOP ===== */
+/* =========================================
+   NAVEGACIÓN DESKTOP
+========================================= */
 
 .floatingDock {
   position: fixed;
   bottom: 2.5rem;
   left: 50%;
   z-index: 1000;
+
+  width: max-content;
+  max-width: calc(100vw - 48px);
+
   visibility: hidden;
   opacity: 0;
+  pointer-events: none;
+
   transform: translateX(-50%) translateY(130px);
+
   transition:
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.3s ease,
@@ -86,86 +106,271 @@
 .floatingDock.visible {
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
 .dockContainer {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.7rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 22px;
-  background: rgba(10, 29, 41, 0.9);
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.36);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-/* ===== ICONOS ===== */
-
-.iconBtn {
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  display: flex;
   justify-content: center;
+  gap: 0.35rem;
+
+  width: max-content;
+  max-width: 100%;
+  padding: 0.65rem 0.8rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+
+  background: rgba(10, 29, 41, 0.92);
+
+  box-shadow:
+    0 20px 55px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.navigationGroup {
+  display: flex;
   align-items: center;
-  flex-shrink: 0;
+  gap: 0.2rem;
+}
+
+/* =========================================
+   ENLACES
+========================================= */
+
+.dockLink {
+  position: relative;
+
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 0.7rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+
   border: none;
-  border-radius: 13px;
+  border-radius: 12px;
+
   background: transparent;
-  color: #94a3b8;
-  cursor: pointer;
+  color: #a5b4c2;
+
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.2;
+
+  white-space: nowrap;
   text-decoration: none;
+
+  cursor: pointer;
+
   transition:
-    transform 0.25s ease,
     color 0.25s ease,
-    background 0.25s ease;
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
-.iconBtn svg {
-  width: 21px;
-  height: 21px;
+.dockLink:hover {
+  color: var(--main-color);
+  background: rgba(var(--main-color-rgb), 0.09);
+  transform: translateY(-2px);
 }
 
-.iconBtn:hover {
-  transform: translateY(-5px);
-  background: rgba(var(--main-color-rgb), 0.11);
+.dockLink:active {
+  transform: scale(0.96);
+}
+
+.activeLink {
+  color: var(--text-color);
+  background: rgba(var(--main-color-rgb), 0.055);
+}
+
+.activeLink .iconWrap {
   color: var(--main-color);
 }
+
+.activeLink .linkLabel {
+  color: var(--text-color);
+}
+
+/* =========================================
+   ICONOS
+========================================= */
+
+.iconWrap {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;
+
+  color: #94a3b8;
+
+  transition:
+    color 0.25s ease,
+    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.iconWrap svg {
+  display: block;
+  width: 21px;
+  height: 21px;
+  max-width: 21px;
+  max-height: 21px;
+  flex: 0 0 21px;
+  overflow: visible;
+}
+
+.dockLink:hover .iconWrap {
+  color: var(--main-color);
+  transform: translateY(-2px) scale(1.08);
+}
+
+/* =========================================
+   TEXTOS
+========================================= */
+
+.linkLabel {
+  display: inline-block;
+  min-width: 0;
+
+  color: inherit;
+
+  font: inherit;
+  line-height: 1.2;
+  white-space: nowrap;
+
+  transition: color 0.25s ease;
+}
+
+/* =========================================
+   INDICADOR ACTIVO
+========================================= */
+
+.activeIndicator {
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+
+  width: 0;
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    90deg,
+    #00abf0,
+    #65d9ff
+  );
+
+  opacity: 0;
+  transform: translateX(-50%);
+
+  box-shadow: 0 0 10px rgba(0, 171, 240, 0.65);
+
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.activeLink .activeIndicator {
+  width: 65%;
+  opacity: 1;
+}
+
+.dockLink:hover .activeIndicator {
+  width: 55%;
+  opacity: 0.75;
+}
+
+/* =========================================
+   SEPARADOR Y TEMA
+========================================= */
 
 .divider {
   width: 1px;
   height: 27px;
-  margin: 0 0.25rem;
-  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.3rem;
+  flex: 0 0 1px;
+
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* ===== LIGHT ===== */
+.themeButton {
+  margin-left: 0.1rem;
+}
+
+.themeIcon {
+  color: #94a3b8;
+}
+
+/* =========================================
+   MODO CLARO
+========================================= */
 
 :global(body.light) .topLeftToggle {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(15, 23, 42, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
+:global(body.light) .topLeftToggle span {
+  background: #0f172a;
+}
+
+:global(body.light) .topLeftToggle.active span {
+  background: var(--main-color);
 }
 
 :global(body.light) .dockContainer {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(15, 23, 42, 0.08);
-  box-shadow: 0 20px 55px rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+  border-color: rgba(15, 23, 42, 0.09);
+
+  box-shadow:
+    0 20px 55px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
-:global(body.light) .iconBtn {
+:global(body.light) .dockLink {
   color: #475569;
+}
+
+:global(body.light) .dockLink:hover {
+  color: var(--main-color);
+}
+
+:global(body.light) .activeLink .linkLabel {
+  color: #0f172a;
+}
+
+:global(body.light) .iconWrap {
+  color: #64748b;
+}
+
+:global(body.light) .activeLink .iconWrap {
+  color: var(--main-color);
 }
 
 :global(body.light) .divider {
   background: rgba(15, 23, 42, 0.12);
 }
 
-/* ===== TABLET ===== */
+/* =========================================
+   TABLETS Y NOTEBOOKS
+========================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .topLeftToggle {
     top: 18px;
     left: 18px;
@@ -177,19 +382,24 @@
     position: fixed;
     inset: 0;
     z-index: 998;
+
     display: block;
+
     visibility: hidden;
-    background: rgba(2, 10, 16, 0.45);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
     opacity: 0;
     pointer-events: none;
+
+    background: rgba(2, 10, 16, 0.48);
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
     transition:
       opacity 0.3s ease,
       visibility 0.3s ease;
   }
 
-  .backdropVisible {
+  .dockBackdrop.backdropVisible {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
@@ -197,10 +407,24 @@
 
   .floatingDock {
     left: 50%;
-    bottom: max(20px, env(safe-area-inset-bottom));
-    width: auto;
-    max-width: calc(100vw - 36px);
-    transform: translateX(-50%) translateY(120px) scale(0.96);
+    bottom: max(16px, env(safe-area-inset-bottom));
+
+    width: min(760px, calc(100vw - 32px));
+    max-width: calc(100vw - 32px);
+
+    max-height: calc(100dvh - 88px);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    scrollbar-width: none;
+    overscroll-behavior: contain;
+
+    transform: translateX(-50%) translateY(24px) scale(0.98);
+  }
+
+  .floatingDock::-webkit-scrollbar {
+    display: none;
   }
 
   .floatingDock.visible {
@@ -209,40 +433,118 @@
 
   .dockContainer {
     display: grid;
-    grid-template-columns: repeat(4, 52px);
-    gap: 8px;
-    padding: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    align-items: center;
+    gap: 0.35rem;
+
+    width: 100%;
+    padding: 0.7rem;
+
     border-radius: 20px;
   }
 
-  .iconBtn {
-    width: 52px;
-    height: 52px;
-    border-radius: 13px;
+  .navigationGroup {
+    display: contents;
   }
 
-  .iconBtn svg {
+  .dockLink {
+    box-sizing: border-box;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+    padding: 0.55rem 0.35rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+
+    border-radius: 11px;
+
+    font-size: 0.86rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .iconWrap {
     width: 21px;
     height: 21px;
+    min-width: 21px;
+    flex-basis: 21px;
   }
 
-  .iconBtn:hover {
-    transform: none;
+  .iconWrap svg {
+    width: 21px;
+    height: 21px;
+    max-width: 21px;
+    max-height: 21px;
+    flex-basis: 21px;
+  }
+
+  .linkLabel {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .divider {
     display: none;
   }
+
+  .themeButton {
+    margin: 0;
+  }
+
+  .dockLink:hover {
+    transform: none;
+  }
 }
 
-/* ===== MOBILE ===== */
+/* =========================================
+   TABLETS ESTRECHAS
+========================================= */
+
+@media (max-width: 700px) {
+  .floatingDock {
+    width: calc(100vw - 28px);
+    max-width: 560px;
+
+    bottom: max(14px, env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 82px);
+  }
+
+  .dockContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.3rem;
+    padding: 0.65rem;
+  }
+
+  .dockLink {
+    min-height: 52px;
+    padding: 0.5rem 0.3rem;
+    gap: 0.4rem;
+    font-size: 0.84rem;
+  }
+
+  .linkLabel {
+    max-width: 100%;
+  }
+}
+
+/* =========================================
+   MÓVILES
+========================================= */
 
 @media (max-width: 480px) {
   .topLeftToggle {
     top: 14px;
     left: 14px;
+
     width: 46px;
     height: 46px;
+
     border-radius: 11px;
   }
 
@@ -251,37 +553,45 @@
   }
 
   .floatingDock {
-    bottom: max(14px, env(safe-area-inset-bottom));
-    width: calc(100vw - 28px);
-    max-width: 360px;
+    width: calc(100vw - 24px);
+    max-width: 440px;
+
+    bottom: max(12px, env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 76px);
   }
 
   .dockContainer {
-    width: 100%;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 6px;
-    padding: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 0.25rem;
+    padding: 0.6rem;
+
     border-radius: 18px;
   }
 
-  .iconBtn {
-    width: 100%;
-    height: 48px;
-    border-radius: 11px;
+  .dockLink {
+    min-height: 50px;
+    padding: 0.5rem 0.35rem;
+
+    gap: 0.4rem;
+
+    font-size: 0.84rem;
   }
 
-  .iconBtn svg {
-    width: 19px;
-    height: 19px;
+  .activeIndicator {
+    bottom: 1px;
   }
 }
 
-/* ===== MOBILE MUY PEQUEÑO ===== */
+/* =========================================
+   MÓVILES MUY PEQUEÑOS
+========================================= */
 
 @media (max-width: 350px) {
   .topLeftToggle {
     top: 12px;
     left: 12px;
+
     width: 44px;
     height: 44px;
   }
@@ -292,16 +602,73 @@
   }
 
   .dockContainer {
-    gap: 4px;
-    padding: 8px;
+    gap: 0.2rem;
+    padding: 0.5rem;
   }
 
-  .iconBtn {
-    height: 44px;
+  .dockLink {
+    min-height: 46px;
+    padding: 0.4rem 0.2rem;
+
+    gap: 0.3rem;
+    font-size: 0.78rem;
   }
 
-  .iconBtn svg {
-    width: 18px;
-    height: 18px;
+  .iconWrap {
+    width: 19px;
+    height: 19px;
+    min-width: 19px;
+    flex-basis: 19px;
+  }
+
+  .iconWrap svg {
+    width: 19px;
+    height: 19px;
+    max-width: 19px;
+    max-height: 19px;
+    flex-basis: 19px;
+  }
+}
+
+/* =========================================
+   ORIENTACIÓN HORIZONTAL
+========================================= */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .floatingDock {
+    bottom: max(8px, env(safe-area-inset-bottom));
+    max-height: calc(100dvh - 64px);
+  }
+
+  .dockContainer {
+    gap: 0.18rem;
+    padding: 0.45rem;
+  }
+
+  .dockLink {
+    min-height: 42px;
+  }
+}
+
+/* =========================================
+   ACCESIBILIDAD
+========================================= */
+
+.topLeftToggle:focus-visible,
+.dockLink:focus-visible {
+  outline: 2px solid #65d9ff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topLeftToggle,
+  .topLeftToggle span,
+  .floatingDock,
+  .dockLink,
+  .iconWrap,
+  .activeIndicator,
+  .dockBackdrop {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

@@ -88,7 +88,6 @@ html {
 
 body {
   position: relative;
-
   margin: 0;
   min-height: 100vh;
 
@@ -104,7 +103,6 @@ body {
 
   font-size: var(--font-body);
   line-height: var(--line-height-body);
-
   color: var(--text-color);
 
   background-color: var(--bg-color);
@@ -205,7 +203,7 @@ select:focus-visible {
   outline-offset: 4px;
 }
 
-/* CTA principal */
+/* CTA PRINCIPAL */
 
 #home a[href="#projects"] {
   color: #03131f !important;
@@ -218,13 +216,10 @@ select:focus-visible {
 #certifications
 button[aria-label^="Ir a "]:empty {
   position: relative;
-
   width: 32px !important;
   min-width: 32px !important;
-
   height: 32px !important;
   min-height: 32px !important;
-
   padding: 0 !important;
 
   display: inline-flex !important;
@@ -233,20 +228,16 @@ button[aria-label^="Ir a "]:empty {
 
   border: 0 !important;
   border-radius: 999px !important;
-
   background: transparent !important;
 }
 
 #certifications
 button[aria-label^="Ir a "]:empty::before {
   content: "";
-
   width: 7px;
   height: 7px;
-
   flex-shrink: 0;
   border-radius: 999px;
-
   background: rgba(148, 163, 184, 0.35);
 
   transition:
@@ -318,5 +309,63 @@ button[aria-label^="Ir a "]:empty:hover::before {
   body {
     font-size: 16px;
     background-attachment: scroll;
+  }
+}
+
+/* =========================================
+   12. AJUSTES FINOS PARA PANTALLAS PEQUEÑAS
+========================================= */
+
+#root,
+main,
+main > section,
+footer {
+  min-width: 0;
+  max-width: 100%;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+/*
+  El carrusel de certificaciones utiliza flechas laterales.
+  En teléfonos de 320–360 px la tarjeta central tenía un
+  ancho fijo que podía superar el espacio disponible.
+*/
+
+@media (max-width: 430px) {
+  #certifications [class*="carouselWrapper"] {
+    gap: 0.45rem;
+  }
+
+  #certifications [class*="carouselStage"] {
+    min-width: 0;
+  }
+
+  #certifications [class*="centerCard"] {
+    width: min(245px, calc(100vw - 122px));
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  #certifications [class*="arrowBtn"] {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+  }
+}
+
+@media (max-width: 360px) {
+  #certifications [class*="carouselWrapper"] {
+    gap: 0.35rem;
+  }
+
+  #certifications [class*="arrowBtn"] {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
   }
 }
