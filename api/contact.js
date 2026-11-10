@@ -1,5 +1,7 @@
 
 import nodemailer from 'nodemailer';
+import { createHash } from 'node:crypto';
+import { runContactIdempotently } from './contact-idempotency.js';
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
@@ -398,6 +400,30 @@ export default async function handler(req, res) {
     );
   }
 
+  const idempotencyKey = req.headers?.['idempotency-key'];
+
+  if (
+    typeof idempotencyKey !== 'string' ||
+    !/^[A-Za-z0-9._:-]{16,128}$/.test(idempotencyKey)
+  ) {
+    return sendJsonError(
+      res,
+      400,
+      'No se pudo validar el envío. Actualizá la página e intentá nuevamente.'
+    );
+  }
+
+  const requestFingerprint = createHash('sha256')
+    .update(
+      JSON.stringify({
+        name: cleanName,
+        email: cleanEmail,
+        subject: cleanSubject,
+        message: cleanMessage
+      })
+    )
+    .digest('hex');
+
   const safeName = escapeHtml(cleanName);
   const safeEmail = escapeHtml(cleanEmail);
   const safeSubject = escapeHtml(cleanSubject);
@@ -523,46 +549,84 @@ export default async function handler(req, res) {
     'Podés responder directamente a este correo.'
   ].join('\n');
 
-  try {
-    const transporter = nodemailer.createTransport({
-      host: smtpHost,
-      port: smtpPort,
-      secure: smtpPort === 465,
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 15000,
-      auth: {
-        user: smtpUser,
-        pass: smtpPass
+  const idempotencyResult = await runContactIdempotently(
+    idempotencyKey,
+    requestFingerprint,
+    async () => {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465,
+          connectionTimeout: 10000,
+          greetingTimeout: 10000,
+          socketTimeout: 15000,
+          auth: {
+            user: smtpUser,
+            pass: smtpPass
+          }
+        });
+
+        await transporter.sendMail({
+          from: {
+            name: 'Portfolio Camilo Venesia',
+            address: smtpUser
+          },
+          to: contactRecipients,
+          replyTo: {
+            name: cleanName,
+            address: cleanEmail
+          },
+          subject: `[Portfolio] ${cleanSubject}`,
+          text: emailText,
+          html: emailHtml
+        });
+
+        return {
+          cache: true,
+          statusCode: 200,
+          body: { success: true }
+        };
+      } catch (error) {
+        console.error(
+          '[contact] Error enviando mensaje:',
+          error?.code || error?.message || 'Error desconocido'
+        );
+
+        return {
+          cache: false,
+          statusCode: 500,
+          body: {
+            error: 'No se pudo enviar el mensaje. Intentá nuevamente en unos minutos.'
+          }
+        };
       }
-    });
+    }
+  );
 
-    await transporter.sendMail({
-      from: {
-        name: 'Portfolio Camilo Venesia',
-        address: smtpUser
-      },
-      to: contactRecipients,
-      replyTo: {
-        name: cleanName,
-        address: cleanEmail
-      },
-      subject: `[Portfolio] ${cleanSubject}`,
-      text: emailText,
-      html: emailHtml
-    });
-
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    console.error(
-      '[contact] Error enviando mensaje:',
-      error?.code || error?.message || 'Error desconocido'
+  if (idempotencyResult.type === 'conflict') {
+    return sendJsonError(
+      res,
+      409,
+      'La referencia de este envío ya fue utilizada con otros datos. Actualizá la página e intentá nuevamente.'
     );
+  }
+
+  if (idempotencyResult.type === 'capacity') {
+    res.setHeader('Retry-After', '60');
 
     return sendJsonError(
       res,
-      500,
-      'No se pudo enviar el mensaje. Intentá nuevamente en unos minutos.'
+      503,
+      'El servicio está ocupado temporalmente. Esperá un minuto e intentá nuevamente.'
     );
   }
+
+  if (idempotencyResult.type === 'replayed') {
+    res.setHeader('Idempotency-Replayed', 'true');
+  }
+
+  const { statusCode, body: responseBody } = idempotencyResult.result;
+
+  return res.status(statusCode).json(responseBody);
 }

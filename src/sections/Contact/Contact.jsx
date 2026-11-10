@@ -1,8 +1,26 @@
+
 import React, { useRef, useState } from 'react';
 import styles from './Contact.module.css';
 
+const REQUEST_TIMEOUT_MS = 20_000;
+
+const createIdempotencyKey = () => {
+  if (globalThis.crypto?.randomUUID) {
+    return globalThis.crypto.randomUUID();
+  }
+
+  return [
+    'contact',
+    Date.now(),
+    Math.random().toString(36).slice(2),
+    Math.random().toString(36).slice(2)
+  ].join('-');
+};
+
 const Contact = () => {
   const startedAt = useRef(Date.now());
+  const isSubmitting = useRef(false);
+  const activeSubmission = useRef(null);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +35,8 @@ const Contact = () => {
     message: ''
   });
 
+  const isSending = status.type === 'sending';
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -29,7 +49,35 @@ const Contact = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    if (status.type === 'sending') return;
+    // Bloqueo síncrono: evita dobles envíos antes de que React actualice el estado.
+    if (isSubmitting.current) return;
+
+    isSubmitting.current = true;
+
+    const payload = {
+      ...formData,
+      formStartedAt: startedAt.current
+    };
+
+    const payloadSignature = JSON.stringify(payload);
+
+    // Si se reintenta exactamente el mismo contenido, se conserva la misma clave.
+    // Si el usuario modifica el formulario, se genera una clave nueva.
+    if (
+      !activeSubmission.current ||
+      activeSubmission.current.signature !== payloadSignature
+    ) {
+      activeSubmission.current = {
+        signature: payloadSignature,
+        key: createIdempotencyKey()
+      };
+    }
+
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(
+      () => controller.abort(),
+      REQUEST_TIMEOUT_MS
+    );
 
     setStatus({
       type: 'sending',
@@ -40,12 +88,11 @@ const Contact = () => {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Idempotency-Key': activeSubmission.current.key
         },
-        body: JSON.stringify({
-          ...formData,
-          formStartedAt: startedAt.current
-        })
+        body: JSON.stringify(payload),
+        signal: controller.signal
       });
 
       const data = await response.json().catch(() => ({}));
@@ -65,18 +112,25 @@ const Contact = () => {
       });
 
       startedAt.current = Date.now();
+      activeSubmission.current = null;
 
       setStatus({
         type: 'success',
         message: 'Tu mensaje fue enviado correctamente. Gracias por contactarme.'
       });
     } catch (error) {
+      const isTimeout = error?.name === 'AbortError';
+
       setStatus({
         type: 'error',
-        message:
-          error.message ||
-          'Ocurrió un error al enviar el mensaje. Intentá nuevamente.'
+        message: isTimeout
+          ? 'La solicitud superó el tiempo de espera. No pudimos confirmar si el mensaje llegó. Podés reintentar: se conservará la misma referencia para reducir el riesgo de duplicados.'
+          : error.message ||
+            'Ocurrió un error de conexión al enviar el mensaje. Intentá nuevamente.'
       });
+    } finally {
+      window.clearTimeout(timeoutId);
+      isSubmitting.current = false;
     }
   };
 
@@ -170,6 +224,7 @@ const Contact = () => {
           <form
             className={styles.formCard}
             onSubmit={sendMessage}
+            aria-busy={isSending}
             data-aos="fade-left"
           >
             <div className={styles.formHeader}>
@@ -193,6 +248,7 @@ const Contact = () => {
                   autoComplete="name"
                   maxLength="80"
                   required
+                  disabled={isSending}
                 />
               </div>
 
@@ -209,6 +265,7 @@ const Contact = () => {
                   autoComplete="email"
                   maxLength="254"
                   required
+                  disabled={isSending}
                 />
               </div>
             </div>
@@ -225,6 +282,7 @@ const Contact = () => {
                 placeholder="¿Sobre qué querés conversar?"
                 maxLength="120"
                 required
+                disabled={isSending}
               />
             </div>
 
@@ -239,6 +297,7 @@ const Contact = () => {
                 placeholder="Contame brevemente en qué puedo ayudarte..."
                 maxLength="3000"
                 required
+                disabled={isSending}
               ></textarea>
 
               <span className={styles.characterCount}>
@@ -263,7 +322,7 @@ const Contact = () => {
             <button
               type="submit"
               className={styles.submitButton}
-              disabled={status.type === 'sending'}
+              disabled={isSending}
             >
               <span>
                 {status.type === 'sending'
