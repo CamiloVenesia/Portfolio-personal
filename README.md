@@ -1,173 +1,302 @@
+# Camilo Monti Venesia | Full Stack Developer
+
 <div align="center">
 
-# 👋 Hola, soy Camilo Venesia
+**Portfolio personal · Rosario, Argentina**
 
-### Full Stack Developer | Rosario, Argentina
-
-[![Portfolio](https://img.shields.io/badge/Portfolio-Ver_sitio-00abf0?style=for-the-badge)](#)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectemos-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/camilovenesia/)
-[![Email](https://img.shields.io/badge/Email-Contactar-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:camilovenesia.dev@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Ver%20sitio-00abf0?style=for-the-badge)](https://portafolio-camilo-monti-venesia.vercel.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-Perfil-181717?style=for-the-badge&logo=github)](https://github.com/CamiloVenesia)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Conectemos-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/camilovenesia/)
 
 </div>
 
 ---
 
-## 📋 Sobre este proyecto
+## Sobre el proyecto
 
-Este repositorio contiene el código fuente de mi **portfolio personal**, desarrollado desde cero con React y Vite. Es la carta de presentación donde muestro quién soy, mi formación, mi recorrido profesional, mis proyectos y cómo contactarme.
+Este repositorio contiene el código fuente de mi portfolio personal, desarrollado con React y Vite.
 
-No es una plantilla descargada ni generada automáticamente: cada sección fue diseñada, iterada y refinada a mano, con foco en el detalle visual, la performance y una experiencia de usuario cuidada.
+El sitio funciona como una presentación profesional donde comparto mi perfil, conocimientos técnicos, experiencia, formación, certificaciones y proyectos de desarrollo.
 
----
+Fue diseñado y desarrollado desde cero, prestando especial atención a la identidad visual, la experiencia de usuario, el rendimiento, la accesibilidad y la seguridad.
 
-## ✨ Características principales
+**Sitio en producción:**
 
-- 🌗 **Modo claro/oscuro** persistente entre sesiones (`localStorage`)
-- 🧭 **Navegación tipo "floating dock"** con scroll suave animado en JavaScript puro
-- 🎴 **Tarjeta 3D interactiva** en el Hero con efecto parallax al mover el mouse
-- 🗂️ **Bento grid** en la sección "Sobre Mí"
-- 📅 **Línea de tiempo interactiva** en "Mi Recorrido", con filtros por Educación/Experiencia y animación de pulso en los ítems activos
-- 🧩 **Sección de Skills** con estética tipo editor de código (ventanas con barra estilo macOS)
-- 🖼️ **Galería de proyectos** con overlay de enlaces a repositorio y demo en vivo
-- 🎠 **Carrusel de certificaciones** con vista ampliada (lightbox), navegación por teclado y filmstrip de miniaturas
-- 🎞️ **Carrusel infinito de tecnologías** con logos de marca reales
-- ✉️ **Formulario de contacto funcional** vía EmailJS, sin necesidad de backend propio
-- 📱 **100% responsivo**, probado en mobile, tablet y desktop
-- ♿ Atención a accesibilidad básica (`aria-label`, labels ocultos para lectores de pantalla)
+https://portafolio-camilo-monti-venesia.vercel.app/
 
----
+## Características principales
 
-## 🛠️ Stack tecnológico
+- **Diseño responsive:** adaptación a dispositivos móviles, tablets y escritorio.
+- **Tema claro y oscuro:** preferencia persistente mediante localStorage.
+- **Navegación interactiva:** navegación flotante y desplazamiento suave entre secciones.
+- **Animaciones:** efectos de aparición, transiciones y elementos interactivos.
+- **Hero interactivo:** tarjeta con efecto 3D y parallax.
+- **Sobre mí:** presentación personal mediante una composición visual tipo Bento Grid.
+- **Skills:** tecnologías y conocimientos organizados por categorías.
+- **Trayectoria:** línea de tiempo con formación y experiencia.
+- **Proyectos:** presentación de aplicaciones desarrolladas, tecnologías utilizadas y enlaces a repositorios y demos.
+- **Certificaciones:** carrusel interactivo con ampliación de imágenes y navegación.
+- **Formulario de contacto:** envío de mensajes mediante una API propia y SMTP.
+- **Seguridad del formulario:** validación backend, sanitización, protección honeypot, rate limiting e idempotencia.
+- **Control de solicitudes:** timeout de 20 segundos en frontend y prevención de envíos simultáneos.
+- **SEO técnico:** metadatos, Open Graph, Twitter Cards, datos estructurados, sitemap y robots.txt.
+
+## Stack tecnológico
 
 | Categoría | Tecnologías |
 |---|---|
-| **Core** | React 18, Vite |
-| **Estilos** | CSS Modules, variables CSS nativas para theming |
-| **Animaciones** | AOS (Animate On Scroll), react-parallax-tilt, animaciones CSS a medida |
-| **Formulario** | EmailJS (`@emailjs/browser`) |
-| **Notificaciones** | react-hot-toast |
-| **Íconos** | react-icons (logos de marca reales para el carrusel de tecnologías) |
-| **Control de versiones** | Git & GitHub |
+| Frontend | React 18, JavaScript |
+| Build y desarrollo | Vite 7.3 |
+| Backend | Node.js, Vercel Functions |
+| Envío de correos | Nodemailer, SMTP |
+| Estilos | CSS |
+| Animaciones | AOS, Lenis |
+| Interacciones | react-parallax-tilt |
+| Fondos visuales | topolines |
+| Iconografía | react-icons |
+| Testing | Node.js Test Runner |
+| Control de versiones | Git y GitHub |
+| Hosting | Vercel |
 
----
+## Estructura del proyecto
 
-## 📁 Estructura del proyecto
-
-```
+```text
 portfolio/
+├── api/
+│   ├── contact.js
+│   └── contact-idempotency.js
+│
 ├── public/
-│   └── assets/
-│       ├── certs/          # Imágenes de certificados
-│       ├── favicon.png
-│       └── ...
+│   ├── assets/
+│   │   ├── certs/
+│   │   └── imágenes del portfolio
+│   ├── robots.txt
+│   └── sitemap.xml
 │
 ├── src/
 │   ├── components/
-│   │   ├── Header/         # Navbar / Floating Dock
-│   │   └── Footer/
+│   │   ├── Header/
+│   │   ├── Footer/
+│   │   └── TopographicBackground/
 │   │
 │   ├── sections/
 │   │   ├── Hero/
-│   │   ├── About/
-│   │   ├── Journey/        # "Mi Recorrido"
-│   │   ├── Skills/
+│   │   ├── Value/
 │   │   ├── Projects/
+│   │   ├── Skills/
+│   │   ├── Journey/
+│   │   ├── About/
 │   │   ├── Certifications/
 │   │   └── Contact/
+│   │
+│   ├── styles/
+│   │   ├── global.css
+│   │   └── typography.css
 │   │
 │   ├── utils/
 │   │   └── scrollToSection.js
 │   │
-│   ├── styles/
-│   │   └── global.css
-│   │
 │   ├── App.jsx
 │   └── main.jsx
 │
-├── .env.example
-├── .gitignore
+├── test/
+│   └── contact-idempotency.test.js
+│
 ├── index.html
 ├── package.json
-└── vite.config.js
+├── package-lock.json
+├── vercel.json
+├── vite.config.js
+└── README.md
 ```
 
----
+## Instalación y ejecución
 
-## 🚀 Cómo correr el proyecto localmente
+### Requisitos
 
-### 1. Cloná el repositorio
+- Node.js 20.19+ o 22.12+.
+- npm.
+- Git.
+- Vercel CLI para ejecutar las funciones backend localmente.
+
+### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/camilovenesia/portfolio.git
-cd portfolio
+git clone https://github.com/CamiloVenesia/Portfolio-personal.git
+
+cd Portfolio-personal
 ```
 
-### 2. Instalá las dependencias
+### 2. Instalar dependencias
 
 ```bash
-npm install
+npm ci
 ```
 
-### 3. Configurá las variables de entorno
-
-Este proyecto usa [EmailJS](https://www.emailjs.com/) para el formulario de contacto. Creá un archivo `.env` en la raíz (podés copiar `.env.example` como base) con:
-
-```env
-VITE_EMAILJS_SERVICE_ID=tu_service_id
-VITE_EMAILJS_TEMPLATE_ID=tu_template_id
-VITE_EMAILJS_PUBLIC_KEY=tu_public_key
-```
-
-> 🔒 El archivo `.env` está excluido del repositorio vía `.gitignore` — nunca subas tus claves reales a GitHub.
-
-### 4. Levantá el servidor de desarrollo
+### 3. Ejecutar el frontend
 
 ```bash
 npm run dev
 ```
 
-El proyecto va a estar disponible en `http://localhost:5173`.
+El servidor de desarrollo estará disponible normalmente en:
 
----
+http://localhost:5173/
 
-## 📜 Scripts disponibles
+### 4. Ejecutar frontend y backend localmente
+
+Para probar el formulario de contacto y las funciones de Vercel, se utiliza el siguiente comando de PowerShell:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File ".\.vercel\start-dev.ps1"
+```
+
+Este script es una herramienta local de desarrollo y no se incluye en el repositorio, ya que la carpeta `.vercel` está excluida mediante `.gitignore`.
+
+## Variables de entorno
+
+El formulario de contacto utiliza Nodemailer para enviar correos mediante SMTP.
+
+Las siguientes variables deben configurarse en el entorno local y en Vercel:
+
+| Variable | Descripción |
+|---|---|
+| `SMTP_HOST` | Servidor SMTP. Por defecto: smtp.gmail.com |
+| `SMTP_PORT` | Puerto SMTP permitido: 465 o 587 |
+| `SMTP_USER` | Cuenta de correo utilizada para enviar mensajes |
+| `SMTP_PASS` | Contraseña de aplicación SMTP |
+| `CONTACT_TO` | Dirección o direcciones que reciben los mensajes |
+| `ALLOWED_ORIGINS` | Orígenes adicionales autorizados, separados por comas |
+
+Ejemplo de configuración local:
+
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USER=tu_correo@gmail.com
+SMTP_PASS=tu_contraseña_de_aplicacion
+CONTACT_TO=correo_destino@gmail.com
+ALLOWED_ORIGINS=http://localhost:3000
+```
+
+`ALLOWED_ORIGINS` es opcional. La aplicación también reconoce los dominios proporcionados por Vercel.
+
+**Seguridad:**
+
+- Nunca utilizar credenciales reales en el código fuente.
+- No utilizar el prefijo `VITE_` para variables SMTP privadas.
+- No subir archivos `.env`, `.env.local` ni credenciales a GitHub.
+- Para Gmail, utilizar una contraseña de aplicación cuando corresponda.
+- Configurar las variables directamente en el panel de Vercel para cada entorno.
+
+## Formulario de contacto
+
+El formulario utiliza una función backend ubicada en:
+
+```text
+api/contact.js
+```
+
+El envío se realiza mediante una solicitud POST a:
+
+```text
+/api/contact
+```
+
+### Protecciones implementadas
+
+- Validación de datos en frontend y backend.
+- Sanitización de entradas.
+- Validación del origen de las solicitudes.
+- Límite de tamaño del cuerpo de la solicitud.
+- Campo honeypot para detectar bots.
+- Rate limiting en memoria.
+- Timeout de solicitudes en frontend.
+- Bloqueo de envíos simultáneos.
+- Claves de idempotencia para reconocer reintentos.
+- Protección contra reutilización de una clave con contenido diferente.
+
+**Limitaciones técnicas:**
+
+La idempotencia y el rate limiting utilizan memoria de la instancia. En Vercel, las instancias serverless pueden tener memorias independientes. Por lo tanto, estas protecciones no representan una garantía distribuida entre todas las instancias.
+
+## Pruebas y compilación
+
+El proyecto utiliza el sistema de pruebas nativo de Node.js.
+
+### Ejecutar las pruebas
+
+```bash
+npm test
+```
+
+### Generar la compilación de producción
+
+```bash
+npm run build
+```
+
+### Visualizar la compilación localmente
+
+```bash
+npm run preview
+```
+
+## Scripts disponibles
 
 | Comando | Descripción |
 |---|---|
-| `npm run dev` | Levanta el servidor de desarrollo con hot-reload |
-| `npm run build` | Genera la build de producción optimizada |
-| `npm run preview` | Sirve localmente la build de producción para probarla antes de deployar |
+| `npm run dev` | Inicia el servidor de desarrollo de Vite |
+| `npm test` | Ejecuta las pruebas automatizadas |
+| `npm run build` | Genera la compilación optimizada |
+| `npm run preview` | Permite visualizar la compilación localmente |
 
----
+## Deployment
 
-## ☁️ Deployment
+El proyecto utiliza Vercel para alojar el frontend y ejecutar las funciones backend.
 
-Si vas a deployar este proyecto (Vercel, Netlify, etc.), recordá cargar las 3 variables de entorno de EmailJS en el panel de configuración del hosting — el `.env` local no viaja con el repositorio.
+Para desplegar una nueva versión:
 
----
+1. Importar el repositorio de GitHub en Vercel.
+2. Configurar el proyecto utilizando Vite.
+3. Establecer `npm run build` como comando de compilación.
+4. Utilizar `dist` como directorio de salida.
+5. Configurar las variables SMTP en el panel de Vercel.
+6. Realizar el deployment y comprobar el funcionamiento del sitio y del formulario.
 
-## 🗺️ Roadmap
+Las variables de entorno deben configurarse por separado para los entornos Development, Preview y Production, según corresponda.
 
-- [ ] Deploy en producción
-- [ ] Reemplazar imágenes de proyectos por capturas reales
-- [ ] Sumar más proyectos a medida que se completen
+## SEO
 
----
+El proyecto incorpora optimizaciones técnicas orientadas a mejorar su indexación y presentación en buscadores y redes sociales:
 
-## 📬 Contacto
+- Title y meta description.
+- URL canónica.
+- Metadatos Open Graph.
+- Twitter Cards.
+- Datos estructurados JSON-LD mediante Schema.org.
+- Archivo `robots.txt`.
+- Sitemap XML.
 
-¿Tenés una propuesta, una oportunidad laboral o simplemente querés saludar? Estoy abierto a nuevos proyectos y desafíos.
+Los metadatos y datos estructurados se encuentran principalmente en `index.html`.
 
-- 📧 **Email:** [camilovenesia.dev@gmail.com](mailto:camilovenesia.dev@gmail.com)
-- 💼 **LinkedIn:** [linkedin.com/in/camilovenesia](https://www.linkedin.com/in/camilovenesia/)
-- 📍 **Ubicación:** Rosario, Argentina
+Los archivos de rastreo e indexación se encuentran en `public/`.
+
+## Contacto
+
+¿Tenés una propuesta, una oportunidad laboral o querés conversar sobre algún proyecto?
+
+- **Email:** camilovenesia.dev@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/camilovenesia/
+- **GitHub:** https://github.com/CamiloVenesia
+- **Ubicación:** Rosario, Argentina.
 
 ---
 
 <div align="center">
 
-**Desarrollado con dedicación por Camilo Venesia**
+**Desarrollado por Camilo Monti Venesia**
 
-*Si te gustó este proyecto, dejá una ⭐ en el repositorio*
+Portfolio personal · Full Stack Developer
 
 </div>
