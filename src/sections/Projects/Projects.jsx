@@ -19,7 +19,7 @@ const Projects = () => {
         "Control de stock transaccional"
       ],
       tech: ["React", "Firebase", "Firestore"],
-      image: "/assets/lamatera.jpg",
+      image: "/assets/lamatera.webp",
       github: "https://github.com/CamiloVenesia/E-Commerce-LaMatera",
       demo: "https://lamatera-arg.web.app"
     },
@@ -39,7 +39,7 @@ const Projects = () => {
         "Dashboard y modo kiosco"
       ],
       tech: ["Node.js", "Express", "MongoDB"],
-      image: "/assets/kinetic-gym.jpg",
+      image: "/assets/kinetic-gym.webp",
       github: "https://github.com/CamiloVenesia/kinetic-gym-api",
       demo: "https://kinetic-gym-api.onrender.com"
     },
@@ -59,7 +59,7 @@ const Projects = () => {
         "Planificación de rutas y métricas"
       ],
       tech: ["React", "Node.js", "MongoDB", "JavaScript"],
-      image: "/assets/deliveryops.jpg",
+      image: "/assets/deliveryops.webp",
       github: "https://github.com/CamiloVenesia/deliveryops-api",
       githubWeb: "https://github.com/CamiloVenesia/deliveryops-web",
       demo: "https://deliveryops.vercel.app"
@@ -88,7 +88,7 @@ const Projects = () => {
       description:
         "Plataforma de reservas de pádel con cuatro canchas interactivas, escena 3D, disponibilidad por fecha y turnos de 90 minutos. Incluye cuentas de usuario, historial de reservas, cancelaciones y un panel de administración, con API Express y PostgreSQL.",
       tech: ["React", "TypeScript", "Three.js", "PostgreSQL"],
-      image: "/assets/ritmo-padel.png",
+      image: "/assets/ritmo-padel.webp",
       github: "https://github.com/CamiloVenesia/ritmo-padel",
       demo: "https://ritmo-padel-app.onrender.com",
       placeholder: false
@@ -101,7 +101,7 @@ const Projects = () => {
       description:
         "Diseño y arquitectura de base de datos para la gestión de gimnasios. Incluye modelado relacional, diagramas entidad-relación y optimización de consultas.",
       tech: ["MySQL", "SQL", "Database Design"],
-      image: "/assets/fitcontrol-db.png",
+      image: "/assets/fitcontrol-db.webp",
       github: "https://github.com/CamiloVenesia/FitControl-database",
       demo: null,
       placeholder: false
@@ -159,7 +159,7 @@ const Projects = () => {
                 </div>
 
                 <div className={styles.imageContainer}>
-                  <img
+                  <img decoding="async" loading="lazy"
                     src={project.image}
                     alt={project.title}
                     onError={handleImageError}
@@ -287,7 +287,7 @@ const Projects = () => {
               >
                 <div className={styles.secondaryImage}>
                   {project.image ? (
-                    <img
+                    <img decoding="async" loading="lazy"
                       src={project.image}
                       alt={project.title}
                       onError={handleImageError}

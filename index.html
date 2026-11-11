@@ -16,20 +16,11 @@
       content="Portfolio de Camilo Monti Venesia, Full Stack Developer en Rosario, Argentina. Desarrollo aplicaciones web modernas con React, Node.js, APIs y bases de datos."
     />
 
-    <meta
-      name="author"
-      content="Camilo Monti Venesia"
-    />
+    <meta name="author" content="Camilo Monti Venesia" />
 
-    <meta
-      name="theme-color"
-      content="#061a29"
-    />
+    <meta name="theme-color" content="#061a29" />
 
-    <meta
-      name="robots"
-      content="index, follow"
-    />
+    <meta name="robots" content="index, follow" />
 
     <link
       rel="canonical"
@@ -42,26 +33,20 @@
       href="/assets/favicon.png"
     />
 
-    <!-- IMAGEN PRINCIPAL -->
+    <!-- IMAGEN PRINCIPAL OPTIMIZADA -->
 
     <link
       rel="preload"
       as="image"
-      href="/assets/yoformal-optimized.jpg"
+      href="/assets/yoformal-optimized.webp"
       fetchpriority="high"
     />
 
     <!-- OPEN GRAPH -->
 
-    <meta
-      property="og:type"
-      content="website"
-    />
+    <meta property="og:type" content="website" />
 
-    <meta
-      property="og:locale"
-      content="es_AR"
-    />
+    <meta property="og:locale" content="es_AR" />
 
     <meta
       property="og:site_name"
@@ -85,17 +70,17 @@
 
     <meta
       property="og:image"
-      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio.png"
+      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio-optimized.jpg"
     />
 
     <meta
       property="og:image:secure_url"
-      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio.png"
+      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio-optimized.jpg"
     />
 
     <meta
       property="og:image:type"
-      content="image/png"
+      content="image/jpeg"
     />
 
     <meta
@@ -132,7 +117,7 @@
 
     <meta
       name="twitter:image"
-      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio.png"
+      content="https://portafolio-camilo-monti-venesia.vercel.app/assets/og-portfolio-optimized.jpg"
     />
 
     <meta
@@ -140,7 +125,7 @@
       content="Portfolio de Camilo Monti Venesia, Full Stack Developer"
     />
 
-    <!-- DATOS ESTRUCTURADOS -->
+    <!-- DATOS ESTRUCTURADOS: SCHEMA.ORG -->
 
     <script type="application/ld+json">
       {
@@ -148,8 +133,9 @@
         "@type": "Person",
         "name": "Camilo Monti Venesia",
         "url": "https://portafolio-camilo-monti-venesia.vercel.app/",
-        "image": "https://portafolio-camilo-monti-venesia.vercel.app/assets/yoformal-optimized.jpg",
+        "image": "https://portafolio-camilo-monti-venesia.vercel.app/assets/yoformal-optimized.webp",
         "jobTitle": "Full Stack Developer",
+        "description": "Desarrollador Full Stack en Rosario, Argentina. Desarrollo aplicaciones web modernas con React, Node.js, APIs y bases de datos.",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Rosario",
@@ -243,11 +229,7 @@
         }
 
         #initial-render h1 {
-          font-size: clamp(
-            42px,
-            12vw,
-            60px
-          );
+          font-size: clamp(42px, 12vw, 60px);
         }
 
         #initial-render p {
@@ -278,9 +260,6 @@
       </div>
     </div>
 
-    <script
-      type="module"
-      src="/src/main.jsx"
-    ></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

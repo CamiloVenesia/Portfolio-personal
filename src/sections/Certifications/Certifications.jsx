@@ -36,7 +36,7 @@ const certsData = [
     date: 'Septiembre 2026',
     hours: 16,
     badge: '★ Mejor calificado',
-    image: '/assets/certs/cert-11-backend-iii.png'
+    image: '/assets/certs/cert-11-backend-iii.webp'
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Septiembre 2026',
     hours: 0,
-    image: '/assets/certs/cert-12-fullstack-carrera.png'
+    image: '/assets/certs/cert-12-fullstack-carrera.webp'
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Abril 2026',
     hours: 18,
-    image: '/assets/certs/cert-09-backend-i.jpg'
+    image: '/assets/certs/cert-09-backend-i.webp'
   },
   {
     id: 5,
@@ -68,7 +68,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Marzo 2026',
     hours: 22,
-    image: '/assets/certs/cert-06-sql-backend.jpg'
+    image: '/assets/certs/cert-06-sql-backend.webp'
   },
   {
     id: 6,
@@ -76,7 +76,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Noviembre 2025',
     hours: 20,
-    image: '/assets/certs/cert-05-javascript-backend.jpg'
+    image: '/assets/certs/cert-05-javascript-backend.webp'
   },
   {
     id: 7,
@@ -84,7 +84,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Mayo 2025',
     hours: 16,
-    image: '/assets/certs/cert-08-react-js.jpg'
+    image: '/assets/certs/cert-08-react-js.webp'
   },
   {
     id: 8,
@@ -92,7 +92,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Abril 2025',
     hours: 0,
-    image: '/assets/certs/cert-04-frontend-react.jpg'
+    image: '/assets/certs/cert-04-frontend-react.webp'
   },
   {
     id: 9,
@@ -100,7 +100,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Diciembre 2024',
     hours: 36,
-    image: '/assets/certs/cert-07-javascript.jpg'
+    image: '/assets/certs/cert-07-javascript.webp'
   },
   {
     id: 10,
@@ -108,7 +108,7 @@ const certsData = [
     institution: 'Coderhouse',
     date: 'Octubre 2024',
     hours: 38,
-    image: '/assets/certs/cert-03-desarrollo-web.jpg'
+    image: '/assets/certs/cert-03-desarrollo-web.webp'
   },
   {
     id: 11,
@@ -526,7 +526,7 @@ const Certifications = () => {
                 certsData[prevIndex].title
               }
             >
-              <img
+              <img decoding="async" loading="lazy"
                 src={certsData[prevIndex].image}
                 alt=""
               />
@@ -560,7 +560,7 @@ const Certifications = () => {
                   )}
 
                   <div className={styles.certImage}>
-                    <img
+                    <img decoding="async"
                       src={centerCert.image}
                       alt={centerCert.title}
                     />
@@ -637,7 +637,7 @@ const Certifications = () => {
                 certsData[nextIndex].title
               }
             >
-              <img
+              <img decoding="async" loading="lazy"
                 src={certsData[nextIndex].image}
                 alt=""
               />
@@ -841,7 +841,7 @@ const Certifications = () => {
               }
             >
               <div className={styles.lightboxImageShell}>
-                <img
+                <img decoding="async"
                   className={lightboxImageClass}
                   src={centerCert.image}
                   alt={centerCert.title}
@@ -884,7 +884,7 @@ const Certifications = () => {
                         certificate.title
                       }
                     >
-                      <img
+                      <img decoding="async" loading="lazy"
                         src={certificate.image}
                         alt=""
                       />

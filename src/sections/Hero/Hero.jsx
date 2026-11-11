@@ -99,8 +99,8 @@ const Hero = () => {
 
               <div className={styles.photoWrapper}>
                 <img
-                  src="/assets/yoformal-optimized.jpg"
-                  alt="Camilo Venesia"
+                  src="/assets/yoformal-optimized.webp"
+                  alt="Retrato de Camilo Venesia, desarrollador Full Stack"
                   className={styles.heroImage}
                   loading="eager"
                   decoding="async"

@@ -1,3 +1,4 @@
+
 .footer {
   position: relative;
   padding: 76px 7% 34px;
@@ -39,7 +40,7 @@
 
 /* BRAND */
 
-.brand h3 {
+.brand h2 {
   margin: 0;
   color: var(--text-color);
   font-size: 2rem;
@@ -47,7 +48,7 @@
   letter-spacing: -0.045em;
 }
 
-.brand h3 span {
+.brand h2 span {
   color: var(--main-color);
 }
 
@@ -62,7 +63,7 @@
 
 /* COLUMNS */
 
-.column h4 {
+.column h3 {
   margin: 0;
   color: var(--text-color);
   font-size: 1rem;
@@ -270,7 +271,7 @@
     grid-column: auto;
   }
 
-  .brand h3 {
+  .brand h2 {
     font-size: 1.8rem;
   }
 

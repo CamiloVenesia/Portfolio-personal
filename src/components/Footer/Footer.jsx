@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
@@ -10,7 +11,7 @@ const Footer = () => {
     { label: 'Proyectos', target: 'projects' },
     { label: 'Skills', target: 'skills' },
     { label: 'Mi Recorrido', target: 'journey' },
-    { label: 'Sobre Mí', target: 'about' },
+    { label: 'Sobre mí', target: 'about' },
     { label: 'Certificaciones', target: 'certifications' },
     { label: 'Contacto', target: 'contact' }
   ];
@@ -22,9 +23,9 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.brand}>
-            <h3>
+            <h2>
               Camilo <span>Venesia.</span>
-            </h3>
+            </h2>
 
             <p>
               Desarrollador Full Stack enfocado en crear soluciones web
@@ -33,7 +34,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.column}>
-            <h4>Explorar</h4>
+            <h3>Explorar</h3>
             <span className={styles.line}></span>
 
             <nav className={styles.nav}>
@@ -50,7 +51,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.column}>
-            <h4>Contacto</h4>
+            <h3>Contacto</h3>
             <span className={styles.line}></span>
 
             <div className={styles.contactList}>
@@ -72,7 +73,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.column}>
-            <h4>Redes</h4>
+            <h3>Redes</h3>
             <span className={styles.line}></span>
 
             <div className={styles.socials}>
